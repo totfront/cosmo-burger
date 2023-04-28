@@ -8,8 +8,10 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <h2 className={`text_type_main-large mt-10 mb-5`}>Соберите бургер</h2>
       <main className={styles.main}>
+        <h2 className={`${styles.heading} text_type_main-large mt-10 mb-5`}>
+          Соберите бургер
+        </h2>
         <BurgerIngredients />
         <BurgerConstructor />
       </main>

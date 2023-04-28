@@ -1,0 +1,24 @@
+.constructorWrapper {
+    /* display: grid;
+    justify-content: end;
+    grid-template-columns: auto auto; */
+}
+
+.inners {
+    padding: 0;
+    margin: 0;
+}
+
+.inner {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.price {
+    margin-left: auto;
+}
+
+.btnSubmit {
+    /* margin-left: auto; */
+}

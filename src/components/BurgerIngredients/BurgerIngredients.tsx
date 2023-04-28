@@ -1,14 +1,14 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import styles from "./burgerIngredients.module.css";
-import ingredients from "../../mockData/mockedIngredients.json";
+import dataBase from "../../utils/data.json";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 
 const BurgerIngredients = () => {
   const tabs = ["Булки", "Соусы", "Начинки"];
   const [current, setCurrent] = useState(tabs[0]);
 
-  const searchMenuItems = (searchString: string, database = ingredients) => {
+  const searchMenuItems = (searchString: string, database = dataBase) => {
     const result = [];
     for (let i = 0; i < database.length; i++) {
       if (database[i].name.includes(searchString)) {
