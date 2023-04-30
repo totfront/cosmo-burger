@@ -1,25 +1,33 @@
 import { useState } from "react";
 import {
+  Button,
   ConstructorElement,
+  CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredients from "../../utils/data.json";
 import blueBun from "../../images/bun-02.svg";
 import styles from "./burgerConstructor.module.css";
+import { searchMenuItems } from "../../utils/helpers";
 
 const BurgerConstructor = () => {
-  const [burgerInners, setBurgerInners] = useState([
-    ingredients[5],
-    ingredients[4],
-    ingredients[7],
-    ingredients[8],
-    ingredients[8],
-  ]);
+  const [burgerInners, setBurgerInners] = useState(
+    searchMenuItems("Соус").concat(searchMenuItems("Начинка"))
+  );
 
   return (
     <section className={styles.constructorWrapper}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
+          gap: "16px",
+        }}
+        className={`${styles.constructor}`}
+      >
         <ConstructorElement
+          extraClass={styles.bun}
           type="top"
           isLocked={true}
           text="Краторная булка N-200i (верх)"
@@ -30,11 +38,17 @@ const BurgerConstructor = () => {
           {burgerInners.map(({ image, price, name }) => (
             <li className={styles.inner}>
               <DragIcon type="primary" />
-              <ConstructorElement text={name} price={price} thumbnail={image} />
+              <ConstructorElement
+                extraClass="ml-2"
+                text={name}
+                price={price}
+                thumbnail={image}
+              />
             </li>
           ))}
         </ul>
         <ConstructorElement
+          extraClass={styles.bun}
           type="bottom"
           isLocked={true}
           text="Краторная булка N-200i (низ)"
@@ -43,10 +57,12 @@ const BurgerConstructor = () => {
         />
       </div>
       <span className={styles.price}>
-        610
-        <img />
+        <span className="mr-2 text text_type_digits-medium">610</span>
+        <CurrencyIcon type="primary" />
       </span>
-      <button className={styles.btnSubmit}>Оформить заказ</button>
+      <Button htmlType="button" type="primary" size="large">
+        Оформить заказ
+      </Button>
     </section>
   );
 };

@@ -1,6 +1,6 @@
 import styles from "./burgerIngredient.module.css";
-import subtract from "../../images/Subtract.svg";
 import { FC } from "react";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 interface Props {
   name: string;
@@ -10,18 +10,18 @@ interface Props {
 
 const BurgerIngredient: FC<Props> = ({ image, price, name }) => {
   return (
-    <li className={styles.ingredientWrapper}>
-      <button className={styles.ingredient}>
-        <img className="mb-2" src={image} alt="bun" />
-        <div className={`${styles.price} mb-2`}>
-          <span className={`${styles.priceNumber} mr-2 text_type_main-small`}>
-            {price}
-          </span>
-          <img src={subtract} alt="subtract" />
-        </div>
-        <span>{name}</span>
-      </button>
-    </li>
+    <button className={styles.ingredient}>
+      <img className="mb-2" src={image} alt={name} />
+      <div className={`${styles.price} mb-2`}>
+        <span
+          className={`${styles.priceNumber} mr-2 text text_type_digits-default`}
+        >
+          {price}
+        </span>
+        <CurrencyIcon type="primary" />
+      </div>
+      <span className={"text text_type_main-default"}>{name}</span>
+    </button>
   );
 };
 

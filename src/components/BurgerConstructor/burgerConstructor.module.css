@@ -1,24 +1,42 @@
 .constructorWrapper {
-    /* display: grid;
-    justify-content: end;
-    grid-template-columns: auto auto; */
+    display: grid;
+    grid-template-columns: auto 215px;
+    grid-template-rows: max-content max-content;
+    gap: 40px;
+}
+
+.constructor {
+    grid-column: 1/3;
+}
+
+.bun {
+    max-height: 80px;
 }
 
 .inners {
     padding: 0;
     margin: 0;
+    max-height: 464px;
+    overflow-y: scroll;
 }
 
 .inner {
     padding: 0;
-    margin: 0;
     list-style: none;
+    display: grid;
+    grid-template-columns: auto 100%;
+    align-items: center;
+}
+
+.inner:not(:last-child) {
+    margin-bottom: 16px;
 }
 
 .price {
-    margin-left: auto;
-}
-
-.btnSubmit {
-    /* margin-left: auto; */
+    width: 100%;
+    margin-right: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-self: center;
+    align-content: center;
 }

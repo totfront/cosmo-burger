@@ -1,35 +1,26 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import styles from "./burgerIngredients.module.css";
-import dataBase from "../../utils/data.json";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
+import { searchMenuItems } from "../../utils/helpers";
 
 const BurgerIngredients = () => {
   const tabs = ["Булки", "Соусы", "Начинки"];
   const [current, setCurrent] = useState(tabs[0]);
 
-  const searchMenuItems = (searchString: string, database = dataBase) => {
-    const result = [];
-    for (let i = 0; i < database.length; i++) {
-      if (database[i].name.includes(searchString)) {
-        result.push(database[i]);
-      }
-    }
-    if (result.length === 0) {
-      for (let i = 0; i < database.length; i++) {
-        if (
-          !database[i].name.includes("булка") &&
-          !database[i].name.includes("Соус")
-        ) {
-          result.push(database[i]);
-        }
-      }
-    }
-    return result;
+  const tabNameConverter = (name: string) => {
+    if (name === "Булки") return "buns";
+    if (name === "Соусы") return "souses";
+    return "inners";
+  };
+
+  const handleTabChange = () => {
+    // todo: complete tab switcher
+    // ingredientWrapper;
   };
 
   return (
-    <section className={`${styles.wrapper} pt`}>
+    <section className={`${styles.wrapper}`}>
       <div style={{ display: "flex" }}>
         {tabs.map((tabText) => (
           <Tab
@@ -41,26 +32,23 @@ const BurgerIngredients = () => {
           </Tab>
         ))}
       </div>
-      <h3 className="text_type_main-medium mt-10 mb-6">Булки</h3>
-      <ul className={styles.ingredients}>
-        {searchMenuItems("булка").map((bun) => {
-          const { image, price, name } = bun;
-          return <BurgerIngredient name={name} image={image} price={price} />;
-        })}
-      </ul>
-      <h3 className="text_type_main-medium mt-10 mb-6">Соусы</h3>
-      <ul className={styles.ingredients}>
-        {searchMenuItems("Соус").map((bun) => {
-          const { image, price, name } = bun;
-          return <BurgerIngredient name={name} image={image} price={price} />;
-        })}
-      </ul>
-      <h3 className="text_type_main-medium mt-10 mb-6">Начинки</h3>
-      <ul className={styles.ingredients}>
-        {searchMenuItems("Начинки").map((bun) => {
-          const { image, price, name } = bun;
-          return <BurgerIngredient name={name} image={image} price={price} />;
-        })}
+      <ul id={"#ingredients"} className={styles.ingredients}>
+        {tabs.map((tabName) => (
+          <li className={styles.ingredientWrapper}>
+            <h3
+              id={`#${tabNameConverter(tabName)}`}
+              className={`${styles.ingredientsHeading} text text_type_main-medium mt-10 mb-6`}
+            >
+              {tabName}
+            </h3>
+            {searchMenuItems(tabName).map((bun) => {
+              const { image, price, name } = bun;
+              return (
+                <BurgerIngredient name={name} image={image} price={price} />
+              );
+            })}
+          </li>
+        ))}
       </ul>
     </section>
   );
