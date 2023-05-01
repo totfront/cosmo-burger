@@ -35,8 +35,8 @@ const BurgerConstructor = () => {
           thumbnail={blueBun}
         />
         <ul className={styles.inners}>
-          {burgerInners.map(({ image, price, name }) => (
-            <li className={styles.inner}>
+          {burgerInners.map(({ image, price, name }, index) => (
+            <li className={styles.inner} key={name + index}>
               <DragIcon type="primary" />
               <ConstructorElement
                 extraClass="ml-2"

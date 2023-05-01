@@ -16,7 +16,9 @@ const AppHeader = () => (
           size="medium"
         >
           <BurgerIcon type="primary" />
-          <span className={`ml-2`}>Конструктор</span>
+          <a className={`${styles.link} ml-2`} href={"http://localhost:3000/"}>
+            Конструктор
+          </a>
         </Button>
         <Button
           className={`${styles.button} pl-5 pr-5`}
@@ -25,7 +27,9 @@ const AppHeader = () => (
           size="medium"
         >
           <BurgerIcon type="primary" />
-          <span className={`ml-2`}>Лента заказов</span>
+          <a className={`${styles.link} ml-2`} href={"http://localhost:3000/"}>
+            Лента заказов
+          </a>
         </Button>
       </div>
       <Logo />
@@ -36,7 +40,9 @@ const AppHeader = () => (
         size="medium"
       >
         <BurgerIcon type="primary" />
-        <span className={`ml-2`}>Личный кабинет</span>
+        <a className={`${styles.link} ml-2`} href={"http://localhost:3000/"}>
+          Личный кабинет
+        </a>
       </Button>
     </nav>
   </header>
