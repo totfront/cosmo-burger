@@ -8,17 +8,6 @@ const BurgerIngredients = () => {
   const tabs = ["Булки", "Соусы", "Начинки"];
   const [current, setCurrent] = useState(tabs[0]);
 
-  const tabNameConverter = (name: string) => {
-    if (name === "Булки") return "buns";
-    if (name === "Соусы") return "souses";
-    return "inners";
-  };
-
-  const handleTabChange = () => {
-    // todo: complete tab switcher
-    // ingredientWrapper;
-  };
-
   return (
     <section className={`${styles.wrapper}`}>
       <div style={{ display: "flex" }}>
@@ -32,11 +21,11 @@ const BurgerIngredients = () => {
           </Tab>
         ))}
       </div>
-      <ul id={"#ingredients"} className={styles.ingredients}>
+      <ul id={"ingredients"} className={styles.ingredients}>
         {tabs.map((tabName) => (
-          <li className={styles.ingredientWrapper}>
+          <li className={styles.ingredientsWrapper}>
             <h3
-              id={`#${tabNameConverter(tabName)}`}
+              id={tabName}
               className={`${styles.ingredientsHeading} text text_type_main-medium mt-10 mb-6`}
             >
               {tabName}

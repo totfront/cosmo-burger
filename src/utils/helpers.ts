@@ -1,5 +1,11 @@
 import dataBase from "./data.json";
 
+const tabNameConverter = (name: string) => {
+  if (name === "Булки") return "buns";
+  if (name === "Соусы") return "souses";
+  return "inners";
+};
+
 const searchMenuItems = (
   searchStrings: string | string[],
   database = dataBase
@@ -34,4 +40,4 @@ const searchMenuItems = (
   return result;
 };
 
-export { searchMenuItems };
+export { searchMenuItems, tabNameConverter };

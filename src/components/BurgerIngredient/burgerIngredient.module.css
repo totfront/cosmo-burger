@@ -1,22 +1,18 @@
 .ingredient {
     padding: 0;
-
     width: 100%;
-
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
     justify-content: center;
-
+    justify-items: center;
     background-color: transparent;
     border: 0;
-
     color: var(--light-grey);
 }
 
 .price {
     font-family: 'Iceland';
-
     display: flex;
     align-items: center;
     justify-content: center;
