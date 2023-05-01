@@ -16,7 +16,10 @@ const AppHeader = () => (
           size="medium"
         >
           <BurgerIcon type="primary" />
-          <a className={`${styles.link} ml-2`} href={"http://localhost:3000/"}>
+          <a
+            className={`${styles.link} ml-2 text text_type_main-default`}
+            href={"http://localhost:3000/"}
+          >
             Конструктор
           </a>
         </Button>
@@ -27,7 +30,10 @@ const AppHeader = () => (
           size="medium"
         >
           <BurgerIcon type="primary" />
-          <a className={`${styles.link} ml-2`} href={"http://localhost:3000/"}>
+          <a
+            className={`${styles.link} ${styles.linkDisabled} ml-2 text text_type_main-default`}
+            href={"http://localhost:3000/"}
+          >
             Лента заказов
           </a>
         </Button>
@@ -40,7 +46,10 @@ const AppHeader = () => (
         size="medium"
       >
         <BurgerIcon type="primary" />
-        <a className={`${styles.link} ml-2`} href={"http://localhost:3000/"}>
+        <a
+          className={`${styles.link} ${styles.linkDisabled} ml-2 text text_type_main-default`}
+          href={"http://localhost:3000/"}
+        >
           Личный кабинет
         </a>
       </Button>

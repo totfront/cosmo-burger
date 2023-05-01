@@ -20,7 +20,6 @@
 
 .button {
     background-color: transparent;
-    color:  var(--light-grey);
     border: 0;
     display: grid;
     grid-template-columns: auto auto;
@@ -31,4 +30,9 @@
 
 .link {
     text-decoration: none;
+    color:  var(--light-grey);
+}
+
+.linkDisabled {
+    color:  var(--dark-grey); 
 }
