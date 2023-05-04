@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Button,
   ConstructorElement,
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredients from "../../utils/data.json";
 import blueBun from "../../images/bun-02.svg";
 import styles from "./burgerConstructor.module.css";
 import { searchMenuItems } from "../../utils/helpers";
 
-const BurgerConstructor = () => {
-  const [burgerInners, setBurgerInners] = useState(
-    searchMenuItems("Соус").concat(searchMenuItems("Начинка"))
-  );
+type Props = {
+  ingredients: Record<string, string> | any[];
+};
+
+const BurgerConstructor: FC<Props> = ({ ingredients }) => {
+  const [burgerInners, setBurgerInners] = useState([]);
+
+  useEffect(() => {
+    setBurgerInners(
+      (searchMenuItems("Соус", ingredients as any) as any).concat(
+        searchMenuItems("Начинка", ingredients as any)
+      )
+    );
+  }, [ingredients]);
 
   return (
     <section className={styles.constructorWrapper}>

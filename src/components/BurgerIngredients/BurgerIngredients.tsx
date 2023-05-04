@@ -1,10 +1,14 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { FC, useState } from "react";
 import styles from "./burgerIngredients.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import { searchMenuItems } from "../../utils/helpers";
 
-const BurgerIngredients = () => {
+type Props = {
+  ingredients: Record<string, string> | never[];
+};
+
+const BurgerIngredients: FC<Props> = ({ ingredients }) => {
   const tabs = ["Булки", "Соусы", "Начинки"];
   const [current, setCurrent] = useState(tabs[0]);
 
@@ -31,7 +35,7 @@ const BurgerIngredients = () => {
             >
               {tabName}
             </h3>
-            {searchMenuItems(tabName).map((bun, index) => {
+            {searchMenuItems(tabName, ingredients as any).map((bun, index) => {
               const { image, price, name } = bun;
               return (
                 <BurgerIngredient
