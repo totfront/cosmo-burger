@@ -1,0 +1,21 @@
+.wrapper {
+    max-width: 600px;
+}
+
+.ingredients {
+    margin: 0;
+    padding: 0;
+    max-height: 812px;
+    overflow-y: scroll;
+    display: grid;
+    gap: 32px 40px;
+}
+
+.ingredientsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.ingredientsHeading {
+    grid-column: 1/3;
+}

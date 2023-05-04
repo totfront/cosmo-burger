@@ -1,0 +1,38 @@
+
+.header {
+    font-family: 'Jet Brains Mono', Arial, sans-serif;
+    background-color: var(--grey);
+}
+
+.navBar {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+    max-width: 1920px;
+    margin: auto;
+}
+
+.btnContainer {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 8px;
+}
+
+.button {
+    background-color: transparent;
+    border: 0;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 178px;
+}
+
+.link {
+    text-decoration: none;
+    color:  var(--light-grey);
+}
+
+.linkDisabled {
+    color:  var(--dark-grey); 
+}
