@@ -1,28 +1,18 @@
 import styles from "./burgerIngredient.module.css";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../Modal/Modal";
 
 interface Props {
   name: string;
   price: number;
   image: string;
+  onClick: () => void;
 }
 
-const BurgerIngredient: FC<Props> = ({ image, price, name }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModalHandler = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModalHandler = () => {
-    setIsModalOpen(false);
-  };
-
+const BurgerIngredient: FC<Props> = ({ image, price, name, onClick }) => {
   return (
     <>
-      <button onClick={openModalHandler} className={styles.ingredient}>
+      <button onClick={onClick} className={styles.ingredient}>
         <img className="mb-2" src={image} alt={name} />
         <div className={`${styles.price} mb-2`}>
           <span
@@ -34,9 +24,6 @@ const BurgerIngredient: FC<Props> = ({ image, price, name }) => {
         </div>
         <span className={"text text_type_main-default"}>{name}</span>
       </button>
-      <Modal isOpen={isModalOpen} onClose={closeModalHandler}>
-        123
-      </Modal>
     </>
   );
 };

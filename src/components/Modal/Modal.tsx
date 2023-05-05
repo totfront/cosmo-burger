@@ -1,14 +1,15 @@
 import React, { FC, ReactNode, useCallback, useEffect, useRef } from "react";
 import styles from "./modal.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 type Props = {
-  isOpen: boolean;
   onClose: () => void;
   children?: ReactNode[] | ReactNode;
+  isIngredient?: boolean;
 };
 
-const Modal: FC<Props> = ({ isOpen, onClose, children }) => {
+const Modal: FC<Props> = ({ onClose, children, isIngredient }) => {
   const dialogRef = useRef<HTMLDivElement>(null);
 
   const closeModalHandler = () => {
@@ -25,26 +26,25 @@ const Modal: FC<Props> = ({ isOpen, onClose, children }) => {
   );
 
   useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("keydown", keyPressHandler);
-      return () => {
-        document.removeEventListener("keydown", keyPressHandler);
-      };
-    }
-  }, [isOpen, keyPressHandler]);
+    document.addEventListener("keydown", keyPressHandler);
+    return () => {
+      document.removeEventListener("keydown", keyPressHandler);
+    };
+  }, [keyPressHandler]);
 
   return (
     <>
-      {isOpen && (
-        <ModalOverlay onClose={onClose}>
-          <div ref={dialogRef} className={styles.modal}>
-            <button onClick={closeModalHandler} className={styles.btnClose}>
-              &times;
-            </button>
-            {children}
-          </div>
-        </ModalOverlay>
-      )}
+      <ModalOverlay onClose={onClose}>
+        <div ref={dialogRef} className={styles.modal}>
+          <h3 className={`${styles.heading} text text_type_main-medium`}>
+            {isIngredient && "Детали ингридиента"}
+          </h3>
+          <button onClick={closeModalHandler} className={styles.btnClose}>
+            <CloseIcon type="primary" />
+          </button>
+          {children}
+        </div>
+      </ModalOverlay>
     </>
   );
 };

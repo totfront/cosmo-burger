@@ -8,6 +8,7 @@ import {
 import blueBun from "../../images/bun-02.svg";
 import styles from "./burgerConstructor.module.css";
 import { searchMenuItems } from "../../utils/helpers";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 type Props = {
   ingredients: Record<string, string> | any[];
@@ -15,6 +16,7 @@ type Props = {
 
 const BurgerConstructor: FC<Props> = ({ ingredients }) => {
   const [burgerInners, setBurgerInners] = useState([]);
+  const [isModalShown, setIsModalShown] = useState(false);
 
   useEffect(() => {
     setBurgerInners(
@@ -69,9 +71,15 @@ const BurgerConstructor: FC<Props> = ({ ingredients }) => {
         <span className="mr-2 text text_type_digits-medium">610</span>
         <CurrencyIcon type="primary" />
       </span>
-      <Button htmlType="button" type="primary" size="large">
+      <Button
+        onClick={() => setIsModalShown(true)}
+        htmlType="button"
+        type="primary"
+        size="large"
+      >
         Оформить заказ
       </Button>
+      {isModalShown && <OrderDetails onClose={() => setIsModalShown(false)} />}
     </section>
   );
 };

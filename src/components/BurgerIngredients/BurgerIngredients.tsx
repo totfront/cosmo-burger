@@ -3,6 +3,7 @@ import { FC, useState } from "react";
 import styles from "./burgerIngredients.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import { searchMenuItems } from "../../utils/helpers";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 type Props = {
   ingredients: Record<string, string> | never[];
@@ -11,6 +12,7 @@ type Props = {
 const BurgerIngredients: FC<Props> = ({ ingredients }) => {
   const tabs = ["Булки", "Соусы", "Начинки"];
   const [current, setCurrent] = useState(tabs[0]);
+  const [isModalShown, setIsModalShown] = useState(false);
 
   return (
     <section className={`${styles.wrapper}`}>
@@ -39,6 +41,7 @@ const BurgerIngredients: FC<Props> = ({ ingredients }) => {
               const { image, price, name } = bun;
               return (
                 <BurgerIngredient
+                  onClick={() => setIsModalShown(true)}
                   name={name}
                   image={image}
                   price={price}
@@ -49,6 +52,9 @@ const BurgerIngredients: FC<Props> = ({ ingredients }) => {
           </li>
         ))}
       </ul>
+      {isModalShown && (
+        <IngredientDetails onClose={() => setIsModalShown(false)} />
+      )}
     </section>
   );
 };

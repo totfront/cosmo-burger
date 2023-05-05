@@ -3,6 +3,7 @@ import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 const ingredientsUrl = "https://norma.nomoreparties.space/api/ingredients";
 
