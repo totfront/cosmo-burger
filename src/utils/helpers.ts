@@ -35,4 +35,15 @@ const searchMenuItems = (searchStrings: string | string[], database: any[]) => {
   return result;
 };
 
-export { searchMenuItems, tabNameConverter };
+const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message;
+  return String(error);
+};
+
+const checkResponse = (res: any) => {
+  return res.ok
+    ? res.json()
+    : res.json().then((err: Error) => Promise.reject(err));
+};
+
+export { searchMenuItems, getErrorMessage, tabNameConverter, checkResponse };

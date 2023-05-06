@@ -11,7 +11,7 @@ import { searchMenuItems } from "../../utils/helpers";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
 type Props = {
-  ingredients: Record<string, string> | any[];
+  ingredients: Record<string, string>[];
 };
 
 const BurgerConstructor: FC<Props> = ({ ingredients }) => {
@@ -19,11 +19,9 @@ const BurgerConstructor: FC<Props> = ({ ingredients }) => {
   const [isModalShown, setIsModalShown] = useState(false);
 
   useEffect(() => {
-    setBurgerInners(
-      (searchMenuItems("Соус", ingredients as any) as any).concat(
-        searchMenuItems("Начинка", ingredients as any)
-      )
-    );
+    const souses = searchMenuItems("Соус", ingredients);
+    const inners = searchMenuItems("Начинка", ingredients);
+    setBurgerInners([...souses, ...inners] as any);
   }, [ingredients]);
 
   return (

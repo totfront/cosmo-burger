@@ -10,7 +10,7 @@ type Props = {
 };
 
 const Modal: FC<Props> = ({ onClose, children, isIngredient }) => {
-  const dialogRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const closeModalHandler = () => {
     onClose();
@@ -34,17 +34,16 @@ const Modal: FC<Props> = ({ onClose, children, isIngredient }) => {
 
   return (
     <>
-      <ModalOverlay onClose={onClose}>
-        <div ref={dialogRef} className={styles.modal}>
-          <h3 className={`${styles.heading} text text_type_main-medium`}>
-            {isIngredient && "Детали ингридиента"}
-          </h3>
-          <button onClick={closeModalHandler} className={styles.btnClose}>
-            <CloseIcon type="primary" />
-          </button>
-          {children}
-        </div>
-      </ModalOverlay>
+      <dialog open ref={dialogRef} className={styles.modal}>
+        <h3 className={`${styles.heading} text text_type_main-medium`}>
+          {isIngredient && "Детали ингридиента"}
+        </h3>
+        <button onClick={closeModalHandler} className={styles.btnClose}>
+          <CloseIcon type="primary" />
+        </button>
+        {children}
+      </dialog>
+      <ModalOverlay onClose={onClose} />
     </>
   );
 };

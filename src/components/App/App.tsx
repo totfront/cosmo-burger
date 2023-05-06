@@ -1,31 +1,24 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-
-const ingredientsUrl = "https://norma.nomoreparties.space/api/ingredients";
+import { fetchData } from "../../utils/burgerApi";
+import { checkResponse, getErrorMessage } from "../../utils/helpers";
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(ingredientsUrl);
-      const jsonData = await response.json();
-      setIngredients(jsonData.data);
-    };
-
-    try {
-      fetchData();
-    } catch (err) {
-      const getErrorMessage = (error: unknown) => {
-        if (error instanceof Error) return error.message;
-        return String(error);
-      };
-      setError(getErrorMessage(err));
-    }
+    fetchData()
+      .then((res) => checkResponse(res))
+      .then(({ data }) => setIngredients(data))
+      .catch((error) => {
+        const errorMessage = getErrorMessage(error);
+        setError(errorMessage);
+        console.error(errorMessage);
+      });
   }, []);
 
   return (
