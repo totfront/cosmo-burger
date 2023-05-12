@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Button,
   ConstructorElement,
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredients from "../../utils/data.json";
 import blueBun from "../../images/bun-02.svg";
 import styles from "./burgerConstructor.module.css";
 import { searchMenuItems } from "../../utils/helpers";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
-const BurgerConstructor = () => {
-  const [burgerInners, setBurgerInners] = useState(
-    searchMenuItems("Соус").concat(searchMenuItems("Начинка"))
-  );
+type Props = {
+  ingredients: Record<string, string>[];
+};
+
+const BurgerConstructor: FC<Props> = ({ ingredients }) => {
+  const [burgerInners, setBurgerInners] = useState([]);
+  const [isModalShown, setIsModalShown] = useState(false);
+
+  useEffect(() => {
+    const souses = searchMenuItems("Соус", ingredients);
+    const inners = searchMenuItems("Начинка", ingredients);
+    setBurgerInners([...souses, ...inners] as any);
+  }, [ingredients]);
 
   return (
     <section className={styles.constructorWrapper}>
@@ -60,9 +69,15 @@ const BurgerConstructor = () => {
         <span className="mr-2 text text_type_digits-medium">610</span>
         <CurrencyIcon type="primary" />
       </span>
-      <Button htmlType="button" type="primary" size="large">
+      <Button
+        onClick={() => setIsModalShown(true)}
+        htmlType="button"
+        type="primary"
+        size="large"
+      >
         Оформить заказ
       </Button>
+      {isModalShown && <OrderDetails onClose={() => setIsModalShown(false)} />}
     </section>
   );
 };

@@ -26,6 +26,7 @@
     align-items: center;
     justify-content: center;
     min-width: 178px;
+    cursor: pointer;
 }
 
 .link {

@@ -6,22 +6,25 @@ interface Props {
   name: string;
   price: number;
   image: string;
+  onClick: () => void;
 }
 
-const BurgerIngredient: FC<Props> = ({ image, price, name }) => {
+const BurgerIngredient: FC<Props> = ({ image, price, name, onClick }) => {
   return (
-    <button className={styles.ingredient}>
-      <img className="mb-2" src={image} alt={name} />
-      <div className={`${styles.price} mb-2`}>
-        <span
-          className={`${styles.priceNumber} mr-2 text text_type_digits-default`}
-        >
-          {price}
-        </span>
-        <CurrencyIcon type="primary" />
-      </div>
-      <span className={"text text_type_main-default"}>{name}</span>
-    </button>
+    <>
+      <button onClick={onClick} className={styles.ingredient}>
+        <img className="mb-2" src={image} alt={name} />
+        <div className={`${styles.price} mb-2`}>
+          <span
+            className={`${styles.priceNumber} mr-2 text text_type_digits-default`}
+          >
+            {price}
+          </span>
+          <CurrencyIcon type="primary" />
+        </div>
+        <span className={"text text_type_main-default"}>{name}</span>
+      </button>
+    </>
   );
 };
 

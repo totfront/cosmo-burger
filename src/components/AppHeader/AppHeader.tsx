@@ -6,7 +6,7 @@ import {
 import styles from "./appHeader.module.css";
 
 const AppHeader = () => (
-  <header className={`${styles.header} pt-4 pb-4`}>
+  <header className={`${styles.header} pt-4 pb-4 pr-5 pl-5`}>
     <nav className={styles.navBar}>
       <div className={styles.btnContainer}>
         <Button

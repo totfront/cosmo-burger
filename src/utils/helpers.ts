@@ -1,15 +1,10 @@
-import dataBase from "./data.json";
-
 const tabNameConverter = (name: string) => {
   if (name === "Булки") return "buns";
   if (name === "Соусы") return "souses";
   return "inners";
 };
 
-const searchMenuItems = (
-  searchStrings: string | string[],
-  database = dataBase
-) => {
+const searchMenuItems = (searchStrings: string | string[], database: any[]) => {
   if (searchStrings === "Булки") searchStrings = "булка";
   if (searchStrings === "Соусы") searchStrings = "Соус";
   if (typeof searchStrings === "string") {
@@ -40,4 +35,15 @@ const searchMenuItems = (
   return result;
 };
 
-export { searchMenuItems, tabNameConverter };
+const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message;
+  return String(error);
+};
+
+const checkResponse = (res: any) => {
+  return res.ok
+    ? res.json()
+    : res.json().then((err: Error) => Promise.reject(err));
+};
+
+export { searchMenuItems, getErrorMessage, tabNameConverter, checkResponse };
