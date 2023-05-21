@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import {
   Button,
   ConstructorElement,
@@ -7,22 +7,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import blueBun from "../../images/bun-02.svg";
 import styles from "./burgerConstructor.module.css";
-import { searchMenuItems } from "../../utils/helpers";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import { useSelector } from "react-redux";
+import { Store } from "../../shared/types/Store";
 
-type Props = {
-  ingredients: Record<string, string>[];
-};
-
-const BurgerConstructor: FC<Props> = ({ ingredients }) => {
-  const [burgerInners, setBurgerInners] = useState([]);
+const BurgerConstructor: FC = () => {
+  const {
+    ingredients: { sauces, inners },
+  } = useSelector((store: Store) => store.ingredients);
   const [isModalShown, setIsModalShown] = useState(false);
-
-  useEffect(() => {
-    const souses = searchMenuItems("Соус", ingredients);
-    const inners = searchMenuItems("Начинка", ingredients);
-    setBurgerInners([...souses, ...inners] as any);
-  }, [ingredients]);
 
   return (
     <section className={styles.constructorWrapper}>
@@ -44,7 +37,7 @@ const BurgerConstructor: FC<Props> = ({ ingredients }) => {
           thumbnail={blueBun}
         />
         <ul className={styles.inners}>
-          {burgerInners.map(({ image, price, name }, index) => (
+          {[...sauces, ...inners].map(({ image, price, name }, index) => (
             <li className={styles.inner} key={name + index}>
               <DragIcon type="primary" />
               <ConstructorElement

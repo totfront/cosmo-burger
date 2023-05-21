@@ -1,42 +1,38 @@
-import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { fetchData } from "../../utils/burgerApi";
-import { checkResponse, getErrorMessage } from "../../utils/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { Store } from "../../shared/types/Store";
+import { useEffect } from "react";
+import { getIngredients } from "../../services/actions/ingredients";
+import { ThunkDispatch } from "redux-thunk";
+import { ActionTypes } from "../../shared/types/Actions";
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
-  const [error, setError] = useState("");
+  const dispatch: ThunkDispatch<Store, null, ActionTypes> = useDispatch();
+  const { error } = useSelector((store: Store) => store.ingredients);
 
   useEffect(() => {
-    fetchData()
-      .then((res) => checkResponse(res))
-      .then(({ data }) => setIngredients(data))
-      .catch((error) => {
-        const errorMessage = getErrorMessage(error);
-        setError(errorMessage);
-        console.error(errorMessage);
-      });
-  }, []);
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
-      {error ? (
-        <>'Что-то пошло не так, перезагрузите страницу'</>
-      ) : (
-        <>
-          <AppHeader />
-          <main className={styles.main}>
-            <h2 className={`${styles.heading} text_type_main-large mt-10 mb-5`}>
-              Соберите бургер
-            </h2>
-            <BurgerIngredients ingredients={ingredients} />
-            <BurgerConstructor ingredients={ingredients} />
-          </main>
-        </>
-      )}
+      <AppHeader />
+      <main className={styles.main}>
+        <h2 className={`${styles.heading} text_type_main-large mt-10 mb-5`}>
+          Соберите бургер
+        </h2>
+        {!error ? (
+          <>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </>
+        ) : (
+          <>'Что-то пошло не так, перезагрузите страницу</>
+        )}
+      </main>
     </div>
   );
 }
