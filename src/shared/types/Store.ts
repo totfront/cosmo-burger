@@ -10,7 +10,7 @@ type Tabs = {
 export type Store = {
   ingredients: {
     ingredients: SortedIngredients;
-    ingredientsRequest: boolean;
+    isRequest: boolean;
     ingredientsFailed: boolean;
     currentTab: keyof Tabs;
     error: string | null;

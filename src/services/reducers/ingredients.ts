@@ -19,8 +19,8 @@ const initialState = {
     sauces: [],
     inners: [],
   },
-  ingredientsRequest: false,
-  ingredientsFailed: false,
+  isRequested: false,
+  isRequestFailed: false,
 
   error: null,
   currentTab: "Булки",
@@ -34,22 +34,22 @@ export const ingredientsReducer = (
     case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
-        ingredientsRequest: true,
+        isRequest: true,
       };
     }
     case GET_INGREDIENTS_FAIL: {
       return {
         ...state,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
+        isRequest: false,
+        isRequestFailed: false,
       };
     }
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
         ingredients: action.ingredients,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
+        isRequest: false,
+        isRequestFailed: false,
       };
     }
     case SELECT_BUNS_TAB: {
