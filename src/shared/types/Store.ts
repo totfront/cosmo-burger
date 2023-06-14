@@ -1,5 +1,6 @@
 import { SortedIngredients } from "./SortedIngredients";
 import { IngredientModal } from "./IngredientModal";
+import { Constructor } from "./Constructor";
 
 type Tabs = {
   buns: string;
@@ -17,4 +18,5 @@ export type Store = {
     tabs: Tabs;
   };
   ingredientModal: IngredientModal;
+  orderConstructor: Constructor;
 };

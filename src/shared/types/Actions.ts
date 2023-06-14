@@ -2,6 +2,7 @@ import {
   GET_CONSTRUCTOR_INGREDIENTS_FAIL,
   GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
   GET_CONSTRUCTOR_INGREDIENTS_SUCCESS,
+  SET_TOTAL_PRICE,
 } from "../../services/actions/constructor";
 import {
   HIDE_INGREDIENT_MODAL,
@@ -21,9 +22,10 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
 } from "../../services/actions/order";
-import { OrderDetails, OrderState } from "../../services/reducers/orderModal";
+import { OrderState } from "../../services/reducers/orderModal";
 import { Ingredient } from "./Ingredient";
 import { SortedIngredients } from "./SortedIngredients";
+import { SET_CONSTRUCTOR_INGREDIENTS } from "../../services/actions/constructor";
 
 type ShowIngredientModal = {
   type: typeof SHOW_INGREDIENT_MODAL;
@@ -97,10 +99,19 @@ type GetOrderFail = {
 
 type GetOrderSuccess = {
   type: typeof GET_ORDER_SUCCESS;
-  order: OrderState;
   isRequest: false;
   isRequestFailed: false;
-  details: OrderDetails;
+  details: OrderState;
+};
+
+type IncreaseTotalPrice = {
+  type: typeof SET_TOTAL_PRICE;
+  totalPrice: number;
+};
+
+type SetConstructorIngredients = {
+  type: typeof SET_CONSTRUCTOR_INGREDIENTS;
+  ingredients: SortedIngredients;
 };
 
 export type ActionTypes =
@@ -118,4 +129,6 @@ export type ActionTypes =
   | GetOrderFail
   | GetOrderSuccess
   | GetConstructorIngredientsFail
+  | IncreaseTotalPrice
+  | SetConstructorIngredients
   | GetConstructorIngredientsSuccess;

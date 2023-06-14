@@ -6,7 +6,6 @@ import {
 } from "../actions/order";
 
 export type OrderState = typeof initialState;
-export type OrderDetails = typeof initialState.details;
 
 const initialState = {
   id: 123,
@@ -15,15 +14,6 @@ const initialState = {
   isRequest: false,
   isRequestFailed: false,
   error: null,
-  details: {
-    ingredients: [
-      {
-        name: "",
-        price: 0,
-      },
-    ],
-  },
-  totalPrice: 0,
 };
 
 const orderReducer = (state = initialState, action: ActionTypes) => {
@@ -44,7 +34,6 @@ const orderReducer = (state = initialState, action: ActionTypes) => {
     case GET_ORDER_SUCCESS: {
       return {
         ...state,
-        details: action.details,
         isRequest: false,
         isRequestFailed: false,
       };

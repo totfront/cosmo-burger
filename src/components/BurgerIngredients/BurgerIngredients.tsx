@@ -1,14 +1,12 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Dispatch, FC, useEffect } from "react";
+import { FC, useEffect } from "react";
 import styles from "./burgerIngredients.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
-import { Ingredient } from "../../shared/types/Ingredient";
 import {
   HIDE_INGREDIENT_MODAL,
-  SET_MODAL_INGREDIENT,
   SHOW_INGREDIENT_MODAL,
 } from "../../services/actions/ingredientModal";
 import {

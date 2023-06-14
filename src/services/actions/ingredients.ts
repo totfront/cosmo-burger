@@ -3,6 +3,7 @@ import { Ingredient } from "../../shared/types/Ingredient";
 import { fetchData } from "../burgerApi";
 import { SortedIngredients } from "../../shared/types/SortedIngredients";
 import { ActionTypes } from "../../shared/types/Actions";
+import { SET_CONSTRUCTOR_INGREDIENTS } from "./constructor";
 
 // ingredient items request actions:
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
@@ -51,6 +52,10 @@ export const getIngredients = () => (dispatch: Dispatch<ActionTypes>) => {
       const sortedIngredients = sortIngredients(data);
       dispatch({
         type: GET_INGREDIENTS_SUCCESS,
+        ingredients: sortedIngredients,
+      });
+      dispatch({
+        type: SET_CONSTRUCTOR_INGREDIENTS,
         ingredients: sortedIngredients,
       });
     })

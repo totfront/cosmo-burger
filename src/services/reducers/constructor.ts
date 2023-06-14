@@ -3,6 +3,8 @@ import {
   GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
   GET_CONSTRUCTOR_INGREDIENTS_FAIL,
   GET_CONSTRUCTOR_INGREDIENTS_SUCCESS,
+  SET_TOTAL_PRICE,
+  SET_CONSTRUCTOR_INGREDIENTS,
 } from "../actions/constructor";
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
     inners: [],
     sauces: [],
   },
+  totalPrice: 0,
 };
 
 export const constructorReducer = (
@@ -42,7 +45,18 @@ export const constructorReducer = (
         isRequestFailed: false,
       };
     }
-
+    case SET_TOTAL_PRICE: {
+      return {
+        ...state,
+        totalPrice: action.totalPrice,
+      };
+    }
+    case SET_CONSTRUCTOR_INGREDIENTS: {
+      return {
+        ...state,
+        ingredients: action.ingredients,
+      };
+    }
     default: {
       return state;
     }

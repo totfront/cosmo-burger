@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Button,
   ConstructorElement,
@@ -8,14 +8,35 @@ import {
 import blueBun from "../../images/bun-02.svg";
 import styles from "./burgerConstructor.module.css";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
+import { SET_TOTAL_PRICE } from "../../services/actions/constructor";
 
 const BurgerConstructor: FC = () => {
-  const {
-    ingredients: { sauces, inners, buns },
-  } = useSelector((store: Store) => store.ingredients);
+  const { ingredients, totalPrice, error } = useSelector(
+    (store: Store) => store.orderConstructor
+  );
+
   const [isModalShown, setIsModalShown] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const totalPrice = () => {
+      let totalPrice = 0;
+      for (const bun of ingredients.buns) {
+        totalPrice += bun.price;
+      }
+      for (const sauce of ingredients.sauces) {
+        totalPrice += sauce.price;
+      }
+      for (const inner of ingredients.inners) {
+        totalPrice += inner.price;
+      }
+      return totalPrice;
+    };
+
+    dispatch({ type: SET_TOTAL_PRICE, totalPrice: totalPrice() });
+  }, []);
 
   return (
     <section className={styles.constructorWrapper}>
@@ -37,17 +58,19 @@ const BurgerConstructor: FC = () => {
           thumbnail={blueBun}
         />
         <ul className={styles.inners}>
-          {[...sauces, ...inners].map(({ image, price, name }, index) => (
-            <li className={styles.inner} key={name + index}>
-              <DragIcon type="primary" />
-              <ConstructorElement
-                extraClass="ml-2"
-                text={name}
-                price={price}
-                thumbnail={image}
-              />
-            </li>
-          ))}
+          {[...ingredients.sauces, ...ingredients.inners].map(
+            ({ image, price, name }, index) => (
+              <li className={styles.inner} key={name + index}>
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  extraClass="ml-2"
+                  text={name}
+                  price={price}
+                  thumbnail={image}
+                />
+              </li>
+            )
+          )}
         </ul>
         <ConstructorElement
           extraClass={styles.bun}
@@ -59,7 +82,7 @@ const BurgerConstructor: FC = () => {
         />
       </div>
       <span className={styles.price}>
-        <span className="mr-2 text text_type_digits-medium">610</span>
+        <span className="mr-2 text text_type_digits-medium">{totalPrice}</span>
         <CurrencyIcon type="primary" />
       </span>
       <Button
