@@ -8,7 +8,20 @@ import {
 
 const initialState: IngredientModal = {
   isModalShown: false,
-  selectedIngredient: null,
+  selectedIngredient: {
+    name: "",
+    image: "",
+    calories: 0,
+    fat: 0,
+    proteins: 0,
+    carbohydrates: 0,
+    _id: "",
+    type: "",
+    price: 0,
+    image_mobile: "",
+    image_large: "",
+    __v: 0,
+  },
 };
 
 export const ingredientModalReducer = (
@@ -19,7 +32,7 @@ export const ingredientModalReducer = (
     case SET_MODAL_INGREDIENT: {
       return {
         ...state,
-        ingredient: action.ingredient,
+        selectedIngredient: action.ingredient,
       };
     }
     case SHOW_INGREDIENT_MODAL: {

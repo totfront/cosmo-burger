@@ -9,6 +9,7 @@ export type OrderState = typeof initialState;
 export type OrderDetails = typeof initialState.details;
 
 const initialState = {
+  id: 123,
   isModalShown: false,
   isOrderSubmitted: false,
   isRequest: false,
@@ -22,7 +23,7 @@ const initialState = {
       },
     ],
   },
-  id: 123,
+  totalPrice: 0,
 };
 
 const orderReducer = (state = initialState, action: ActionTypes) => {
@@ -54,4 +55,4 @@ const orderReducer = (state = initialState, action: ActionTypes) => {
   }
 };
 
-export default orderReducer;
+export { orderReducer };

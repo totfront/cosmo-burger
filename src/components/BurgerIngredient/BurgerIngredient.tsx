@@ -1,18 +1,34 @@
 import styles from "./burgerIngredient.module.css";
 import { FC } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch } from "react-redux";
+import {
+  SET_MODAL_INGREDIENT,
+  SHOW_INGREDIENT_MODAL,
+} from "../../services/actions/ingredientModal";
+import { Ingredient } from "../../shared/types/Ingredient";
 
 interface Props {
-  name: string;
-  price: number;
-  image: string;
-  onClick: () => void;
+  ingredient: Ingredient;
 }
 
-const BurgerIngredient: FC<Props> = ({ image, price, name, onClick }) => {
+const BurgerIngredient: FC<Props> = ({ ingredient }) => {
+  const { name, price, image } = ingredient;
+  const dispatch = useDispatch();
+
+  const handleOnclick = () => {
+    dispatch({
+      type: SHOW_INGREDIENT_MODAL,
+    });
+    dispatch({
+      type: SET_MODAL_INGREDIENT,
+      ingredient,
+    });
+  };
+
   return (
     <>
-      <button onClick={onClick} className={styles.ingredient}>
+      <button onClick={handleOnclick} className={styles.ingredient}>
         <img className="mb-2" src={image} alt={name} />
         <div className={`${styles.price} mb-2`}>
           <span

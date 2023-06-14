@@ -13,7 +13,7 @@ import { Store } from "../../shared/types/Store";
 
 const BurgerConstructor: FC = () => {
   const {
-    ingredients: { sauces, inners },
+    ingredients: { sauces, inners, buns },
   } = useSelector((store: Store) => store.ingredients);
   const [isModalShown, setIsModalShown] = useState(false);
 

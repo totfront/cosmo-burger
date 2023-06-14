@@ -1,10 +1,11 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { Dispatch, FC, useEffect } from "react";
 import styles from "./burgerIngredients.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
+import { Ingredient } from "../../shared/types/Ingredient";
 import {
   HIDE_INGREDIENT_MODAL,
   SET_MODAL_INGREDIENT,
@@ -14,10 +15,16 @@ import {
   SELECT_BUNS_TAB,
   SELECT_INNERS_TAB,
   SELECT_SAUCES_TAB,
+  getIngredients,
 } from "../../services/actions/ingredients";
 
 const BurgerIngredients: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
+
   const {
     ingredients: { tabs, currentTab, ingredients },
     ingredientModal: { isModalShown },
@@ -84,20 +91,9 @@ const BurgerIngredients: FC = () => {
               {tabName}
             </h3>
             {getIngredientGroup(tabKey)?.map((ingredient, index) => {
-              const { image, price, name } = ingredient;
+              const { name } = ingredient;
               return (
-                <BurgerIngredient
-                  onClick={() =>
-                    dispatch({
-                      type: SET_MODAL_INGREDIENT,
-                      ingredient,
-                    })
-                  }
-                  name={name}
-                  image={image}
-                  price={price}
-                  key={name + index}
-                />
+                <BurgerIngredient ingredient={ingredient} key={name + index} />
               );
             })}
           </li>

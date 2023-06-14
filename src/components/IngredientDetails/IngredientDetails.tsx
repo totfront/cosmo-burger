@@ -1,7 +1,6 @@
 import { FC } from "react";
 import Modal from "../Modal/Modal";
 import styles from "./ingredientDetails.module.css";
-import tempImage from "../../images/meat-01.png";
 import { useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
 
@@ -10,16 +9,16 @@ type Props = {
 };
 
 const IngredientDetails: FC<Props> = ({ onClose }) => {
-  const { selectedIngredient } = useSelector(
-    (store: Store) => store.ingredientModal
-  );
+  const {
+    selectedIngredient: { name, image, fat, proteins, carbohydrates, calories },
+  } = useSelector((store: Store) => store.ingredientModal);
 
   return (
-    <Modal isIngredient onClose={onClose}>
+    <Modal onClose={onClose} isIngredient>
       <div className={styles.inner}>
-        <img className={styles.image} src={tempImage} alt="ingredient" />
+        <img className={styles.image} src={image} alt="ingredient" />
         <h3 className={`${styles.heading} mt-4 text text_type_main-medium`}>
-          {selectedIngredient?.name}
+          {name}
         </h3>
         <ul
           className={`${styles.ingredientsList} text text_type_main-default text_color_inactive mb-5 mt-8 `}
@@ -29,7 +28,7 @@ const IngredientDetails: FC<Props> = ({ onClose }) => {
             <span
               className={`${styles.textBlock} mt-2 text_type_digits-default`}
             >
-              {selectedIngredient?.fat}
+              {calories}
             </span>
           </li>
           <li className={`${styles.ingredientItem}`}>
@@ -37,7 +36,7 @@ const IngredientDetails: FC<Props> = ({ onClose }) => {
             <span
               className={`${styles.textBlock} mt-2 text_type_digits-default`}
             >
-              {selectedIngredient?.proteins}
+              {proteins}
             </span>
           </li>
           <li className={`${styles.ingredientItem}`}>
@@ -45,7 +44,7 @@ const IngredientDetails: FC<Props> = ({ onClose }) => {
             <span
               className={`${styles.textBlock} mt-2 text_type_digits-default`}
             >
-              {selectedIngredient?.fat}
+              {fat}
             </span>
           </li>
           <li className={`${styles.ingredientItem}`}>
@@ -53,7 +52,7 @@ const IngredientDetails: FC<Props> = ({ onClose }) => {
             <span
               className={`${styles.textBlock} mt-2 text_type_digits-default`}
             >
-              {selectedIngredient?.carbohydrates}
+              {carbohydrates}
             </span>
           </li>
         </ul>

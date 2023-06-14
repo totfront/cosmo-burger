@@ -21,7 +21,7 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
 } from "../../services/actions/order";
-import { OrderDetails, OrderState } from "../../services/reducers/order";
+import { OrderDetails, OrderState } from "../../services/reducers/orderModal";
 import { Ingredient } from "./Ingredient";
 import { SortedIngredients } from "./SortedIngredients";
 

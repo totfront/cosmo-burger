@@ -55,6 +55,7 @@ export const getIngredients = () => (dispatch: Dispatch<ActionTypes>) => {
       });
     })
     .catch((error) => {
+      console.error(`Ingredients request failed with error: ${error}`);
       dispatch({
         type: GET_INGREDIENTS_FAIL,
         error,
