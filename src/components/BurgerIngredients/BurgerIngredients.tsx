@@ -10,10 +10,8 @@ import {
   SHOW_INGREDIENT_MODAL,
 } from "../../services/actions/ingredientModal";
 import {
-  SELECT_BUNS_TAB,
-  SELECT_INNERS_TAB,
-  SELECT_SAUCES_TAB,
   getIngredients,
+  switchTabActionCreator,
 } from "../../services/actions/ingredients";
 
 const BurgerIngredients: FC = () => {
@@ -45,22 +43,6 @@ const BurgerIngredients: FC = () => {
     return result;
   };
 
-  const getSwitchTabAction = (tabKey: string) => {
-    let result;
-    switch (tabKey) {
-      case "buns":
-        result = SELECT_BUNS_TAB;
-        break;
-      case "sauces":
-        result = SELECT_SAUCES_TAB;
-        break;
-      case "inners":
-        result = SELECT_INNERS_TAB;
-        break;
-    }
-    return result;
-  };
-
   return (
     <section className={`${styles.wrapper}`}>
       <div style={{ display: "flex" }}>
@@ -70,7 +52,7 @@ const BurgerIngredients: FC = () => {
             active={currentTab === tabName}
             onClick={() => {
               dispatch({
-                type: getSwitchTabAction(tabKey),
+                type: switchTabActionCreator(tabKey),
               });
             }}
             key={tabName + index}

@@ -8,22 +8,25 @@ import {
   SELECT_SAUCES_TAB,
 } from "../actions/ingredients";
 
+const buns = "Булки";
+const sauces = "Соусы";
+const inners = "Начинки";
+
 const initialState = {
   tabs: {
-    buns: "Булки",
-    sauces: "Соусы",
-    inners: "Начинки",
+    buns,
+    sauces,
+    inners,
   },
   ingredients: {
     buns: [],
     sauces: [],
     inners: [],
   },
+  currentTab: buns,
   isRequested: false,
   isRequestFailed: false,
-
   error: null,
-  currentTab: "Булки",
 };
 
 export const ingredientsReducer = (
@@ -47,27 +50,27 @@ export const ingredientsReducer = (
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        ingredients: action.ingredients,
         isRequest: false,
         isRequestFailed: false,
+        ingredients: action.ingredients,
       };
     }
     case SELECT_BUNS_TAB: {
       return {
         ...state,
-        currentTab: initialState.tabs.buns,
+        currentTab: buns,
       };
     }
     case SELECT_INNERS_TAB: {
       return {
         ...state,
-        currentTab: initialState.tabs.inners,
+        currentTab: inners,
       };
     }
     case SELECT_SAUCES_TAB: {
       return {
         ...state,
-        currentTab: initialState.tabs.sauces,
+        currentTab: sauces,
       };
     }
 

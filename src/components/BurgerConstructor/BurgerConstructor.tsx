@@ -36,7 +36,7 @@ const BurgerConstructor: FC = () => {
     };
 
     dispatch({ type: SET_TOTAL_PRICE, totalPrice: totalPrice() });
-  }, []);
+  }, [dispatch, ingredients.buns, ingredients.inners, ingredients.sauces]);
 
   return (
     <section className={styles.constructorWrapper}>
@@ -58,19 +58,21 @@ const BurgerConstructor: FC = () => {
           thumbnail={blueBun}
         />
         <ul className={styles.inners}>
-          {[...ingredients.sauces, ...ingredients.inners].map(
-            ({ image, price, name }, index) => (
-              <li className={styles.inner} key={name + index}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  extraClass="ml-2"
-                  text={name}
-                  price={price}
-                  thumbnail={image}
-                />
-              </li>
-            )
-          )}
+          {!error
+            ? [...ingredients.sauces, ...ingredients.inners].map(
+                ({ image, price, name }, index) => (
+                  <li className={styles.inner} key={name + index}>
+                    <DragIcon type="primary" />
+                    <ConstructorElement
+                      extraClass="ml-2"
+                      text={name}
+                      price={price}
+                      thumbnail={image}
+                    />
+                  </li>
+                )
+              )
+            : "Something went wrong, try to reload or pray 🙏"}
         </ul>
         <ConstructorElement
           extraClass={styles.bun}

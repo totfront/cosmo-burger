@@ -10,11 +10,6 @@ export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_FAIL = "GET_INGREDIENTS_FAIL";
 
-// tab switch actions:
-export const SELECT_BUNS_TAB = "SELECT_ITEMS_TAB";
-export const SELECT_INNERS_TAB = "SELECT_INNERS_TAB";
-export const SELECT_SAUCES_TAB = "SELECT_SAUCES_TAB";
-
 const checkResponse = (res: Response) => {
   return res.ok
     ? res.json()
@@ -68,18 +63,23 @@ export const getIngredients = () => (dispatch: Dispatch<ActionTypes>) => {
     });
 };
 
-export const selectBunsTab = () => (dispatch: Dispatch<ActionTypes>) => {
-  dispatch({
-    type: SELECT_BUNS_TAB,
-  });
-};
-export const selectInnersTab = () => (dispatch: Dispatch<ActionTypes>) => {
-  dispatch({
-    type: SELECT_INNERS_TAB,
-  });
-};
-export const selectSaucesTab = () => (dispatch: Dispatch<ActionTypes>) => {
-  dispatch({
-    type: SELECT_SAUCES_TAB,
-  });
+// tab switch actions:
+export const SWITCH_TAB = "SWITCH_TAB";
+export const SELECT_BUNS_TAB = "SELECT_ITEMS_TAB";
+export const SELECT_INNERS_TAB = "SELECT_INNERS_TAB";
+export const SELECT_SAUCES_TAB = "SELECT_SAUCES_TAB";
+export const switchTabActionCreator = (tabKey: string) => {
+  let result;
+  switch (tabKey) {
+    case "buns":
+      result = SELECT_BUNS_TAB;
+      break;
+    case "sauces":
+      result = SELECT_SAUCES_TAB;
+      break;
+    case "inners":
+      result = SELECT_INNERS_TAB;
+      break;
+  }
+  return result;
 };
