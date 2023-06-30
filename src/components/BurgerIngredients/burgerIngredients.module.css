@@ -16,7 +16,7 @@
     gap: 32px 40px;
 }
 
-.ingredientsWrapper {
+.ingredientsGroupWrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }

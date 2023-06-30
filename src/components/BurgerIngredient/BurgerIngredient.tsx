@@ -28,7 +28,7 @@ const BurgerIngredient: FC<Props> = ({ ingredient }) => {
 
   return (
     <>
-      <button onClick={handleOnclick} className={styles.ingredient}>
+      <button onClick={handleOnclick} className={`${styles.ingredient} mb-6`}>
         <img className="mb-2" src={image} alt={name} />
         <div className={`${styles.price} mb-2`}>
           <span

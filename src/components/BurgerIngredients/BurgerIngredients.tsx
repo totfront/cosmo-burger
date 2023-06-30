@@ -1,5 +1,7 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+
 import styles from "./burgerIngredients.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
@@ -9,20 +11,27 @@ import {
   HIDE_INGREDIENT_MODAL,
   SHOW_INGREDIENT_MODAL,
 } from "../../services/actions/ingredientModal";
-import {
-  getIngredients,
-  switchTabActionCreator,
-} from "../../services/actions/ingredients";
+import { getIngredients } from "../../services/actions/ingredients";
+import Tabs from "../Tabs/Tabs";
 
 const BurgerIngredients: FC = () => {
   const dispatch: any = useDispatch();
+  const { ref: innersTabRef, inView: isInnersTabVisible } = useInView();
+  const { ref: bunsTabRef, inView: isBunsTabVisible } = useInView();
+  const { ref: saucesTabRef, inView: isSaucesTabVisible } = useInView();
+
+  const tabRefs: any = {
+    buns: { ref: bunsTabRef, isVisible: isBunsTabVisible },
+    inners: { ref: innersTabRef, isVisible: isInnersTabVisible },
+    sauces: { ref: saucesTabRef, isVisible: isSaucesTabVisible },
+  };
 
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
 
   const {
-    ingredients: { tabs, currentTab, ingredients },
+    ingredients: { tabs, ingredients },
     ingredientModal: { isModalShown },
   } = useSelector((store: Store) => store);
 
@@ -45,28 +54,17 @@ const BurgerIngredients: FC = () => {
 
   return (
     <section className={`${styles.wrapper}`}>
-      <div style={{ display: "flex" }}>
-        {Object.entries(tabs).map(([tabKey, tabName], index) => (
-          <Tab
-            value={tabName}
-            active={currentTab === tabName}
-            onClick={() => {
-              dispatch({
-                type: switchTabActionCreator(tabKey),
-              });
-            }}
-            key={tabName + index}
-          >
-            {tabName}
-          </Tab>
-        ))}
-      </div>
+      <Tabs tabRefs={tabRefs} />
       <ul id={"ingredients"} className={styles.ingredients}>
         {Object.entries(tabs).map(([tabKey, tabName], index) => (
-          <li className={styles.ingredientsWrapper} key={tabName + index}>
+          <li
+            className={styles.ingredientsGroupWrapper}
+            key={tabName + index}
+            ref={tabRefs[tabKey].ref}
+          >
             <h3
               id={tabName}
-              className={`${styles.ingredientsHeading} text text_type_main-medium mt-10 mb-6`}
+              className={`${styles.ingredientsHeading} text text_type_main-medium mt-4 mb-6`}
             >
               {tabName}
             </h3>
