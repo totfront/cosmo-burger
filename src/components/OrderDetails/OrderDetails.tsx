@@ -10,7 +10,9 @@ type Props = {
 const OrderDetails: FC<Props> = ({ onClose }) => (
   <Modal onClose={onClose}>
     <div className={styles.inner}>
-      <h2 className="text text_type_digits-large mt-20">034536</h2>
+      <h2 className="text text_type_digits-large mt-20">
+        {Math.floor(Math.random() * 100)}
+      </h2>
       <h3 className={`${styles.heading} mt-8 text text_type_main-medium`}>
         идентификатор заказа
       </h3>

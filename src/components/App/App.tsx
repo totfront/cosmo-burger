@@ -1,42 +1,31 @@
-import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { fetchData } from "../../utils/burgerApi";
-import { checkResponse, getErrorMessage } from "../../utils/helpers";
+import { Store } from "../../shared/types/Store";
+import { useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    fetchData()
-      .then((res) => checkResponse(res))
-      .then(({ data }) => setIngredients(data))
-      .catch((error) => {
-        const errorMessage = getErrorMessage(error);
-        setError(errorMessage);
-        console.error(errorMessage);
-      });
-  }, []);
+  const { error } = useSelector((store: Store) => store.ingredients);
 
   return (
     <div className={styles.app}>
-      {error ? (
-        <>'Что-то пошло не так, перезагрузите страницу'</>
-      ) : (
-        <>
-          <AppHeader />
-          <main className={styles.main}>
-            <h2 className={`${styles.heading} text_type_main-large mt-10 mb-5`}>
-              Соберите бургер
-            </h2>
-            <BurgerIngredients ingredients={ingredients} />
-            <BurgerConstructor ingredients={ingredients} />
-          </main>
-        </>
-      )}
+      <AppHeader />
+      <main className={`${styles.main} mt-10 mb-10`}>
+        <h2 className={`${styles.heading} text_type_main-large mb-5`}>
+          Соберите бургер
+        </h2>
+        {!error ? (
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </DndProvider>
+        ) : (
+          <>'Что-то пошло не так, перезагрузите страницу</>
+        )}
+      </main>
     </div>
   );
 }
