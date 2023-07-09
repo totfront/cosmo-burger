@@ -4,6 +4,8 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import { Store } from "../../shared/types/Store";
 import { useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const { error } = useSelector((store: Store) => store.ingredients);
@@ -16,10 +18,10 @@ function App() {
           Соберите бургер
         </h2>
         {!error ? (
-          <>
+          <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
             <BurgerConstructor />
-          </>
+          </DndProvider>
         ) : (
           <>'Что-то пошло не так, перезагрузите страницу</>
         )}

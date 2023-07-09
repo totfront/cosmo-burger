@@ -11,13 +11,28 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
 import { SET_TOTAL_PRICE } from "../../services/actions/constructor";
+import { useDrop } from "react-dnd";
 
 const BurgerConstructor: FC = () => {
   const { ingredients, totalPrice, error } = useSelector(
     (store: Store) => store.orderConstructor
   );
-
   const [isModalShown, setIsModalShown] = useState(false);
+  const [saucesAndInners, setSaucesAndInners] = useState([]);
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: "ingredient",
+    drop: ({ id }: { id: string }) => addIngredientToConstructor(id),
+    collect: (monitor) => ({ isOver: !!monitor.isOver() }),
+  }));
+
+  const addIngredientToConstructor = (id: string) => {
+    // todo: add elements on drop
+    // check if elements are uniq
+    // restrict adding more than 2 buns
+    // store the needed logic in redux
+    console.log(id);
+  };
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,7 +72,7 @@ const BurgerConstructor: FC = () => {
           price={200}
           thumbnail={blueBun}
         />
-        <ul className={styles.inners}>
+        <ul className={styles.inners} ref={drop} style={{ height: "400px" }}>
           {!error
             ? [...ingredients.sauces, ...ingredients.inners].map(
                 ({ image, price, name }, index) => (

@@ -1,5 +1,5 @@
 import styles from "./burgerIngredient.module.css";
-import { FC } from "react";
+import { FC, useId } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import {
@@ -7,13 +7,20 @@ import {
   SHOW_INGREDIENT_MODAL,
 } from "../../services/actions/ingredientModal";
 import { Ingredient } from "../../shared/types/Ingredient";
+import { useDrag } from "react-dnd";
 
 interface Props {
   ingredient: Ingredient;
 }
 
 const BurgerIngredient: FC<Props> = ({ ingredient }) => {
+  const uniqId = useId();
   const { name, price, image } = ingredient;
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "ingredient",
+    item: { id: uniqId },
+    collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
+  }));
   const dispatch = useDispatch();
 
   const handleOnclick = () => {
@@ -28,7 +35,12 @@ const BurgerIngredient: FC<Props> = ({ ingredient }) => {
 
   return (
     <>
-      <button onClick={handleOnclick} className={`${styles.ingredient} mb-6`}>
+      <button
+        onClick={handleOnclick}
+        className={`${styles.ingredient} mb-6`}
+        style={{ border: isDragging ? "3px red solid" : "" }}
+        ref={drag}
+      >
         <img className="mb-2" src={image} alt={name} />
         <div className={`${styles.price} mb-2`}>
           <span

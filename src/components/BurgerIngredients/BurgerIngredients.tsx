@@ -1,4 +1,3 @@
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
