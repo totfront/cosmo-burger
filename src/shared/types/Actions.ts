@@ -3,6 +3,8 @@ import {
   GET_CONSTRUCTOR_INGREDIENTS_FAIL,
   GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
   GET_CONSTRUCTOR_INGREDIENTS_SUCCESS,
+  MOVE_CONSTRUCTOR_INGREDIENT,
+  REMOVE_CONSTRUCTOR_INGREDIENT,
   SET_TOTAL_PRICE,
 } from "../../services/actions/constructor";
 import {
@@ -120,7 +122,20 @@ type AddConstructorIngredient = {
   ingredient: Ingredient;
 };
 
+type RemoveConstructorIngredient = {
+  type: typeof REMOVE_CONSTRUCTOR_INGREDIENT;
+  index: number;
+};
+
+type MoveConstructorIngredient = {
+  type: typeof MOVE_CONSTRUCTOR_INGREDIENT;
+  currentIndex: number;
+  destinationIndex: number;
+};
+
 export type ActionTypes =
+  | MoveConstructorIngredient
+  | RemoveConstructorIngredient
   | GetIngredientsRequestAction
   | GetIngredientsSuccessAction
   | GetIngredientsFailAction

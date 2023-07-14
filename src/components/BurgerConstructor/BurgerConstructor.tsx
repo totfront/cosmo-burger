@@ -1,16 +1,12 @@
 // todos:
-// 1. sort buns to be on the top and the bottom
-// 2. enable drag&drop opportunity to sort inner and sauces inside of the constructor
+// 2. enable drag&drop opportunity to sort inners and sauces inside of the constructor
 // 3. lock buns from drag&drop inside
 // 4. make a counter for used ingredients
-// 5. buns should be the same / buns could be replaced / buns can not be mixed
 
 import { FC, useEffect, useState } from "react";
 import {
   Button,
-  ConstructorElement,
   CurrencyIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
 import OrderDetails from "../OrderDetails/OrderDetails";
@@ -18,10 +14,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
+  REMOVE_CONSTRUCTOR_INGREDIENT,
   SET_TOTAL_PRICE,
 } from "../../services/actions/constructor";
 import { useDrop } from "react-dnd";
 import { Ingredient } from "../../shared/types/Ingredient";
+import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredient";
 
 const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -34,7 +32,6 @@ const BurgerConstructor: FC = () => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "ingredient",
     drop: (ingredient: Ingredient) => {
-      console.log(" dragged ingredient", ingredient);
       dispatch({
         type: ADD_CONSTRUCTOR_INGREDIENT,
         ingredient,
@@ -44,14 +41,15 @@ const BurgerConstructor: FC = () => {
   }));
 
   useEffect(() => {
-    // remove total price from the redux and calculate it in the selector
+    //todo: remove total price from the redux and calculate it in the selector
     dispatch({
       type: SET_TOTAL_PRICE,
       totalPrice: ingredients.reduce((acc, currIng) => currIng.price + acc, 0),
     });
-  }, [ingredients]);
+  }, [ingredients, dispatch]);
 
-  console.log({ ingredients });
+  const onDelete = (index: number) =>
+    dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, index });
 
   return (
     <section className={styles.constructorWrapper} ref={drop}>
@@ -64,18 +62,15 @@ const BurgerConstructor: FC = () => {
         }}
         className={`${styles.constructor}`}
       >
-        <ul className={styles.inners}>
+        <ul className={styles.ingredients}>
           {!error
-            ? ingredients.map(({ image, price, name }, index) => (
-                <li className={styles.inner} key={name + index}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    extraClass="ml-2"
-                    text={name}
-                    price={price}
-                    thumbnail={image}
-                  />
-                </li>
+            ? ingredients.map((ingredient, index) => (
+                <ConstructorIngredient
+                  ingredient={ingredient}
+                  key={ingredient.name + index}
+                  index={index}
+                  onDelete={() => onDelete(index)}
+                />
               ))
             : "Something went wrong, try to reload or pray 🙏"}
         </ul>

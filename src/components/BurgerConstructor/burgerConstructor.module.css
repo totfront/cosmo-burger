@@ -14,24 +14,39 @@
     grid-column: 1/3;
 }
 
-.bun {
-    max-height: 80px;
-}
-
-.inners {
+.ingredients {
     padding: 0;
     margin: 0;
-    max-height: 464px;
     overflow-y: scroll;
+    display: grid;
+    gap: 16px;
+    min-width: 464px;
 }
 
-.inner {
+.ingredient {
     padding: 0;
     list-style: none;
-    display: grid;
-    grid-template-columns: auto 100%;
+    display: flex;
     align-items: center;
+    width: 100%;
 }
+
+.bun {
+    position: sticky;
+
+    > * {
+        margin-left: auto;
+    }
+
+    &:first-child {
+        top: 0
+    };
+    &:last-child {
+        bottom: 0
+    }
+}
+
+
 
 .inner:not(:last-child) {
     margin-bottom: 16px;
