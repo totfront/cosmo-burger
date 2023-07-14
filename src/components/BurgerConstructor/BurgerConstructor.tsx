@@ -1,3 +1,10 @@
+// todos:
+// 1. sort buns to be on the top and the bottom
+// 2. enable drag&drop opportunity to sort inner and sauces inside of the constructor
+// 3. lock buns from drag&drop inside
+// 4. make a counter for used ingredients
+// 5. buns should be the same / buns could be replaced / buns can not be mixed
+
 import { FC, useEffect, useState } from "react";
 import {
   Button,
@@ -5,56 +12,49 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import blueBun from "../../images/bun-02.svg";
 import styles from "./burgerConstructor.module.css";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
-import { SET_TOTAL_PRICE } from "../../services/actions/constructor";
+import {
+  ADD_CONSTRUCTOR_INGREDIENT,
+  SET_TOTAL_PRICE,
+} from "../../services/actions/constructor";
 import { useDrop } from "react-dnd";
+import { Ingredient } from "../../shared/types/Ingredient";
 
 const BurgerConstructor: FC = () => {
+  const dispatch = useDispatch();
   const { ingredients, totalPrice, error } = useSelector(
     (store: Store) => store.orderConstructor
   );
+
   const [isModalShown, setIsModalShown] = useState(false);
-  const [saucesAndInners, setSaucesAndInners] = useState([]);
+
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "ingredient",
-    drop: ({ id }: { id: string }) => addIngredientToConstructor(id),
+    drop: (ingredient: Ingredient) => {
+      console.log(" dragged ingredient", ingredient);
+      dispatch({
+        type: ADD_CONSTRUCTOR_INGREDIENT,
+        ingredient,
+      });
+    },
     collect: (monitor) => ({ isOver: !!monitor.isOver() }),
   }));
 
-  const addIngredientToConstructor = (id: string) => {
-    // todo: add elements on drop
-    // check if elements are uniq
-    // restrict adding more than 2 buns
-    // store the needed logic in redux
-    console.log(id);
-  };
-
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    const totalPrice = () => {
-      let totalPrice = 0;
-      for (const bun of ingredients.buns) {
-        totalPrice += bun.price;
-      }
-      for (const sauce of ingredients.sauces) {
-        totalPrice += sauce.price;
-      }
-      for (const inner of ingredients.inners) {
-        totalPrice += inner.price;
-      }
-      return totalPrice;
-    };
+    // remove total price from the redux and calculate it in the selector
+    dispatch({
+      type: SET_TOTAL_PRICE,
+      totalPrice: ingredients.reduce((acc, currIng) => currIng.price + acc, 0),
+    });
+  }, [ingredients]);
 
-    dispatch({ type: SET_TOTAL_PRICE, totalPrice: totalPrice() });
-  }, [dispatch, ingredients.buns, ingredients.inners, ingredients.sauces]);
+  console.log({ ingredients });
 
   return (
-    <section className={styles.constructorWrapper}>
+    <section className={styles.constructorWrapper} ref={drop}>
       <div
         style={{
           display: "flex",
@@ -64,39 +64,21 @@ const BurgerConstructor: FC = () => {
         }}
         className={`${styles.constructor}`}
       >
-        <ConstructorElement
-          extraClass={styles.bun}
-          type="top"
-          isLocked={true}
-          text="Краторная булка N-200i (верх)"
-          price={200}
-          thumbnail={blueBun}
-        />
-        <ul className={styles.inners} ref={drop} style={{ height: "400px" }}>
+        <ul className={styles.inners}>
           {!error
-            ? [...ingredients.sauces, ...ingredients.inners].map(
-                ({ image, price, name }, index) => (
-                  <li className={styles.inner} key={name + index}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                      extraClass="ml-2"
-                      text={name}
-                      price={price}
-                      thumbnail={image}
-                    />
-                  </li>
-                )
-              )
+            ? ingredients.map(({ image, price, name }, index) => (
+                <li className={styles.inner} key={name + index}>
+                  <DragIcon type="primary" />
+                  <ConstructorElement
+                    extraClass="ml-2"
+                    text={name}
+                    price={price}
+                    thumbnail={image}
+                  />
+                </li>
+              ))
             : "Something went wrong, try to reload or pray 🙏"}
         </ul>
-        <ConstructorElement
-          extraClass={styles.bun}
-          type="bottom"
-          isLocked={true}
-          text="Краторная булка N-200i (низ)"
-          price={200}
-          thumbnail={blueBun}
-        />
       </div>
       <span className={styles.price}>
         <span className="mr-2 text text_type_digits-medium">{totalPrice}</span>

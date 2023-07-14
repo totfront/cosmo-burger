@@ -1,4 +1,5 @@
 import {
+  ADD_CONSTRUCTOR_INGREDIENT,
   GET_CONSTRUCTOR_INGREDIENTS_FAIL,
   GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
   GET_CONSTRUCTOR_INGREDIENTS_SUCCESS,
@@ -114,6 +115,11 @@ type SetConstructorIngredients = {
   ingredients: SortedIngredients;
 };
 
+type AddConstructorIngredient = {
+  type: typeof ADD_CONSTRUCTOR_INGREDIENT;
+  ingredient: Ingredient;
+};
+
 export type ActionTypes =
   | GetIngredientsRequestAction
   | GetIngredientsSuccessAction
@@ -131,4 +137,5 @@ export type ActionTypes =
   | GetConstructorIngredientsFail
   | IncreaseTotalPrice
   | SetConstructorIngredients
-  | GetConstructorIngredientsSuccess;
+  | GetConstructorIngredientsSuccess
+  | AddConstructorIngredient;

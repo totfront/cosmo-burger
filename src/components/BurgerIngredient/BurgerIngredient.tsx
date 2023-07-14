@@ -1,5 +1,5 @@
 import styles from "./burgerIngredient.module.css";
-import { FC, useId } from "react";
+import { FC } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import {
@@ -14,11 +14,10 @@ interface Props {
 }
 
 const BurgerIngredient: FC<Props> = ({ ingredient }) => {
-  const uniqId = useId();
   const { name, price, image } = ingredient;
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "ingredient",
-    item: { id: uniqId },
+    item: ingredient,
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
   }));
   const dispatch = useDispatch();

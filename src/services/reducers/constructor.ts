@@ -5,17 +5,14 @@ import {
   GET_CONSTRUCTOR_INGREDIENTS_SUCCESS,
   SET_TOTAL_PRICE,
   SET_CONSTRUCTOR_INGREDIENTS,
+  ADD_CONSTRUCTOR_INGREDIENT,
 } from "../actions/constructor";
 
 const initialState = {
   isRequest: false,
   isRequestFailed: false,
   error: null,
-  ingredients: {
-    buns: [],
-    inners: [],
-    sauces: [],
-  },
+  ingredients: [],
   totalPrice: 0,
 };
 
@@ -55,6 +52,12 @@ export const constructorReducer = (
       return {
         ...state,
         ingredients: action.ingredients,
+      };
+    }
+    case ADD_CONSTRUCTOR_INGREDIENT: {
+      return {
+        ...state,
+        ingredients: [...state.ingredients, action.ingredient],
       };
     }
     default: {

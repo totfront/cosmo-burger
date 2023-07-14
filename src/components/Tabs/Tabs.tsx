@@ -1,3 +1,5 @@
+// todo: fix the double-selected tabs
+
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";

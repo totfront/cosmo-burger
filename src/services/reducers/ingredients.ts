@@ -50,7 +50,7 @@ export const ingredientsReducer = (
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        isRequest: false,
+        isRequested: false,
         isRequestFailed: false,
         ingredients: action.ingredients,
       };
