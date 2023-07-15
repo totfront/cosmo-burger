@@ -20,6 +20,16 @@ const initialState = {
   totalPrice: 0,
 };
 
+// sorts an array to [bun, ...noBuns, bun]
+const sortIngredients = (ingredientsWithNew: Ingredient[]) => {
+  const sortedIngredients = [...ingredientsWithNew];
+  const bun = sortedIngredients.find((ingredient) => ingredient.type === "bun");
+  const nonBuns = sortedIngredients.filter(
+    (ingredient) => ingredient.type !== "bun"
+  );
+  return [bun, ...nonBuns, bun].filter(Boolean);
+};
+
 export const constructorReducer = (
   state = initialState,
   action: ActionTypes
@@ -68,16 +78,6 @@ export const constructorReducer = (
               action.ingredient,
             ]
           : [...state.ingredients, action.ingredient];
-      const sortIngredients = (ingredientsWithNew: Ingredient[]) => {
-        const sortedIngredients = [...ingredientsWithNew];
-        const bun = sortedIngredients.find(
-          (ingredient) => ingredient.type === "bun"
-        );
-        const nonBuns = sortedIngredients.filter(
-          (ingredient) => ingredient.type !== "bun"
-        );
-        return [bun, ...nonBuns, bun].filter(Boolean);
-      };
       return {
         ...state,
         ingredients: sortIngredients(currentIngredientsWithNewOne),
@@ -92,24 +92,15 @@ export const constructorReducer = (
       };
     }
     case MOVE_CONSTRUCTOR_INGREDIENT: {
-      const getReorderedIngredients = (
-        ingredients: Ingredient[],
-        dragIndex: number,
-        hoverIndex: number
-      ) =>
-        update(ingredients, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, ingredients[dragIndex]],
-          ],
-        });
+      const ingredients = [...state.ingredients];
+      ingredients.splice(
+        action.hoverIndex,
+        0,
+        ingredients.splice(action.dragIndex, 1)[0]
+      );
       return {
         ...state,
-        ingredients: getReorderedIngredients(
-          state.ingredients,
-          action.dragIndex,
-          action.hoverIndex
-        ),
+        ingredients: sortIngredients(ingredients),
       };
     }
     default: {

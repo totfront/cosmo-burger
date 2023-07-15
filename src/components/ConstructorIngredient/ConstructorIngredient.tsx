@@ -76,6 +76,7 @@ const ConstructorIngredient: FC<Props> = ({
 
       // Perform the action
       onDrop(dragIndex, hoverIndex);
+      console.log({ dragIndex, hoverIndex });
 
       // Note: we're mutating the monitor item here!
       item.index = hoverIndex;

@@ -1,10 +1,11 @@
-// todo: enable drag&drop opportunity to sort inners and sauces inside of the constructor
-// todo: lock buns from drag&drop inside
-// todo: make a counter for used ingredients
+//  todo: enable drag&drop opportunity to sort inners and sauces inside of the constructor
+//  todo: lock buns from drag&drop inside
+//  todo: make a counter for used ingredients
 
 import { FC, useCallback, useEffect, useState } from "react";
 import {
   Button,
+  ConstructorElement,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
@@ -26,6 +27,8 @@ const BurgerConstructor: FC = () => {
   const { ingredients, totalPrice, error } = useSelector(
     (store: Store) => store.orderConstructor
   );
+  const topBun = ingredients[0];
+  const bottomBun = ingredients[ingredients.length - 1];
 
   const [isModalShown, setIsModalShown] = useState(false);
 
@@ -41,7 +44,7 @@ const BurgerConstructor: FC = () => {
   }));
 
   useEffect(() => {
-    //todo: [cleanup] remove total price from the redux and calculate it in the selector
+    // todo: [cleanup] remove total price from the redux and calculate it in the selector
     dispatch({
       type: SET_TOTAL_PRICE,
       totalPrice: ingredients.reduce((acc, currIng) => currIng.price + acc, 0),
@@ -74,17 +77,47 @@ const BurgerConstructor: FC = () => {
         className={`${styles.constructor}`}
       >
         <ul className={styles.ingredients}>
-          {!error
-            ? ingredients.map((ingredient, index) => (
-                <ConstructorIngredient
-                  ingredient={ingredient}
-                  key={ingredient.name + index}
-                  index={index}
-                  onDelete={() => onDelete(index)}
-                  onDrop={onDrop}
+          {!error ? (
+            <>
+              {topBun && (
+                <ConstructorElement
+                  extraClass="ml-2"
+                  text={topBun.name}
+                  price={topBun.price}
+                  thumbnail={topBun.image}
+                  type="top"
+                  isLocked
                 />
-              ))
-            : "Something went wrong, try to reload or pray 🙏"}
+              )}
+              {ingredients
+                .map((ingredient, index) => {
+                  if (ingredient.type !== "bun") {
+                    return (
+                      <ConstructorIngredient
+                        ingredient={ingredient}
+                        key={ingredient.name + index}
+                        index={index}
+                        onDelete={() => onDelete(index)}
+                        onDrop={onDrop}
+                      />
+                    );
+                  }
+                })
+                .filter(Boolean)}
+              {bottomBun && (
+                <ConstructorElement
+                  extraClass="ml-2"
+                  text={bottomBun.name}
+                  price={bottomBun.price}
+                  thumbnail={bottomBun.image}
+                  type="bottom"
+                  isLocked
+                />
+              )}
+            </>
+          ) : (
+            "Something went wrong, try to reload or pray 🙏"
+          )}
         </ul>
       </div>
       <span className={styles.price}>
