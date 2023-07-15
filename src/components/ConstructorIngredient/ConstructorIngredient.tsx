@@ -1,4 +1,3 @@
-// todo: cleanup import for css from a proper folder
 import type { Identifier, XYCoord } from "dnd-core";
 import { FC, useRef } from "react";
 import { Ingredient } from "../../shared/types/Ingredient";

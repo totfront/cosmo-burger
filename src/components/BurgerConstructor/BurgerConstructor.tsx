@@ -106,9 +106,7 @@ const BurgerConstructor: FC = () => {
                         key={ingredient.name + index}
                         index={index}
                         onDelete={() => onDelete(index, ingredient._id)}
-                        onDrop={(dragIndex, hoverIndex) => {
-                          onDrop(dragIndex, hoverIndex);
-                        }}
+                        onDrop={onDrop}
                       />
                     )
                 )

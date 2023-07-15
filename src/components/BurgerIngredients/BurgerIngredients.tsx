@@ -7,7 +7,6 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
 import { HIDE_INGREDIENT_MODAL } from "../../services/actions/ingredientModal";
-import { getIngredients } from "../../services/actions/ingredients";
 import Tabs from "../Tabs/Tabs";
 
 const BurgerIngredients: FC = () => {
@@ -24,7 +23,7 @@ const BurgerIngredients: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getIngredients());
+    dispatch();
   }, [dispatch]);
 
   useEffect(() => {
