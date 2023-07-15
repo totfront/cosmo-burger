@@ -28,23 +28,20 @@ const Tabs: FC<Props> = ({ currentTab }) => {
 
   return (
     <div className={styles.tabsWrapper}>
-      {Object.entries(tabs).map(([tabKey, tabName], index) => {
-        console.log({ tabKey, currentTab });
-        return (
-          <Tab
-            value={tabName}
-            active={currentTab === tabKey}
-            onClick={() => {
-              dispatch({
-                type: switchTabActionCreator(tabKey),
-              });
-            }}
-            key={tabName + index}
-          >
-            {tabName}
-          </Tab>
-        );
-      })}
+      {Object.entries(tabs).map(([tabKey, tabName], index) => (
+        <Tab
+          value={tabName}
+          active={currentTab === tabKey}
+          onClick={() => {
+            dispatch({
+              type: switchTabActionCreator(tabKey),
+            });
+          }}
+          key={tabName + index}
+        >
+          {tabName}
+        </Tab>
+      ))}
     </div>
   );
 };
