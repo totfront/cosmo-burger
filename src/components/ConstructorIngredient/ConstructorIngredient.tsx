@@ -1,4 +1,4 @@
-// todo: cleanup import for css from a propper folder
+// todo: cleanup import for css from a proper folder
 import type { Identifier, XYCoord } from "dnd-core";
 import { FC, useRef } from "react";
 import { Ingredient } from "../../shared/types/Ingredient";
@@ -13,13 +13,19 @@ type Props = {
   ingredient: Ingredient;
   onDelete: () => void;
   index: number;
+  onDrop: (dragIndex: number, hoverIndex: number) => void;
 };
 
 type DragItem = Ingredient & {
   index: number;
 };
 
-const ConstructorIngredient: FC<Props> = ({ ingredient, index, onDelete }) => {
+const ConstructorIngredient: FC<Props> = ({
+  ingredient,
+  index,
+  onDelete,
+  onDrop,
+}) => {
   const { image, price, name, type } = ingredient;
   const ref = useRef<HTMLLIElement>(null);
   const [{ handlerId }, drop] = useDrop<
@@ -58,10 +64,6 @@ const ConstructorIngredient: FC<Props> = ({ ingredient, index, onDelete }) => {
       // Get pixels to the top
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-
       // Dragging downwards
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -72,14 +74,10 @@ const ConstructorIngredient: FC<Props> = ({ ingredient, index, onDelete }) => {
         return;
       }
 
-      // Time to actually perform the action
-      console.log({ dragIndex, hoverIndex });
-      //   moveCard(dragIndex, hoverIndex);
+      // Perform the action
+      onDrop(dragIndex, hoverIndex);
 
       // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
       item.index = hoverIndex;
     },
   });

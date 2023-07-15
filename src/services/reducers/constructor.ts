@@ -1,5 +1,6 @@
 import { ActionTypes } from "../../shared/types/Actions";
 import { Ingredient } from "../../shared/types/Ingredient";
+import update from "immutability-helper";
 import {
   GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
   GET_CONSTRUCTOR_INGREDIENTS_FAIL,
@@ -91,8 +92,25 @@ export const constructorReducer = (
       };
     }
     case MOVE_CONSTRUCTOR_INGREDIENT: {
-      // !TODO: return a new state with a currentIndex and destinationIndex as items in the ingredients
-      return {};
+      const getReorderedIngredients = (
+        ingredients: Ingredient[],
+        dragIndex: number,
+        hoverIndex: number
+      ) =>
+        update(ingredients, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, ingredients[dragIndex]],
+          ],
+        });
+      return {
+        ...state,
+        ingredients: getReorderedIngredients(
+          state.ingredients,
+          action.dragIndex,
+          action.hoverIndex
+        ),
+      };
     }
     default: {
       return state;

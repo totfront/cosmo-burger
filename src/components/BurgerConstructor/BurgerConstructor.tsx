@@ -1,9 +1,8 @@
-// todos:
-// 2. enable drag&drop opportunity to sort inners and sauces inside of the constructor
-// 3. lock buns from drag&drop inside
-// 4. make a counter for used ingredients
+// todo: enable drag&drop opportunity to sort inners and sauces inside of the constructor
+// todo: lock buns from drag&drop inside
+// todo: make a counter for used ingredients
 
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import {
   Button,
   CurrencyIcon,
@@ -14,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
+  MOVE_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   SET_TOTAL_PRICE,
 } from "../../services/actions/constructor";
@@ -41,7 +41,7 @@ const BurgerConstructor: FC = () => {
   }));
 
   useEffect(() => {
-    //todo: remove total price from the redux and calculate it in the selector
+    //todo: [cleanup] remove total price from the redux and calculate it in the selector
     dispatch({
       type: SET_TOTAL_PRICE,
       totalPrice: ingredients.reduce((acc, currIng) => currIng.price + acc, 0),
@@ -50,6 +50,17 @@ const BurgerConstructor: FC = () => {
 
   const onDelete = (index: number) =>
     dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, index });
+
+  const onDrop = useCallback(
+    (dragIndex: number, destinationIndex: number) => {
+      dispatch({
+        type: MOVE_CONSTRUCTOR_INGREDIENT,
+        dragIndex,
+        destinationIndex,
+      });
+    },
+    [dispatch]
+  );
 
   return (
     <section className={styles.constructorWrapper} ref={drop}>
@@ -70,6 +81,7 @@ const BurgerConstructor: FC = () => {
                   key={ingredient.name + index}
                   index={index}
                   onDelete={() => onDelete(index)}
+                  onDrop={onDrop}
                 />
               ))
             : "Something went wrong, try to reload or pray 🙏"}

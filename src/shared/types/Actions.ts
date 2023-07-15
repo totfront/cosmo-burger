@@ -129,8 +129,8 @@ type RemoveConstructorIngredient = {
 
 type MoveConstructorIngredient = {
   type: typeof MOVE_CONSTRUCTOR_INGREDIENT;
-  currentIndex: number;
-  destinationIndex: number;
+  dragIndex: number;
+  hoverIndex: number;
 };
 
 export type ActionTypes =
