@@ -26,3 +26,7 @@
 .inner:not(:last-child) {
     margin-bottom: 16px;
 }
+
+.iconWrapper {
+    flex-shrink: 0;
+}

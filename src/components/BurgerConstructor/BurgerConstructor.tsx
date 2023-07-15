@@ -80,17 +80,10 @@ const BurgerConstructor: FC = () => {
     dispatch(submitOrder(ingredientsIds) as any);
   };
 
+  // TODO: make buns as a LI elements. Improve the ConstructorIngredient component to get needed props abd become more universal
   return (
     <section className={styles.constructorWrapper} ref={drop}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-          gap: "16px",
-        }}
-        className={`${styles.constructor}`}
-      >
+      <div className={`${styles.constructor}`}>
         {!error ? (
           <ul className={styles.ingredients}>
             {topBun && (

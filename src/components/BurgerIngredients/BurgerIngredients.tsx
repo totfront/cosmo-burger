@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import styles from "./burgerIngredients.module.css";
@@ -14,20 +14,31 @@ import { getIngredients } from "../../services/actions/ingredients";
 import Tabs from "../Tabs/Tabs";
 
 const BurgerIngredients: FC = () => {
+  const [currentTab, setCurrentTab] = useState("bun");
   const dispatch: any = useDispatch();
-  const { ref: innersTabRef, inView: isInnersTabVisible } = useInView();
-  const { ref: bunsTabRef, inView: isBunsTabVisible } = useInView();
-  const { ref: saucesTabRef, inView: isSaucesTabVisible } = useInView();
+  const { ref: innersTabRef, inView: areInnersVisible } = useInView();
+  const { ref: bunsTabRef, inView: areBunsVisible } = useInView();
+  const { ref: saucesTabRef, inView: areSaucesVisible } = useInView();
 
   const tabRefs: any = {
-    buns: { ref: bunsTabRef, isVisible: isBunsTabVisible },
-    inners: { ref: innersTabRef, isVisible: isInnersTabVisible },
-    sauces: { ref: saucesTabRef, isVisible: isSaucesTabVisible },
+    buns: bunsTabRef,
+    inners: innersTabRef,
+    sauces: saucesTabRef,
   };
 
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (areBunsVisible) {
+      setCurrentTab("bun");
+    } else if (areSaucesVisible) {
+      setCurrentTab("sauce");
+    } else if (areInnersVisible) {
+      setCurrentTab("main");
+    }
+  }, [areBunsVisible, areInnersVisible, areSaucesVisible]);
 
   const {
     ingredients: { tabs, ingredients },
@@ -53,13 +64,13 @@ const BurgerIngredients: FC = () => {
 
   return (
     <section className={`${styles.wrapper}`}>
-      <Tabs tabRefs={tabRefs} />
+      <Tabs currentTab={currentTab} />
       <ul id={"ingredients"} className={styles.ingredients}>
         {Object.entries(tabs).map(([tabKey, tabName], index) => (
           <li
             className={styles.ingredientsGroupWrapper}
             key={tabName + index}
-            ref={tabRefs[tabKey].ref}
+            ref={tabRefs[tabKey]}
           >
             <h3
               id={tabName}

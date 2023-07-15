@@ -27,7 +27,7 @@ const orderReducer = (state = initialState, action: ActionTypes) => {
     }
     case SUBMIT_ORDER_FAIL: {
       return {
-        ...state,
+        ...initialState,
         isRequest: false,
         isRequestFailed: true,
       };

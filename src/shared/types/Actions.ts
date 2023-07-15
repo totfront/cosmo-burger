@@ -1,8 +1,5 @@
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
-  GET_CONSTRUCTOR_INGREDIENTS_ERROR,
-  GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
-  GET_CONSTRUCTOR_INGREDIENTS_SUCCESS,
   MOVE_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   SET_TOTAL_PRICE,
@@ -75,24 +72,6 @@ type SelectSaucesTabAction = {
   type: typeof SELECT_SAUCES_TAB;
 };
 
-type GetConstructorIngredientsRequest = {
-  type: typeof GET_CONSTRUCTOR_INGREDIENTS_REQUEST;
-  isRequest: true;
-};
-
-type GetConstructorIngredientsError = {
-  type: typeof GET_CONSTRUCTOR_INGREDIENTS_ERROR;
-  isRequest: false;
-  isRequestFailed: true;
-};
-
-type GetConstructorIngredientsSuccess = {
-  type: typeof GET_CONSTRUCTOR_INGREDIENTS_SUCCESS;
-  ingredients: Ingredient[];
-  isRequest: false;
-  isRequestFailed: false;
-};
-
 type IncreaseTotalPrice = {
   type: typeof SET_TOTAL_PRICE;
   totalPrice: number;
@@ -155,10 +134,7 @@ export type ActionTypes =
   | SelectSaucesTabAction
   | ShowIngredientModal
   | HideIngredientModal
-  | GetConstructorIngredientsRequest
   | SetIngredientModal
-  | GetConstructorIngredientsError
   | IncreaseTotalPrice
   | SetConstructorIngredients
-  | GetConstructorIngredientsSuccess
   | AddConstructorIngredient;

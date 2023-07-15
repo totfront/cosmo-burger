@@ -101,7 +101,7 @@ const ConstructorIngredient: FC<Props> = ({
       className={`${styles.ingredient} ${styles[type]}`}
     >
       {type !== "bun" && (
-        <div style={{ flexShrink: 0 }}>
+        <div className={styles.iconWrapper}>
           <DragIcon type="primary" />
         </div>
       )}

@@ -42,7 +42,7 @@ export const ingredientsReducer = (
     }
     case GET_INGREDIENTS_ERROR: {
       return {
-        ...state,
+        ...initialState,
         isRequested: false,
         isRequestFailed: false,
       };
