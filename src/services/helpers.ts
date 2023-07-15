@@ -1,7 +1,33 @@
+import { Ingredient } from "../shared/types/Ingredient";
+import { SortedIngredients } from "../shared/types/SortedIngredients";
+
 const tabNameConverter = (name: string) => {
   if (name === "Булки") return "buns";
   if (name === "Соусы") return "souses";
   return "inners";
+};
+
+const sortIngredients = (
+  database: Ingredient[] & { counter?: number }
+): SortedIngredients => {
+  const result: SortedIngredients = {
+    buns: [],
+    sauces: [],
+    inners: [],
+  };
+
+  for (let i = 0; i < database.length; i++) {
+    const itemName: string = database[i].name;
+    if (itemName.includes("булка")) {
+      result.buns.push(database[i]);
+    } else if (itemName.includes("Соус")) {
+      result.sauces.push(database[i]);
+    } else {
+      result.inners.push(database[i]);
+    }
+  }
+
+  return result;
 };
 
 const searchMenuItems = (searchStrings: string | string[], database: any[]) => {
@@ -35,4 +61,4 @@ const searchMenuItems = (searchStrings: string | string[], database: any[]) => {
   return result;
 };
 
-export { searchMenuItems, tabNameConverter };
+export { searchMenuItems, tabNameConverter, sortIngredients };

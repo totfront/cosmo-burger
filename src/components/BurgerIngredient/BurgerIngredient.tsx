@@ -1,6 +1,9 @@
 import styles from "./burgerIngredient.module.css";
 import { FC } from "react";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Counter,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import {
   SET_MODAL_INGREDIENT,
@@ -9,12 +12,12 @@ import {
 import { Ingredient } from "../../shared/types/Ingredient";
 import { useDrag } from "react-dnd";
 
-interface Props {
+type Props = {
   ingredient: Ingredient;
-}
+};
 
 const BurgerIngredient: FC<Props> = ({ ingredient }) => {
-  const { name, price, image } = ingredient;
+  const { name, price, image, counter } = ingredient;
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "ingredient",
     item: ingredient,
@@ -24,11 +27,11 @@ const BurgerIngredient: FC<Props> = ({ ingredient }) => {
 
   const handleOnclick = () => {
     dispatch({
-      type: SHOW_INGREDIENT_MODAL,
-    });
-    dispatch({
       type: SET_MODAL_INGREDIENT,
       ingredient,
+    });
+    dispatch({
+      type: SHOW_INGREDIENT_MODAL,
     });
   };
 
@@ -50,6 +53,7 @@ const BurgerIngredient: FC<Props> = ({ ingredient }) => {
           <CurrencyIcon type="primary" />
         </div>
         <span className={"text text_type_main-default"}>{name}</span>
+        {counter && <Counter count={counter} />}
       </button>
     </>
   );

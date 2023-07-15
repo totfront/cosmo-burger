@@ -1,7 +1,7 @@
 import { Ingredient } from "./Ingredient";
 
 export type SortedIngredients = {
-  buns: Ingredient[];
-  sauces: Ingredient[];
-  inners: Ingredient[];
+  buns: Ingredient[] & { count?: number };
+  sauces: Ingredient[] & { count?: number };
+  inners: Ingredient[] & { count?: number };
 };

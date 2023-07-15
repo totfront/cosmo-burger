@@ -1,34 +1,12 @@
 import { Dispatch } from "react";
-import { Ingredient } from "../../shared/types/Ingredient";
 import { fetchData } from "../burgerApi";
-import { SortedIngredients } from "../../shared/types/SortedIngredients";
 import { ActionTypes } from "../../shared/types/Actions";
+import { sortIngredients } from "../helpers";
 
 // ingredient items request actions:
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
-export const GET_INGREDIENTS_FAIL = "GET_INGREDIENTS_FAIL";
-
-const sortIngredients = (database: Ingredient[]): SortedIngredients => {
-  const result: SortedIngredients = {
-    buns: [],
-    sauces: [],
-    inners: [],
-  };
-
-  for (let i = 0; i < database.length; i++) {
-    const itemName: string = database[i].name;
-    if (itemName.includes("булка")) {
-      result.buns.push(database[i]);
-    } else if (itemName.includes("Соус")) {
-      result.sauces.push(database[i]);
-    } else {
-      result.inners.push(database[i]);
-    }
-  }
-
-  return result;
-};
+export const GET_INGREDIENTS_ERROR = "GET_INGREDIENTS_ERROR";
 
 export const getIngredients = () => (dispatch: Dispatch<ActionTypes>) => {
   dispatch({
@@ -45,7 +23,7 @@ export const getIngredients = () => (dispatch: Dispatch<ActionTypes>) => {
     .catch((error) => {
       console.error(`Ingredients request failed with error: ${error}`);
       dispatch({
-        type: GET_INGREDIENTS_FAIL,
+        type: GET_INGREDIENTS_ERROR,
         error,
       });
     });
@@ -71,3 +49,7 @@ export const switchTabActionCreator = (tabKey: string) => {
   }
   return result;
 };
+
+// counter actions:
+export const INCREASE_INGREDIENTS_COUNTER = "INCREASE_INGREDIENTS_COUNTER";
+export const DECREASE_INGREDIENTS_COUNTER = "SET_DRAGGING_INGREDIENT";

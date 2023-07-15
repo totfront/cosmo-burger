@@ -2,7 +2,7 @@ import { ActionTypes } from "../../shared/types/Actions";
 import { Ingredient } from "../../shared/types/Ingredient";
 import {
   GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
-  GET_CONSTRUCTOR_INGREDIENTS_FAIL,
+  GET_CONSTRUCTOR_INGREDIENTS_ERROR,
   GET_CONSTRUCTOR_INGREDIENTS_SUCCESS,
   SET_TOTAL_PRICE,
   SET_CONSTRUCTOR_INGREDIENTS,
@@ -40,7 +40,7 @@ export const constructorReducer = (
         isRequest: true,
       };
     }
-    case GET_CONSTRUCTOR_INGREDIENTS_FAIL: {
+    case GET_CONSTRUCTOR_INGREDIENTS_ERROR: {
       return {
         ...state,
         isRequest: false,

@@ -1,4 +1,3 @@
-//  todo: make a counter for used ingredients
 import { FC, useCallback, useEffect, useState } from "react";
 import {
   Button,
@@ -19,6 +18,10 @@ import { useDrop } from "react-dnd";
 import { Ingredient } from "../../shared/types/Ingredient";
 import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredient";
 import { submitOrder } from "../../services/actions/order";
+import {
+  DECREASE_INGREDIENTS_COUNTER,
+  INCREASE_INGREDIENTS_COUNTER,
+} from "../../services/actions/ingredients";
 
 const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -39,6 +42,10 @@ const BurgerConstructor: FC = () => {
         type: ADD_CONSTRUCTOR_INGREDIENT,
         ingredient,
       });
+      dispatch({
+        type: INCREASE_INGREDIENTS_COUNTER,
+        id: ingredient._id,
+      });
     },
     collect: (monitor) => ({ isOver: !!monitor.isOver() }),
   }));
@@ -50,8 +57,10 @@ const BurgerConstructor: FC = () => {
     });
   }, [ingredients, dispatch]);
 
-  const onDelete = (index: number) =>
+  const onDelete = (index: number, id: string) => {
+    dispatch({ type: DECREASE_INGREDIENTS_COUNTER, id });
     dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, index });
+  };
 
   const onDrop = useCallback(
     (dragIndex: number, hoverIndex: number) => {
@@ -103,8 +112,10 @@ const BurgerConstructor: FC = () => {
                         ingredient={ingredient}
                         key={ingredient.name + index}
                         index={index}
-                        onDelete={() => onDelete(index)}
-                        onDrop={onDrop}
+                        onDelete={() => onDelete(index, ingredient._id)}
+                        onDrop={(dragIndex, hoverIndex) => {
+                          onDrop(dragIndex, hoverIndex);
+                        }}
                       />
                     )
                 )

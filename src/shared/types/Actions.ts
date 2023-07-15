@@ -1,6 +1,6 @@
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
-  GET_CONSTRUCTOR_INGREDIENTS_FAIL,
+  GET_CONSTRUCTOR_INGREDIENTS_ERROR,
   GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
   GET_CONSTRUCTOR_INGREDIENTS_SUCCESS,
   MOVE_CONSTRUCTOR_INGREDIENT,
@@ -13,12 +13,14 @@ import {
   SHOW_INGREDIENT_MODAL,
 } from "../../services/actions/ingredientModal";
 import {
-  GET_INGREDIENTS_FAIL,
+  GET_INGREDIENTS_ERROR,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   SELECT_BUNS_TAB,
   SELECT_INNERS_TAB,
   SELECT_SAUCES_TAB,
+  INCREASE_INGREDIENTS_COUNTER,
+  DECREASE_INGREDIENTS_COUNTER,
 } from "../../services/actions/ingredients";
 import {
   SUBMIT_ORDER_FAIL,
@@ -51,8 +53,13 @@ type GetIngredientsSuccessAction = {
   ingredients: SortedIngredients;
 };
 
-type GetIngredientsFailAction = {
-  type: typeof GET_INGREDIENTS_FAIL;
+type IncreaseIngredientCounter = {
+  type: typeof INCREASE_INGREDIENTS_COUNTER;
+  id: string;
+};
+
+type GetIngredientsError = {
+  type: typeof GET_INGREDIENTS_ERROR;
   error: Error;
 };
 
@@ -73,8 +80,8 @@ type GetConstructorIngredientsRequest = {
   isRequest: true;
 };
 
-type GetConstructorIngredientsFail = {
-  type: typeof GET_CONSTRUCTOR_INGREDIENTS_FAIL;
+type GetConstructorIngredientsError = {
+  type: typeof GET_CONSTRUCTOR_INGREDIENTS_ERROR;
   isRequest: false;
   isRequestFailed: true;
 };
@@ -127,7 +134,14 @@ type SubmitOrderSuccess = {
   name: string;
 };
 
+type DecreaseDraggingCounter = {
+  type: typeof DECREASE_INGREDIENTS_COUNTER;
+  id: string;
+};
+
 export type ActionTypes =
+  | DecreaseDraggingCounter
+  | IncreaseIngredientCounter
   | SubmitOrderRequest
   | SubmitOrderFail
   | SubmitOrderSuccess
@@ -135,7 +149,7 @@ export type ActionTypes =
   | RemoveConstructorIngredient
   | GetIngredientsRequestAction
   | GetIngredientsSuccessAction
-  | GetIngredientsFailAction
+  | GetIngredientsError
   | SelectBunsTabAction
   | SelectInnersTabAction
   | SelectSaucesTabAction
@@ -143,7 +157,7 @@ export type ActionTypes =
   | HideIngredientModal
   | GetConstructorIngredientsRequest
   | SetIngredientModal
-  | GetConstructorIngredientsFail
+  | GetConstructorIngredientsError
   | IncreaseTotalPrice
   | SetConstructorIngredients
   | GetConstructorIngredientsSuccess

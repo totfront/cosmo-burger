@@ -1,18 +1,19 @@
 import { ActionTypes } from "../../shared/types/Actions";
+import { Ingredients } from "../../shared/types/Ingredients";
 import {
-  GET_INGREDIENTS_FAIL,
+  DECREASE_INGREDIENTS_COUNTER,
+  GET_INGREDIENTS_ERROR,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
-  SELECT_BUNS_TAB,
-  SELECT_INNERS_TAB,
-  SELECT_SAUCES_TAB,
+  INCREASE_INGREDIENTS_COUNTER,
 } from "../actions/ingredients";
+import { sortIngredients } from "../helpers";
 
 const buns = "Булки";
 const sauces = "Соусы";
 const inners = "Начинки";
 
-const initialState = {
+const initialState: Ingredients = {
   tabs: {
     buns,
     sauces,
@@ -23,7 +24,6 @@ const initialState = {
     sauces: [],
     inners: [],
   },
-  currentTab: buns,
   isRequested: false,
   isRequestFailed: false,
   error: null,
@@ -37,13 +37,13 @@ export const ingredientsReducer = (
     case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
-        isRequest: true,
+        isRequested: true,
       };
     }
-    case GET_INGREDIENTS_FAIL: {
+    case GET_INGREDIENTS_ERROR: {
       return {
         ...state,
-        isRequest: false,
+        isRequested: false,
         isRequestFailed: false,
       };
     }
@@ -55,25 +55,51 @@ export const ingredientsReducer = (
         ingredients: action.ingredients,
       };
     }
-    case SELECT_BUNS_TAB: {
-      return {
-        ...state,
-        currentTab: buns,
-      };
-    }
-    case SELECT_INNERS_TAB: {
-      return {
-        ...state,
-        currentTab: inners,
-      };
-    }
-    case SELECT_SAUCES_TAB: {
-      return {
-        ...state,
-        currentTab: sauces,
-      };
-    }
+    case INCREASE_INGREDIENTS_COUNTER: {
+      const ingredients = [
+        ...state.ingredients.buns,
+        ...state.ingredients.inners,
+        ...state.ingredients.sauces,
+      ];
 
+      const ingredientsWithCounters = ingredients.map((ingredient) => {
+        const { _id, counter, type } = ingredient;
+        if (_id !== action.id) return ingredient;
+        if (counter && counter > 0 && type === "bun") return ingredient;
+        return {
+          ...ingredient,
+          counter: counter ? counter + 1 : 1,
+        };
+      });
+
+      const newIngredients = sortIngredients(ingredientsWithCounters);
+      return {
+        ...state,
+        ingredients: { ...newIngredients },
+      };
+    }
+    case DECREASE_INGREDIENTS_COUNTER: {
+      const ingredients = [
+        ...state.ingredients.buns,
+        ...state.ingredients.inners,
+        ...state.ingredients.sauces,
+      ];
+
+      const ingredientsWithCounters = ingredients.map((ingredient) => {
+        const { _id, counter } = ingredient;
+        if (_id !== action.id) return ingredient;
+        return {
+          ...ingredient,
+          counter: counter ? counter - 1 : 0,
+        };
+      });
+      const newIngredients = sortIngredients(ingredientsWithCounters);
+
+      return {
+        ...state,
+        ingredients: { ...newIngredients },
+      };
+    }
     default: {
       return state;
     }

@@ -10,5 +10,6 @@ export type Ingredient = {
   image: string;
   image_mobile: string;
   image_large: string;
+  counter?: number;
   __v: number;
 };
