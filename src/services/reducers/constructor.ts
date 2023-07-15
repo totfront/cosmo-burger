@@ -1,9 +1,6 @@
 import { ActionTypes } from "../../shared/types/Actions";
 import { Ingredient } from "../../shared/types/Ingredient";
 import {
-  GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
-  GET_CONSTRUCTOR_INGREDIENTS_ERROR,
-  GET_CONSTRUCTOR_INGREDIENTS_SUCCESS,
   SET_TOTAL_PRICE,
   SET_CONSTRUCTOR_INGREDIENTS,
   ADD_CONSTRUCTOR_INGREDIENT,
@@ -34,27 +31,6 @@ export const constructorReducer = (
   action: ActionTypes
 ) => {
   switch (action.type) {
-    case GET_CONSTRUCTOR_INGREDIENTS_REQUEST: {
-      return {
-        ...state,
-        isRequest: true,
-      };
-    }
-    case GET_CONSTRUCTOR_INGREDIENTS_ERROR: {
-      return {
-        ...state,
-        isRequest: false,
-        isRequestFailed: true,
-      };
-    }
-    case GET_CONSTRUCTOR_INGREDIENTS_SUCCESS: {
-      return {
-        ...state,
-        details: action.ingredients,
-        isRequest: false,
-        isRequestFailed: false,
-      };
-    }
     case SET_TOTAL_PRICE: {
       return {
         ...state,

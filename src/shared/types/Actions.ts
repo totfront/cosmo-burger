@@ -7,7 +7,6 @@ import {
 import {
   HIDE_INGREDIENT_MODAL,
   SET_MODAL_INGREDIENT,
-  SHOW_INGREDIENT_MODAL,
 } from "../../services/actions/ingredientModal";
 import {
   GET_INGREDIENTS_ERROR,
@@ -27,10 +26,6 @@ import {
 import { Ingredient } from "./Ingredient";
 import { SortedIngredients } from "./SortedIngredients";
 import { SET_CONSTRUCTOR_INGREDIENTS } from "../../services/actions/constructor";
-
-type ShowIngredientModal = {
-  type: typeof SHOW_INGREDIENT_MODAL;
-};
 
 type HideIngredientModal = {
   type: typeof HIDE_INGREDIENT_MODAL;
@@ -132,7 +127,6 @@ export type ActionTypes =
   | SelectBunsTabAction
   | SelectInnersTabAction
   | SelectSaucesTabAction
-  | ShowIngredientModal
   | HideIngredientModal
   | SetIngredientModal
   | IncreaseTotalPrice

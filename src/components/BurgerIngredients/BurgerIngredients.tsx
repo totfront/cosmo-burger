@@ -6,10 +6,7 @@ import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
-import {
-  HIDE_INGREDIENT_MODAL,
-  SHOW_INGREDIENT_MODAL,
-} from "../../services/actions/ingredientModal";
+import { HIDE_INGREDIENT_MODAL } from "../../services/actions/ingredientModal";
 import { getIngredients } from "../../services/actions/ingredients";
 import Tabs from "../Tabs/Tabs";
 
@@ -91,9 +88,7 @@ const BurgerIngredients: FC = () => {
         <IngredientDetails
           onClose={() =>
             dispatch({
-              type: isModalShown
-                ? HIDE_INGREDIENT_MODAL
-                : SHOW_INGREDIENT_MODAL,
+              type: HIDE_INGREDIENT_MODAL,
             })
           }
         />

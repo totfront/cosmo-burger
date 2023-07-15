@@ -3,7 +3,6 @@ import { IngredientModal } from "../../shared/types/IngredientModal";
 import {
   HIDE_INGREDIENT_MODAL,
   SET_MODAL_INGREDIENT,
-  SHOW_INGREDIENT_MODAL,
 } from "../actions/ingredientModal";
 
 const initialState: IngredientModal = {
@@ -33,11 +32,6 @@ export const ingredientModalReducer = (
       return {
         ...state,
         selectedIngredient: action.ingredient,
-      };
-    }
-    case SHOW_INGREDIENT_MODAL: {
-      return {
-        ...state,
         isModalShown: true,
       };
     }
