@@ -8,5 +8,5 @@ export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   orderConstructor: constructorReducer,
   ingredientModal: ingredientModalReducer,
-  order: orderReducer,
+  orderDetails: orderReducer,
 });

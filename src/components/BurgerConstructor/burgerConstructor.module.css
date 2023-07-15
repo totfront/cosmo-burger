@@ -17,39 +17,14 @@
 .ingredients {
     padding: 0;
     margin: 0;
-    overflow-y: scroll;
     display: grid;
     gap: 16px;
-    min-width: 464px;
+    min-width: 464px;   
 }
 
-.ingredient {
-    padding: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.bun {
-    position: sticky;
-
-    > * {
-        margin-left: auto;
-    }
-
-    &:first-child {
-        top: 0
-    };
-    &:last-child {
-        bottom: 0
-    }
-}
-
-
-
-.inner:not(:last-child) {
-    margin-bottom: 16px;
+.innersAndSauces {
+    max-height: calc(868px - 190px);
+    overflow-y: auto;
 }
 
 .price {

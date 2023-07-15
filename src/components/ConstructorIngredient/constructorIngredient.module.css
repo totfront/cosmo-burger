@@ -1,0 +1,28 @@
+
+.ingredient {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: move;
+}
+
+.bun {
+    position: sticky;
+
+    > * {
+        margin-left: auto;
+    }
+
+    &:first-child {
+        top: 0
+    };
+    &:last-child {
+        bottom: 0
+    }
+}
+
+.inner:not(:last-child) {
+    margin-bottom: 16px;
+}

@@ -2,7 +2,7 @@
 import type { Identifier, XYCoord } from "dnd-core";
 import { FC, useRef } from "react";
 import { Ingredient } from "../../shared/types/Ingredient";
-import styles from "../BurgerConstructor/burgerConstructor.module.css";
+import styles from "./constructorIngredient.module.css";
 import {
   ConstructorElement,
   DragIcon,
@@ -76,7 +76,6 @@ const ConstructorIngredient: FC<Props> = ({
 
       // Perform the action
       onDrop(dragIndex, hoverIndex);
-      console.log({ dragIndex, hoverIndex });
 
       // Note: we're mutating the monitor item here!
       item.index = hoverIndex;
@@ -93,12 +92,14 @@ const ConstructorIngredient: FC<Props> = ({
     }),
   });
 
-  // todo: optional improvement
-  // const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
 
   return (
-    <li ref={ref} className={`${styles.ingredient} ${styles[type]}`}>
+    <li
+      ref={ref}
+      style={{ opacity: isDragging ? 0 : 1 }}
+      className={`${styles.ingredient} ${styles[type]}`}
+    >
       {type !== "bun" && (
         <div style={{ flexShrink: 0 }}>
           <DragIcon type="primary" />

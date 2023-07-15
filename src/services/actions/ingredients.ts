@@ -9,12 +9,6 @@ export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_FAIL = "GET_INGREDIENTS_FAIL";
 
-const checkResponse = (res: Response) => {
-  return res.ok
-    ? res.json()
-    : res.json().then((err: Error) => Promise.reject(err));
-};
-
 const sortIngredients = (database: Ingredient[]): SortedIngredients => {
   const result: SortedIngredients = {
     buns: [],
@@ -41,7 +35,6 @@ export const getIngredients = () => (dispatch: Dispatch<ActionTypes>) => {
     type: GET_INGREDIENTS_REQUEST,
   });
   fetchData()
-    .then((res) => checkResponse(res))
     .then(({ data }) => {
       const sortedIngredients = sortIngredients(data);
       dispatch({

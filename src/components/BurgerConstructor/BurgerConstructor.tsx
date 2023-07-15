@@ -1,7 +1,4 @@
-//  todo: enable drag&drop opportunity to sort inners and sauces inside of the constructor
-//  todo: lock buns from drag&drop inside
 //  todo: make a counter for used ingredients
-
 import { FC, useCallback, useEffect, useState } from "react";
 import {
   Button,
@@ -21,14 +18,17 @@ import {
 import { useDrop } from "react-dnd";
 import { Ingredient } from "../../shared/types/Ingredient";
 import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredient";
+import { submitOrder } from "../../services/actions/order";
 
 const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const { ingredients, totalPrice, error } = useSelector(
     (store: Store) => store.orderConstructor
   );
-  const topBun = ingredients[0];
-  const bottomBun = ingredients[ingredients.length - 1];
+
+  const buns = ingredients.filter((i) => i.type === "bun");
+  const topBun = buns[0];
+  const bottomBun = buns[1];
 
   const [isModalShown, setIsModalShown] = useState(false);
 
@@ -44,7 +44,6 @@ const BurgerConstructor: FC = () => {
   }));
 
   useEffect(() => {
-    // todo: [cleanup] remove total price from the redux and calculate it in the selector
     dispatch({
       type: SET_TOTAL_PRICE,
       totalPrice: ingredients.reduce((acc, currIng) => currIng.price + acc, 0),
@@ -55,15 +54,22 @@ const BurgerConstructor: FC = () => {
     dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, index });
 
   const onDrop = useCallback(
-    (dragIndex: number, destinationIndex: number) => {
+    (dragIndex: number, hoverIndex: number) => {
       dispatch({
         type: MOVE_CONSTRUCTOR_INGREDIENT,
         dragIndex,
-        destinationIndex,
+        hoverIndex,
       });
     },
     [dispatch]
   );
+
+  const onClick = (e: any) => {
+    e.preventDefault();
+    setIsModalShown(true);
+    const ingredientsIds = ingredients.map((i) => i._id);
+    dispatch(submitOrder(ingredientsIds) as any);
+  };
 
   return (
     <section className={styles.constructorWrapper} ref={drop}>
@@ -76,23 +82,23 @@ const BurgerConstructor: FC = () => {
         }}
         className={`${styles.constructor}`}
       >
-        <ul className={styles.ingredients}>
-          {!error ? (
-            <>
-              {topBun && (
-                <ConstructorElement
-                  extraClass="ml-2"
-                  text={topBun.name}
-                  price={topBun.price}
-                  thumbnail={topBun.image}
-                  type="top"
-                  isLocked
-                />
-              )}
+        {!error ? (
+          <ul className={styles.ingredients}>
+            {topBun && (
+              <ConstructorElement
+                extraClass="ml-2"
+                text={topBun.name}
+                price={topBun.price}
+                thumbnail={topBun.image}
+                type="top"
+                isLocked
+              />
+            )}
+            <ul className={`${styles.ingredients} ${styles.innersAndSauces}`}>
               {ingredients
-                .map((ingredient, index) => {
-                  if (ingredient.type !== "bun") {
-                    return (
+                .map(
+                  (ingredient, index) =>
+                    ingredient.type !== "bun" && (
                       <ConstructorIngredient
                         ingredient={ingredient}
                         key={ingredient.name + index}
@@ -100,36 +106,30 @@ const BurgerConstructor: FC = () => {
                         onDelete={() => onDelete(index)}
                         onDrop={onDrop}
                       />
-                    );
-                  }
-                })
+                    )
+                )
                 .filter(Boolean)}
-              {bottomBun && (
-                <ConstructorElement
-                  extraClass="ml-2"
-                  text={bottomBun.name}
-                  price={bottomBun.price}
-                  thumbnail={bottomBun.image}
-                  type="bottom"
-                  isLocked
-                />
-              )}
-            </>
-          ) : (
-            "Something went wrong, try to reload or pray 🙏"
-          )}
-        </ul>
+            </ul>
+            {bottomBun && (
+              <ConstructorElement
+                extraClass="ml-2"
+                text={bottomBun.name}
+                price={bottomBun.price}
+                thumbnail={bottomBun.image}
+                type="bottom"
+                isLocked
+              />
+            )}
+          </ul>
+        ) : (
+          "Something went wrong, reload or pray 🙏"
+        )}
       </div>
       <span className={styles.price}>
         <span className="mr-2 text text_type_digits-medium">{totalPrice}</span>
         <CurrencyIcon type="primary" />
       </span>
-      <Button
-        onClick={() => setIsModalShown(true)}
-        htmlType="button"
-        type="primary"
-        size="large"
-      >
+      <Button onClick={onClick} htmlType="button" type="primary" size="large">
         Оформить заказ
       </Button>
       {isModalShown && <OrderDetails onClose={() => setIsModalShown(false)} />}

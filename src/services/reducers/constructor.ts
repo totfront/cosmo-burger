@@ -1,6 +1,5 @@
 import { ActionTypes } from "../../shared/types/Actions";
 import { Ingredient } from "../../shared/types/Ingredient";
-import update from "immutability-helper";
 import {
   GET_CONSTRUCTOR_INGREDIENTS_REQUEST,
   GET_CONSTRUCTOR_INGREDIENTS_FAIL,

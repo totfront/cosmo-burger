@@ -37,7 +37,7 @@ const BurgerIngredient: FC<Props> = ({ ingredient }) => {
       <button
         onClick={handleOnclick}
         className={`${styles.ingredient} mb-6`}
-        style={{ border: isDragging ? "3px red solid" : "" }}
+        style={{ opacity: isDragging ? 0 : 1 }}
         ref={drag}
       >
         <img className="mb-2" src={image} alt={name} />

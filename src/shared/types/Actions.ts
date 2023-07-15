@@ -21,11 +21,10 @@ import {
   SELECT_SAUCES_TAB,
 } from "../../services/actions/ingredients";
 import {
-  GET_ORDER_FAIL,
-  GET_ORDER_REQUEST,
-  GET_ORDER_SUCCESS,
+  SUBMIT_ORDER_FAIL,
+  SUBMIT_ORDER_REQUEST,
+  SUBMIT_ORDER_SUCCESS,
 } from "../../services/actions/order";
-import { OrderState } from "../../services/reducers/orderModal";
 import { Ingredient } from "./Ingredient";
 import { SortedIngredients } from "./SortedIngredients";
 import { SET_CONSTRUCTOR_INGREDIENTS } from "../../services/actions/constructor";
@@ -87,26 +86,6 @@ type GetConstructorIngredientsSuccess = {
   isRequestFailed: false;
 };
 
-type GetOrderRequest = {
-  type: typeof GET_ORDER_REQUEST;
-  order: OrderState;
-  isRequest: true;
-};
-
-type GetOrderFail = {
-  type: typeof GET_ORDER_FAIL;
-  order: OrderState;
-  isRequest: false;
-  isRequestFailed: true;
-};
-
-type GetOrderSuccess = {
-  type: typeof GET_ORDER_SUCCESS;
-  isRequest: false;
-  isRequestFailed: false;
-  details: OrderState;
-};
-
 type IncreaseTotalPrice = {
   type: typeof SET_TOTAL_PRICE;
   totalPrice: number;
@@ -133,7 +112,25 @@ type MoveConstructorIngredient = {
   hoverIndex: number;
 };
 
+type SubmitOrderRequest = {
+  type: typeof SUBMIT_ORDER_REQUEST;
+};
+
+type SubmitOrderFail = {
+  type: typeof SUBMIT_ORDER_FAIL;
+  error: Error;
+};
+
+type SubmitOrderSuccess = {
+  type: typeof SUBMIT_ORDER_SUCCESS;
+  id: number;
+  name: string;
+};
+
 export type ActionTypes =
+  | SubmitOrderRequest
+  | SubmitOrderFail
+  | SubmitOrderSuccess
   | MoveConstructorIngredient
   | RemoveConstructorIngredient
   | GetIngredientsRequestAction
@@ -146,9 +143,6 @@ export type ActionTypes =
   | HideIngredientModal
   | GetConstructorIngredientsRequest
   | SetIngredientModal
-  | GetOrderRequest
-  | GetOrderFail
-  | GetOrderSuccess
   | GetConstructorIngredientsFail
   | IncreaseTotalPrice
   | SetConstructorIngredients
