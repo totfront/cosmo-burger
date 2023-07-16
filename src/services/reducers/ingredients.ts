@@ -1,4 +1,5 @@
 import { ActionTypes } from "../../shared/types/Actions";
+import { Ingredient } from "../../shared/types/Ingredient";
 import { Ingredients } from "../../shared/types/Ingredients";
 import {
   DECREASE_INGREDIENTS_COUNTER,
@@ -65,6 +66,7 @@ export const ingredientsReducer = (
       const ingredientsWithCounters = ingredients.map((ingredient) => {
         const { _id, counter, type } = ingredient;
         if (_id !== action.id) return ingredient;
+        // prevents counter update if there is already a pair of same buns
         if (counter && counter > 0 && type === "bun") return ingredient;
         return {
           ...ingredient,
@@ -72,7 +74,29 @@ export const ingredientsReducer = (
         };
       });
 
-      const newIngredients = sortIngredients(ingredientsWithCounters);
+      const checkIfTwoBunsHaveCounters = (ingredients: Ingredient[]) => {
+        const allBuns = ingredientsWithCounters.filter((i) => i.type === "bun");
+        if (
+          allBuns[0].counter &&
+          allBuns[0].counter > 0 &&
+          allBuns[1].counter &&
+          allBuns[1].counter > 0
+        )
+          return ingredientsWithCounters.map((i) => {
+            if (i.type !== "bun") return i;
+            if (i.counter && i.counter > 0 && i._id !== action.id) {
+              return {
+                ...i,
+                counter: 0,
+              };
+            }
+            return i;
+          });
+        return ingredientsWithCounters;
+      };
+      const newIngredients = sortIngredients(
+        checkIfTwoBunsHaveCounters(ingredientsWithCounters)
+      );
       return {
         ...state,
         ingredients: { ...newIngredients },
