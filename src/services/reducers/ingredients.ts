@@ -76,6 +76,7 @@ export const ingredientsReducer = (
 
       const checkIfTwoBunsHaveCounters = (ingredients: Ingredient[]) => {
         const allBuns = ingredientsWithCounters.filter((i) => i.type === "bun");
+        // todo: cleanup the case if there are more than 2 buns
         if (
           allBuns[0].counter &&
           allBuns[0].counter > 0 &&
