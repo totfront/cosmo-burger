@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../../shared/types/Store";
 import { HIDE_INGREDIENT_MODAL } from "../../services/actions/ingredientModal";
 import Tabs from "../Tabs/Tabs";
+import { getIngredients } from "../../services/actions/ingredients";
 
 const BurgerIngredients: FC = () => {
   const [currentTab, setCurrentTab] = useState("bun");
@@ -23,7 +24,7 @@ const BurgerIngredients: FC = () => {
   };
 
   useEffect(() => {
-    dispatch();
+    dispatch(getIngredients());
   }, [dispatch]);
 
   useEffect(() => {
