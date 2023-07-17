@@ -3,33 +3,32 @@
     grid-template-columns: auto 215px;
     grid-template-rows: max-content max-content;
     gap: 40px;
+    @media (max-width: 1280px) {
+        grid-column: 1/3;
+        justify-self: center;
+        max-width: 850px;
+    }
 }
 
 .constructor {
     grid-column: 1/3;
+    display: flex;
+    flex-direction: column;
+    align-items: "flex-end";
+    gap: "16px";
 }
 
-.bun {
-    max-height: 80px;
-}
-
-.inners {
+.ingredients {
     padding: 0;
     margin: 0;
-    max-height: 464px;
-    overflow-y: scroll;
-}
-
-.inner {
-    padding: 0;
-    list-style: none;
     display: grid;
-    grid-template-columns: auto 100%;
-    align-items: center;
+    gap: 16px;
+    min-width: 464px;   
 }
 
-.inner:not(:last-child) {
-    margin-bottom: 16px;
+.innersAndSauces {
+    max-height: calc(868px - 190px);
+    overflow-y: auto;
 }
 
 .price {

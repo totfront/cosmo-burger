@@ -1,7 +1,33 @@
+import { Ingredient } from "../shared/types/Ingredient";
+import { SortedIngredients } from "../shared/types/SortedIngredients";
+
 const tabNameConverter = (name: string) => {
   if (name === "Булки") return "buns";
   if (name === "Соусы") return "souses";
   return "inners";
+};
+
+const sortIngredients = (
+  database: Ingredient[] & { counter?: number }
+): SortedIngredients => {
+  const result: SortedIngredients = {
+    buns: [],
+    sauces: [],
+    inners: [],
+  };
+
+  for (let i = 0; i < database.length; i++) {
+    const itemName: string = database[i].name;
+    if (itemName.includes("булка")) {
+      result.buns.push(database[i]);
+    } else if (itemName.includes("Соус")) {
+      result.sauces.push(database[i]);
+    } else {
+      result.inners.push(database[i]);
+    }
+  }
+
+  return result;
 };
 
 const searchMenuItems = (searchStrings: string | string[], database: any[]) => {
@@ -35,15 +61,4 @@ const searchMenuItems = (searchStrings: string | string[], database: any[]) => {
   return result;
 };
 
-const getErrorMessage = (error: unknown) => {
-  if (error instanceof Error) return error.message;
-  return String(error);
-};
-
-const checkResponse = (res: any) => {
-  return res.ok
-    ? res.json()
-    : res.json().then((err: Error) => Promise.reject(err));
-};
-
-export { searchMenuItems, getErrorMessage, tabNameConverter, checkResponse };
+export { searchMenuItems, tabNameConverter, sortIngredients };
