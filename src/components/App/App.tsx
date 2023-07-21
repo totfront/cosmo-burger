@@ -1,31 +1,25 @@
 import styles from "./App.module.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignInPage from "../../pages/SignInPage/SignInPage";
+import ConstructorPage from "../../pages/ConstructorPage/ConstructorPage";
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { Store } from "../../shared/types/Store";
-import { useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import LoginPage from "../../pages/SignInPage/LoginPage";
+import ForgotPasswordPage from "../../pages/SignInPage/ForgotPasswordPage";
+import ResetPasswordPage from "../../pages/SignInPage/ResetPasswordPage";
 
 function App() {
-  const { error } = useSelector((store: Store) => store.ingredients);
-
   return (
     <div className={styles.app}>
       <AppHeader />
-      <main className={`${styles.main} mt-10 mb-10`}>
-        <h2 className={`${styles.heading} text_type_main-large mb-5`}>
-          Соберите бургер
-        </h2>
-        {!error ? (
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        ) : (
-          <>'Что-то пошло не так, перезагрузите страницу</>
-        )}
-      </main>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ConstructorPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
