@@ -17,14 +17,14 @@ const LoginPage = () => (
         name={"email"}
         isIcon={false}
         placeholder="E-mail"
-      ></EmailInput>
+      />
       <PasswordInput
         extraClass={styles.inputPassword}
         onChange={() => {}}
         value={"dynamicValue"}
         name={"email"}
         placeholder="Пароль"
-      ></PasswordInput>
+      />
       <Button
         extraClass={styles.submit}
         htmlType="submit"

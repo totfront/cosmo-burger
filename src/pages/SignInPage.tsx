@@ -7,7 +7,7 @@ import {
 import { Link } from "react-router-dom";
 import styles from "./common.module.css";
 import { Dispatch, SetStateAction, SyntheticEvent, useState } from "react";
-import { registerUser } from "../../services/apis/authorizationApi";
+import { registerUser } from "../services/apis/authorizationApi";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -50,7 +50,7 @@ const SignInPage = () => {
           name={email}
           isIcon={false}
           placeholder="E-mail"
-        ></EmailInput>
+        />
         <PasswordInput
           extraClass={styles.inputPassword}
           onChange={({ target: { value } }) =>
@@ -59,7 +59,7 @@ const SignInPage = () => {
           value={password}
           name={password}
           placeholder="Пароль"
-        ></PasswordInput>
+        />
         <Button
           extraClass={styles.submit}
           htmlType="submit"

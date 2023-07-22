@@ -18,7 +18,7 @@ const ResetPasswordPage = () => (
         value={"dynamicValue"}
         name={"email"}
         placeholder="Введите новый пароль"
-      ></PasswordInput>{" "}
+      />
       <Input
         extraClass={styles.inputName}
         onChange={() => {}}

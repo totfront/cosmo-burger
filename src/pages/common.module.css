@@ -1,3 +1,8 @@
+.container {
+    max-width: 1280px;
+    margin: auto;
+}
+
 .wrapper {
     max-width: 480px;
     margin: auto;
@@ -26,6 +31,11 @@
     text-align: center;
 }
 
+.description {
+    margin-left: 40px;
+    max-width: 320px;
+}
+
 .link {
     color: var(--purple);
     text-decoration: none;
@@ -36,4 +46,14 @@
         text-decoration: underline;
         transition: all 0.3s;
     }
+}
+
+.list {
+    padding: 0;
+    margin: 120px 0 80px 0;
+}
+
+
+.listItem {
+    list-style: none;
 }

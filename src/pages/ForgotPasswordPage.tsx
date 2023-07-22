@@ -5,8 +5,8 @@ import {
 import styles from "./common.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { SyntheticEvent, useState } from "react";
-import { checkEmail } from "../../services/apis/authorizationApi";
-import { resetPasswordPath } from "../../shared/paths";
+import { checkEmail } from "../services/apis/authorizationApi";
+import { resetPasswordPath } from "../shared/paths";
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const ForgotPasswordPage = () => {
           name={"email"}
           isIcon={false}
           placeholder="Укажите e-mail"
-        ></EmailInput>
+        />
         <Button
           extraClass={styles.submit}
           htmlType="submit"
