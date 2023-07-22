@@ -5,7 +5,7 @@ import {
 import styles from "./common.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { SyntheticEvent, useState } from "react";
-import { checkEmail } from "../../services/apis/autorisationApi";
+import { checkEmail } from "../../services/apis/authorizationApi";
 import { resetPasswordPath } from "../../shared/paths";
 
 const ForgotPasswordPage = () => {
