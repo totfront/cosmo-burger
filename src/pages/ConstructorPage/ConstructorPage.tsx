@@ -1,5 +1,4 @@
 import { HTML5Backend } from "react-dnd-html5-backend";
-import AppHeader from "../../components/AppHeader/AppHeader";
 import styles from "./constructorPage.module.css";
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
 import { DndProvider } from "react-dnd";

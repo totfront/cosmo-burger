@@ -1,10 +1,6 @@
-const ingredientsUrl = "https://norma.nomoreparties.space/api";
+import { checkResponse } from "../helpers";
 
-const checkResponse = (res: Response) => {
-  return res.ok
-    ? res.json()
-    : res.json().then((err: Error) => Promise.reject(err));
-};
+const ingredientsUrl = "https://norma.nomoreparties.space/api";
 
 const fetchData = () =>
   fetch(`${ingredientsUrl}/ingredients`).then((res) => checkResponse(res));

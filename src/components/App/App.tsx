@@ -6,6 +6,7 @@ import AppHeader from "../AppHeader/AppHeader";
 import LoginPage from "../../pages/SignInPage/LoginPage";
 import ForgotPasswordPage from "../../pages/SignInPage/ForgotPasswordPage";
 import ResetPasswordPage from "../../pages/SignInPage/ResetPasswordPage";
+import { resetPasswordPath } from "../../shared/paths";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path={resetPasswordPath} element={<ResetPasswordPage />} />
         </Routes>
       </BrowserRouter>
     </div>

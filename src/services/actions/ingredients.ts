@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { fetchData } from "../burgerApi";
+import { fetchData } from "../apis/burgerApi";
 import { ActionTypes } from "../../shared/types/Actions";
 import { sortIngredients } from "../helpers";
 

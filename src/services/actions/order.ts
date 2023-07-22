@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import { ActionTypes } from "../../shared/types/Actions";
-import { sendOrder } from "../burgerApi";
+import { sendOrder } from "../apis/burgerApi";
 
 export const SUBMIT_ORDER_REQUEST = "SUBMIT_ORDER_REQUEST";
 export const SUBMIT_ORDER_FAIL = "SUBMIT_ORDER_FAIL";
