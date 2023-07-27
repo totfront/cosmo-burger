@@ -3,6 +3,38 @@
     margin: auto;
 }
 
+.list {
+    padding: 0;
+    margin: 120px 0 80px 0;
+}
+
+.listItem {
+    margin-top: 15px;
+    list-style: none;
+    margin-left: 30px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+}
+
+.navButton {
+    font-size: 24px;
+    color: var(--dark-grey);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-shadow: none;
+
+    &:hover {
+        text-shadow: var(--purple) 1px 5px 10px;
+        transition: all 0.3s;
+    }
+}
+
+.navButtonActive {
+    color: var(--light-grey);
+}
+
 .wrapper {
     max-width: 480px;
     margin: auto;
@@ -46,14 +78,4 @@
         text-decoration: underline;
         transition: all 0.3s;
     }
-}
-
-.list {
-    padding: 0;
-    margin: 120px 0 80px 0;
-}
-
-
-.listItem {
-    list-style: none;
 }

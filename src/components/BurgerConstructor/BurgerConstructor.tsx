@@ -17,11 +17,11 @@ import {
 import { useDrop } from "react-dnd";
 import { Ingredient } from "../../shared/types/Ingredient";
 import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredient";
-import { submitOrder } from "../../services/actions/order";
 import {
   DECREASE_INGREDIENTS_COUNTER,
   INCREASE_INGREDIENTS_COUNTER,
 } from "../../services/actions/ingredients";
+import { submitOrder } from "../../services/apis/burgerApi";
 
 const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();

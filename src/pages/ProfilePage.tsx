@@ -1,41 +1,85 @@
 import {
   EmailInput,
   PasswordInput,
-  Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./common.module.css";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useEffect, useState } from "react";
+import { handleInputChange } from "../services/helpers";
+import { useSelector } from "react-redux";
+import { Store } from "../shared/types/Store";
+import { logoutUser } from "../services/actions/user";
+import { useNavigate } from "react-router-dom";
+import { loginPath } from "../shared/paths";
+
+const profile = "profile";
+const history = "history";
+const exit = "exit";
 
 const ProfilePage = () => {
-  //   const [email, setEmail] = useState("");
-  //   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const {
+    name: currentName,
+    email: currentEmail,
+    password: currentPassword,
+  } = useSelector((store: Store) => store.user);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [activeNavItem, setActiveNavItem] = useState("");
 
-  const handleInputChange = (
-    value: string,
-    setter: Dispatch<SetStateAction<string>>
-  ) => {
-    setter(value);
+  useEffect(() => {
+    setActiveNavItem(profile);
+    setName(currentName);
+    setEmail(currentEmail);
+    setPassword(currentPassword);
+  }, []);
+
+  const navButtonClick = (func: () => void) => {
+    func();
+    // todo: on 4th sprint
   };
 
   return (
     <div className={styles.container}>
       <ul className={styles.list}>
         <li className={styles.listItem}>
-          <Button htmlType="button" type="secondary" size="large">
+          <button
+            className={`${styles.navButton} ${
+              activeNavItem === profile && styles.navButtonActive
+            }`}
+            type="button"
+            onClick={() => navButtonClick(() => {})}
+          >
             Профиль
-          </Button>
+          </button>
         </li>
         <li className={styles.listItem}>
-          <Button htmlType="button" type="secondary" size="large">
+          <button
+            className={`${styles.navButton} ${
+              activeNavItem === history && styles.navButtonActive
+            }`}
+            type="button"
+            onClick={() => navButtonClick(() => {})}
+          >
             История заказов
-          </Button>
+          </button>
         </li>
         <li className={styles.listItem}>
-          <Button htmlType="button" type="secondary" size="large">
+          <button
+            className={`${styles.navButton} ${
+              activeNavItem === exit && styles.navButtonActive
+            }`}
+            type="button"
+            onClick={() =>
+              navButtonClick(() => {
+                logoutUser();
+                navigate(loginPath);
+              })
+            }
+          >
             Выход
-          </Button>
+          </button>
         </li>
       </ul>
       <p className={`text text_type_main-small ${styles.description}`}>
@@ -53,28 +97,24 @@ const ProfilePage = () => {
             placeholder="Имя"
           />
           <EmailInput
-            onChange={() => {}}
+            onChange={({ target: { value } }) =>
+              handleInputChange(value, setEmail)
+            }
             extraClass={styles.inputEmail}
-            value={"dynamicValue"}
+            value={email}
             name={"email"}
             isIcon={false}
             placeholder="E-mail"
           />
           <PasswordInput
             extraClass={styles.inputPassword}
-            onChange={() => {}}
-            value={"dynamicValue"}
+            onChange={({ target: { value } }) =>
+              handleInputChange(value, setPassword)
+            }
+            value={password}
             name={"email"}
             placeholder="Пароль"
           />
-          <Button
-            extraClass={styles.submit}
-            htmlType="submit"
-            type="primary"
-            size="medium"
-          >
-            Войти
-          </Button>
         </form>
       </div>
     </div>

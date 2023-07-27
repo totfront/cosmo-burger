@@ -4,26 +4,25 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./common.module.css";
-import { Dispatch, SetStateAction, SyntheticEvent, useState } from "react";
-import { registerUser } from "../services/apis/authorizationApi";
+import { SyntheticEvent, useState } from "react";
+import { addNewUser } from "../services/actions/user";
+import { useDispatch } from "react-redux";
+import { handleInputChange } from "../services/helpers";
+import { loginPath } from "../shared/paths";
 
 const SignInPage = () => {
+  const dispatch: any = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const handleInputChange = (
-    value: string,
-    setter: Dispatch<SetStateAction<string>>
-  ) => {
-    setter(value);
-  };
-
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    registerUser({ name, email, password });
+    dispatch(addNewUser({ name, email, password }));
+    navigate(loginPath);
   };
 
   return (

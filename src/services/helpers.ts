@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { Ingredient } from "../shared/types/Ingredient";
 import { SortedIngredients } from "../shared/types/SortedIngredients";
 
@@ -67,4 +68,24 @@ const checkResponse = (res: Response) => {
     : res.json().then((err: Error) => Promise.reject(err));
 };
 
-export { searchMenuItems, tabNameConverter, sortIngredients, checkResponse };
+const getCookie = (name: string) =>
+  document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(name))
+    ?.split("=")[1];
+
+const handleInputChange = (
+  value: string,
+  setter: Dispatch<SetStateAction<string>>
+) => {
+  setter(value);
+};
+
+export {
+  handleInputChange,
+  searchMenuItems,
+  tabNameConverter,
+  sortIngredients,
+  checkResponse,
+  getCookie,
+};
