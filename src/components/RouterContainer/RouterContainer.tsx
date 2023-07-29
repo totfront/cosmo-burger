@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../../pages/HomePage/HomePage";
-import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
-import LoginPage from "../../pages/LoginPage";
-import ProfilePage from "../../pages/ProfilePage";
-import ResetPasswordPage from "../../pages/ResetPasswordPage";
-import SignInPage from "../../pages/SignUnPage";
+import ForgotPasswordPage from "../../pages/ForgotPasswordPage/ForgotPasswordPage";
+import LoginPage from "../../pages/LoginPage/LoginPage";
+import ProfilePage from "../../pages/ProfilePage/ProfilePage";
+import ResetPasswordPage from "../../pages/ResetPasswordPage/ResetPasswordPage";
+import SignInPage from "../../pages/SignUpPage/SignUnPage";
 import {
   defaultPath,
   signinPath,

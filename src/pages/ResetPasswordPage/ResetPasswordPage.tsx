@@ -3,11 +3,11 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./common.module.css";
+import styles from "../index.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { SyntheticEvent, useState } from "react";
-import { resetPassword } from "../services/apis/authorizationApi";
-import { loginPath } from "../shared/paths";
+import { resetPassword } from "../../services/apis/authorizationApi";
+import { loginPath } from "../../shared/paths";
 
 const ResetPasswordPage = () => {
   const navigate = useNavigate();

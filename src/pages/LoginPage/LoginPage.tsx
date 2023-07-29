@@ -1,52 +1,36 @@
 import {
   Button,
   EmailInput,
-  Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "./common.module.css";
+import styles from "../index.module.css";
+import { Link } from "react-router-dom";
 import { SyntheticEvent, useState } from "react";
-import { addNewUser } from "../services/actions/userAuth";
+import { handleInputChange } from "../../services/helpers";
+import { authorizeUser } from "../../services/actions/userAuth";
 import { useDispatch } from "react-redux";
-import { handleInputChange } from "../services/helpers";
-import { loginPath } from "../shared/paths";
 
-const SignInPage = () => {
+const LoginPage = () => {
   const dispatch: any = useDispatch();
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(addNewUser({ name, email, password }));
-    navigate(loginPath);
+    dispatch(authorizeUser({ email, password }));
   };
 
   return (
     <main className={styles.wrapper}>
-      <h2 className={`${styles.heading} text text_type_main-medium`}>
-        Регистрация
-      </h2>
+      <h2 className={`${styles.heading} text text_type_main-medium`}>Вход</h2>
       <form className={styles.form} onSubmit={onSubmit}>
-        <Input
-          extraClass={styles.inputName}
-          onChange={({ target: { value } }) =>
-            handleInputChange(value, setName)
-          }
-          name="name"
-          value={name}
-          placeholder="Имя"
-        />
         <EmailInput
           onChange={({ target: { value } }) =>
             handleInputChange(value, setEmail)
           }
           extraClass={styles.inputEmail}
           value={email}
-          name={email}
+          name={"email"}
           isIcon={false}
           placeholder="E-mail"
         />
@@ -56,7 +40,7 @@ const SignInPage = () => {
             handleInputChange(value, setPassword)
           }
           value={password}
-          name={password}
+          name={"email"}
           placeholder="Пароль"
         />
         <Button
@@ -65,14 +49,23 @@ const SignInPage = () => {
           type="primary"
           size="medium"
         >
-          Зарегистрироваться
+          Войти
         </Button>
       </form>
+      <p className={`text text_type_main-small mb-2 ${styles.text}`}>
+        Вы — новый пользователь?{" "}
+        <Link className={styles.link} to="/signin">
+          Зарегистрироваться
+        </Link>
+      </p>
       <p className={`text text_type_main-small ${styles.text}`}>
-        Уже зарегистрированы? <Link to="/login">Войти</Link>
+        Забыли пароль?{" "}
+        <Link className={styles.link} to="/forgot-password">
+          Восстановить пароль
+        </Link>
       </p>
     </main>
   );
 };
 
-export default SignInPage;
+export default LoginPage;

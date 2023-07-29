@@ -3,15 +3,15 @@ import {
   PasswordInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./common.module.css";
+import styles from "../index.module.css";
 import { useEffect, useState } from "react";
-import { handleInputChange } from "../services/helpers";
+import { handleInputChange } from "../../services/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../shared/types/State";
-import { logoutUser } from "../services/actions/userAuth";
+import { State } from "../../shared/types/State";
+import { logoutUser } from "../../services/actions/userAuth";
 import { useNavigate } from "react-router-dom";
-import { ordersPath } from "../shared/paths";
-import { SET_ACTIVE_NAV_LINK } from "../services/actions/header";
+import { ordersPath } from "../../shared/paths";
+import { SET_ACTIVE_NAV_LINK } from "../../services/actions/header";
 
 const profile = "profile";
 const history = "history";
