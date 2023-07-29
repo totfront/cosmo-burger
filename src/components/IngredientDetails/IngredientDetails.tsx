@@ -1,17 +1,43 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import styles from "./ingredientDetails.module.css";
-import { useSelector } from "react-redux";
-import { Store } from "../../shared/types/Store";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../shared/types/State";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ingredientsPath } from "../../shared/paths";
+import {
+  HIDE_HOME_PAGE,
+  SHOW_INGREDIENT_MODAL,
+} from "../../services/actions/ingredientModal";
 
 type Props = {
   onClose: () => void;
 };
 
 const IngredientDetails: FC<Props> = ({ onClose }) => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const {
-    selectedIngredient: { name, image, fat, proteins, carbohydrates, calories },
-  } = useSelector((store: Store) => store.ingredientModal);
+    selectedIngredient: {
+      name,
+      image,
+      fat,
+      proteins,
+      carbohydrates,
+      calories,
+      _id,
+    },
+  } = useSelector((store: State) => store.ingredientModal);
+
+  useEffect(() => {
+    const { from: pathname } = location.state || { from: { pathname: "" } };
+    navigate(`${ingredientsPath}/${_id}`);
+    if (!pathname) {
+      dispatch({ type: HIDE_HOME_PAGE });
+      dispatch({ type: SHOW_INGREDIENT_MODAL });
+    }
+  }, [_id, navigate, dispatch, location.state]);
 
   return (
     <Modal onClose={onClose} isIngredient>

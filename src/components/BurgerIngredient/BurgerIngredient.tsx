@@ -5,7 +5,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
-import { SET_MODAL_INGREDIENT } from "../../services/actions/ingredientModal";
+import { SHOW_INGREDIENT_MODAL } from "../../services/actions/ingredientModal";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { useDrag } from "react-dnd";
 
@@ -24,7 +24,7 @@ const BurgerIngredient: FC<Props> = ({ ingredient }) => {
 
   const handleOnclick = () => {
     dispatch({
-      type: SET_MODAL_INGREDIENT,
+      type: SHOW_INGREDIENT_MODAL,
       ingredient,
     });
   };

@@ -75,7 +75,7 @@ export const ingredientsReducer = (
       });
 
       const checkIfTwoBunsHaveCounters = (ingredients: Ingredient[]) => {
-        const allBuns = ingredientsWithCounters.filter((i) => i.type === "bun");
+        const allBuns = ingredients.filter((i) => i.type === "bun");
         // todo: cleanup the case if there are more than 2 buns
         if (
           allBuns[0].counter &&
@@ -83,7 +83,7 @@ export const ingredientsReducer = (
           allBuns[1].counter &&
           allBuns[1].counter > 0
         )
-          return ingredientsWithCounters.map((i) => {
+          return ingredients.map((i) => {
             if (i.type !== "bun") return i;
             if (i.counter && i.counter > 0 && i._id !== action.id) {
               return {
@@ -93,7 +93,7 @@ export const ingredientsReducer = (
             }
             return i;
           });
-        return ingredientsWithCounters;
+        return ingredients;
       };
       const newIngredients = sortIngredients(
         checkIfTwoBunsHaveCounters(ingredientsWithCounters)

@@ -7,19 +7,23 @@ import styles from "./common.module.css";
 import { useEffect, useState } from "react";
 import { handleInputChange } from "../services/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { Store } from "../shared/types/Store";
+import { State } from "../shared/types/State";
 import { logoutUser } from "../services/actions/userAuth";
+import { useNavigate } from "react-router-dom";
+import { ordersPath } from "../shared/paths";
+import { SET_ACTIVE_NAV_LINK } from "../services/actions/header";
 
 const profile = "profile";
 const history = "history";
 const exit = "exit";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const {
     name: currentName,
     email: currentEmail,
     password: currentPassword,
-  } = useSelector((store: Store) => store.user);
+  } = useSelector((store: State) => store.user);
   const dispatch: any = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,7 +63,12 @@ const ProfilePage = () => {
                 activeNavItem === history && styles.navButtonActive
               }`}
               type="button"
-              onClick={() => navButtonClick(() => {})}
+              onClick={() => {
+                navButtonClick(() => {
+                  navigate(ordersPath);
+                });
+                dispatch({ type: SET_ACTIVE_NAV_LINK, activeLink: "orders" });
+              }}
             >
               История заказов
             </button>

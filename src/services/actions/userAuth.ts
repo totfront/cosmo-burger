@@ -96,7 +96,7 @@ export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
           });
         } catch {}
       } catch (err) {
-        return console.error(err);
+        return console.error("Update token request failed");
       }
     });
 };

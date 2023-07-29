@@ -5,8 +5,9 @@ import {
   SET_TOTAL_PRICE,
 } from "../../services/actions/constructor";
 import {
+  HIDE_HOME_PAGE,
   HIDE_INGREDIENT_MODAL,
-  SET_MODAL_INGREDIENT,
+  SHOW_INGREDIENT_MODAL,
 } from "../../services/actions/ingredientModal";
 import {
   GET_INGREDIENTS_ERROR,
@@ -35,13 +36,14 @@ import {
   SET_USER_REQUEST,
   SET_USER_SUCCESS,
 } from "../../services/actions/userAuth";
+import { SET_ACTIVE_NAV_LINK } from "../../services/actions/header";
 
 type HideIngredientModal = {
   type: typeof HIDE_INGREDIENT_MODAL;
 };
 
 type SetIngredientModal = {
-  type: typeof SET_MODAL_INGREDIENT;
+  type: typeof SHOW_INGREDIENT_MODAL;
   ingredient: Ingredient;
 };
 
@@ -155,7 +157,18 @@ type LoginSuccess = {
   password?: string;
 };
 
+type HideHomePage = {
+  type: typeof HIDE_HOME_PAGE;
+};
+
+type SetHeaderActiveLink = {
+  type: typeof SET_ACTIVE_NAV_LINK;
+  activeLink: string;
+};
+
 export type ActionTypes =
+  | SetHeaderActiveLink
+  | HideHomePage
   | LoginRequest
   | LoginFail
   | LoginSuccess
