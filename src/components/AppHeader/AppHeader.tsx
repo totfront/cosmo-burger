@@ -6,23 +6,22 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./appHeader.module.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { defaultPath, ordersPath, profilePath } from "../../shared/paths";
-import { useDispatch } from "react-redux";
-import { SET_ACTIVE_NAV_LINK } from "../../services/actions/header";
 import { useEffect, useState } from "react";
 
 const AppHeader = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
+  const { pathname } = location;
   const onClickHandler = (path: string) => {
-    dispatch({ type: SET_ACTIVE_NAV_LINK, activeLink: path });
+    navigate(path);
   };
-  const [activeNavLink, setActiveNavLink] = useState("");
+  const [activeNavLink, setActiveNavLink] = useState(pathname);
 
   useEffect(() => {
-    setActiveNavLink(location.pathname);
-  }, [location.pathname]);
+    setActiveNavLink(pathname);
+  }, [pathname]);
 
   return (
     <header className={`${styles.header} pt-4 pb-4 pr-5 pl-5`}>
@@ -35,7 +34,7 @@ const AppHeader = () => {
             size="medium"
           >
             <BurgerIcon type="primary" />
-            <Link
+            <NavLink
               className={`${styles.link} ${
                 activeNavLink !== defaultPath && styles.linkDisabled
               } ml-2 text text_type_main-default`}
@@ -43,7 +42,7 @@ const AppHeader = () => {
               to={defaultPath}
             >
               Конструктор
-            </Link>
+            </NavLink>
           </Button>
           <Button
             className={`${styles.button} pl-5 pr-5`}
@@ -52,7 +51,7 @@ const AppHeader = () => {
             size="medium"
           >
             <ListIcon type="primary" />
-            <Link
+            <NavLink
               className={`${styles.link} ${
                 activeNavLink !== ordersPath && styles.linkDisabled
               } ml-2 text text_type_main-default`}
@@ -60,7 +59,7 @@ const AppHeader = () => {
               to={ordersPath}
             >
               Лента заказов
-            </Link>
+            </NavLink>
           </Button>
         </div>
         <Logo />
@@ -71,7 +70,7 @@ const AppHeader = () => {
           size="medium"
         >
           <ProfileIcon type="primary" />
-          <Link
+          <NavLink
             className={`${styles.link}   ${
               activeNavLink !== profilePath && styles.linkDisabled
             } ml-2 text text_type_main-default`}
@@ -79,7 +78,7 @@ const AppHeader = () => {
             to={profilePath}
           >
             Личный кабинет
-          </Link>
+          </NavLink>
         </Button>
       </nav>
     </header>

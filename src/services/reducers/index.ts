@@ -4,7 +4,6 @@ import { ingredientModalReducer } from "./ingredientModal";
 import { constructorReducer } from "./constructor";
 import { orderReducer } from "./orderModal";
 import { userReducer } from "./userReducer";
-import { headerReducer } from "./headerReducer";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -12,5 +11,4 @@ export const rootReducer = combineReducers({
   ingredientModal: ingredientModalReducer,
   orderDetails: orderReducer,
   user: userReducer,
-  header: headerReducer,
 });

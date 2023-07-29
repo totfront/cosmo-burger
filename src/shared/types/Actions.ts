@@ -36,7 +36,6 @@ import {
   SET_USER_REQUEST,
   SET_USER_SUCCESS,
 } from "../../services/actions/userAuth";
-import { SET_ACTIVE_NAV_LINK } from "../../services/actions/header";
 
 type HideIngredientModal = {
   type: typeof HIDE_INGREDIENT_MODAL;
@@ -161,13 +160,7 @@ type HideHomePage = {
   type: typeof HIDE_HOME_PAGE;
 };
 
-type SetHeaderActiveLink = {
-  type: typeof SET_ACTIVE_NAV_LINK;
-  activeLink: string;
-};
-
 export type ActionTypes =
-  | SetHeaderActiveLink
   | HideHomePage
   | LoginRequest
   | LoginFail

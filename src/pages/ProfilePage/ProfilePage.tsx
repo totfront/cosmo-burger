@@ -11,7 +11,6 @@ import { State } from "../../shared/types/State";
 import { logoutUser } from "../../services/actions/userAuth";
 import { useNavigate } from "react-router-dom";
 import { ordersPath } from "../../shared/paths";
-import { SET_ACTIVE_NAV_LINK } from "../../services/actions/header";
 
 const profile = "profile";
 const history = "history";
@@ -67,7 +66,6 @@ const ProfilePage = () => {
                 navButtonClick(() => {
                   navigate(ordersPath);
                 });
-                dispatch({ type: SET_ACTIVE_NAV_LINK, activeLink: "orders" });
               }}
             >
               История заказов
