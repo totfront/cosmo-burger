@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./appHeader.module.css";
 import { Link } from "react-router-dom";
-import { profilePath } from "../../shared/paths";
+import { defaultPath, profilePath } from "../../shared/paths";
 
 const AppHeader = () => (
   <header className={`${styles.header} pt-4 pb-4 pr-5 pl-5`}>
@@ -18,12 +18,12 @@ const AppHeader = () => (
           size="medium"
         >
           <BurgerIcon type="primary" />
-          <a
+          <Link
             className={`${styles.link} ml-2 text text_type_main-default`}
-            href={"http://localhost:3000/"}
+            to={defaultPath}
           >
             Конструктор
-          </a>
+          </Link>
         </Button>
         <Button
           className={`${styles.button} pl-5 pr-5`}
@@ -32,12 +32,12 @@ const AppHeader = () => (
           size="medium"
         >
           <BurgerIcon type="primary" />
-          <a
+          <Link
             className={`${styles.link} ${styles.linkDisabled} ml-2 text text_type_main-default`}
-            href={"http://localhost:3000/"}
+            to={defaultPath}
           >
             Лента заказов
-          </a>
+          </Link>
         </Button>
       </div>
       <Logo />

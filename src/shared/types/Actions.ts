@@ -34,7 +34,7 @@ import {
   SET_USER_FAIL,
   SET_USER_REQUEST,
   SET_USER_SUCCESS,
-} from "../../services/actions/user";
+} from "../../services/actions/userAuth";
 
 type HideIngredientModal = {
   type: typeof HIDE_INGREDIENT_MODAL;

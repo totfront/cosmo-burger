@@ -7,7 +7,7 @@ import {
   SET_USER_FAIL,
   SET_USER_REQUEST,
   SET_USER_SUCCESS,
-} from "../actions/user";
+} from "../actions/userAuth";
 
 export type UserState = typeof initialState;
 
@@ -15,6 +15,7 @@ const initialState = {
   name: "",
   email: "",
   password: "",
+  isAuthorized: false,
   isLoginRequest: false,
   isLoginRequestFail: false,
   isSetUserRequest: false,
@@ -54,6 +55,7 @@ const userReducer = (state = initialState, action: ActionTypes) => {
         ...state,
         isLoginRequest: false,
         isLoginRequestFail: false,
+        isAuthorized: true,
         name,
         email,
         password,

@@ -6,7 +6,7 @@ import {
   refreshToken,
   registerUser,
 } from "../apis/authorizationApi";
-import { Dispatch, createContext, useContext } from "react";
+import { Dispatch } from "react";
 import { ActionTypes } from "../../shared/types/Actions";
 import { LoginData } from "../../shared/types/LoginData";
 import { getCookie } from "../helpers";
@@ -42,7 +42,9 @@ export const authorizeUser =
     dispatch({ type: LOGIN_REQUEST });
     login(credentials)
       .then(({ success, user, accessToken, refreshToken, message }) => {
-        if (!success) throw new Error(message);
+        if (!success) {
+          throw new Error(message);
+        }
 
         const { name, email } = user;
         document.cookie = `refreshToken=${refreshToken}`;
@@ -61,38 +63,54 @@ export const authorizeUser =
       });
   };
 
-export const getUserData = () => (dispatch: Dispatch<ActionTypes>) =>
-  getUser()
-    .then(({ success, user: { email, name }, accessToken, refreshToken }) => {
-      if (!success) throw new Error(`Response contain { success: ${success}}`);
-      document.cookie = `refreshToken=${refreshToken}; accessToken=${accessToken}`;
+export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
+  const token = getCookie("accessToken");
+  getUser(token)
+    .then(({ user: { email, name }, accessToken, refreshToken }) => {
+      document.cookie = `refreshToken=${refreshToken};`;
+      document.cookie = `accessToken=${accessToken};`;
       dispatch({
         type: LOGIN_SUCCESS,
         email,
         name,
       });
     })
-    .catch((err: Error) => {
-      console.log(err);
-      const token = getCookie("refreshToken");
-      if (token) {
-        refreshToken(token)
-          .then((res) => {
-            // if (!res?.success) {
-            //   throw new Error(`Response contain { success: ${res?.success}}`);
-            // }
-            // document.cookie = `refreshToken=${refreshToken}; accessToken=${res.accessToken}`;
-          })
-          .catch((err: Error) => console.error(err));
+    .catch(async () => {
+      try {
+        const { accessToken, refreshToken: newRefreshToken } =
+          await refreshToken(getCookie("refreshToken"));
+        document.cookie = `refreshToken=${newRefreshToken};`;
+        document.cookie = `accessToken=${accessToken};`;
+        try {
+          const {
+            user: { email, name },
+            accessToken,
+            refreshToken,
+          } = await getUser(token);
+          document.cookie = `refreshToken=${refreshToken};`;
+          document.cookie = `accessToken=${accessToken};`;
+          dispatch({
+            type: LOGIN_SUCCESS,
+            email,
+            name,
+          });
+        } catch {}
+      } catch (err) {
+        return console.error(err);
       }
     });
-export const logoutUser = () =>
+};
+
+export const logoutUser = () => (dispatch: Dispatch<ActionTypes>) =>
   logout()
     .then(({ success, message }) => {
-      if (!success)
+      if (!success) {
         throw new Error(
           `Response contain { success: ${success}, message: ${message}}`
         );
-      document.cookie = `refreshToken=; accessToken=`;
+      }
+      document.cookie = `refreshToken=;`;
+      document.cookie = `accessToken=;`;
+      dispatch({ type: LOGOUT });
     })
     .catch((err: Error) => console.error(err));

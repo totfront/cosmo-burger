@@ -5,10 +5,10 @@ import { checkResponse, getCookie } from "../helpers";
 
 const url = "https://norma.nomoreparties.space/api";
 
-export const getUser = () =>
+export const getUser = (token = "") =>
   fetch(`${url}/auth/user`, {
     headers: {
-      authorization: JSON.stringify(getCookie("accessToken")),
+      authorization: token,
     },
   }).then((res) =>
     checkResponse(res).catch((err: Error) => console.error(err))
@@ -70,13 +70,13 @@ export const resetPassword = ({ password, token }: PasswordResetData) =>
     checkResponse(res).catch((err: Error) => console.error(err))
   );
 
-export const refreshToken = (token: string) =>
+export const refreshToken = (token = "") =>
   fetch(`${url}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(token),
+    body: JSON.stringify({ token }),
   }).then((res) =>
     checkResponse(res).catch((err: Error) => console.error(err))
   );

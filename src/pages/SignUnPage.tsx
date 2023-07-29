@@ -7,7 +7,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./common.module.css";
 import { SyntheticEvent, useState } from "react";
-import { addNewUser } from "../services/actions/user";
+import { addNewUser } from "../services/actions/userAuth";
 import { useDispatch } from "react-redux";
 import { handleInputChange } from "../services/helpers";
 import { loginPath } from "../shared/paths";

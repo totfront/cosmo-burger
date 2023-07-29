@@ -6,23 +6,21 @@ import {
 import styles from "./common.module.css";
 import { useEffect, useState } from "react";
 import { handleInputChange } from "../services/helpers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../shared/types/Store";
-import { logoutUser } from "../services/actions/user";
-import { useNavigate } from "react-router-dom";
-import { loginPath } from "../shared/paths";
+import { logoutUser } from "../services/actions/userAuth";
 
 const profile = "profile";
 const history = "history";
 const exit = "exit";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
   const {
     name: currentName,
     email: currentEmail,
     password: currentPassword,
   } = useSelector((store: Store) => store.user);
+  const dispatch: any = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -33,7 +31,7 @@ const ProfilePage = () => {
     setName(currentName);
     setEmail(currentEmail);
     setPassword(currentPassword);
-  }, []);
+  }, [currentEmail, currentName, currentPassword]);
 
   const navButtonClick = (func: () => void) => {
     func();
@@ -42,49 +40,50 @@ const ProfilePage = () => {
 
   return (
     <div className={styles.container}>
-      <ul className={styles.list}>
-        <li className={styles.listItem}>
-          <button
-            className={`${styles.navButton} ${
-              activeNavItem === profile && styles.navButtonActive
-            }`}
-            type="button"
-            onClick={() => navButtonClick(() => {})}
-          >
-            Профиль
-          </button>
-        </li>
-        <li className={styles.listItem}>
-          <button
-            className={`${styles.navButton} ${
-              activeNavItem === history && styles.navButtonActive
-            }`}
-            type="button"
-            onClick={() => navButtonClick(() => {})}
-          >
-            История заказов
-          </button>
-        </li>
-        <li className={styles.listItem}>
-          <button
-            className={`${styles.navButton} ${
-              activeNavItem === exit && styles.navButtonActive
-            }`}
-            type="button"
-            onClick={() =>
-              navButtonClick(() => {
-                logoutUser();
-                navigate(loginPath);
-              })
-            }
-          >
-            Выход
-          </button>
-        </li>
-      </ul>
-      <p className={`text text_type_main-small ${styles.description}`}>
-        В этом разделе вы можете изменить свои персональные данные
-      </p>
+      <section className={styles.navWrapper}>
+        <ul className={styles.list}>
+          <li className={styles.listItem}>
+            <button
+              className={`${styles.navButton} ${
+                activeNavItem === profile && styles.navButtonActive
+              }`}
+              type="button"
+              onClick={() => navButtonClick(() => {})}
+            >
+              Профиль
+            </button>
+          </li>
+          <li className={styles.listItem}>
+            <button
+              className={`${styles.navButton} ${
+                activeNavItem === history && styles.navButtonActive
+              }`}
+              type="button"
+              onClick={() => navButtonClick(() => {})}
+            >
+              История заказов
+            </button>
+          </li>
+          <li className={styles.listItem}>
+            <button
+              className={`${styles.navButton} ${
+                activeNavItem === exit && styles.navButtonActive
+              }`}
+              type="button"
+              onClick={() =>
+                navButtonClick(() => {
+                  dispatch(logoutUser());
+                })
+              }
+            >
+              Выход
+            </button>
+          </li>
+        </ul>
+        <p className={`text text_type_main-small ${styles.description}`}>
+          В этом разделе вы можете изменить свои персональные данные
+        </p>
+      </section>
       <div className={styles.wrapper}>
         <form className={styles.form}>
           <Input

@@ -4,29 +4,20 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./common.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SyntheticEvent, useState } from "react";
 import { handleInputChange } from "../services/helpers";
-import { authorizeUser } from "../services/actions/user";
-import { useDispatch, useSelector } from "react-redux";
-import { Store } from "../shared/types/Store";
-import { defaultPath } from "../shared/paths";
+import { authorizeUser } from "../services/actions/userAuth";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
   const dispatch: any = useDispatch();
-  const navigate = useNavigate();
-  const [localEmail, setLocalEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {
-    user: { email },
-  } = useSelector((store: Store) => store);
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(authorizeUser({ email: localEmail, password }));
-    if (email === localEmail) {
-      navigate(defaultPath);
-    }
+    dispatch(authorizeUser({ email, password }));
   };
 
   return (
@@ -35,10 +26,10 @@ const LoginPage = () => {
       <form className={styles.form} onSubmit={onSubmit}>
         <EmailInput
           onChange={({ target: { value } }) =>
-            handleInputChange(value, setLocalEmail)
+            handleInputChange(value, setEmail)
           }
           extraClass={styles.inputEmail}
-          value={localEmail}
+          value={email}
           name={"email"}
           isIcon={false}
           placeholder="E-mail"

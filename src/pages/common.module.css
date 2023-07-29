@@ -3,9 +3,16 @@
     margin: auto;
 }
 
+.navWrapper {
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
 .list {
     padding: 0;
-    margin: 120px 0 80px 0;
+    margin-bottom: 80px;
 }
 
 .listItem {
