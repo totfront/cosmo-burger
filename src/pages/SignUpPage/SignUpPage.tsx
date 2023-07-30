@@ -10,7 +10,6 @@ import { SyntheticEvent, useState } from "react";
 import { addNewUser } from "../../services/actions/userAuth";
 import { useDispatch } from "react-redux";
 import { handleInputChange } from "../../services/helpers";
-import { loginPath } from "../../shared/paths";
 
 const SignInPage = () => {
   const dispatch: any = useDispatch();
@@ -21,8 +20,7 @@ const SignInPage = () => {
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(addNewUser({ name, email, password }));
-    navigate(loginPath);
+    dispatch(addNewUser({ name, email, password }, navigate));
   };
 
   return (

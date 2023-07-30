@@ -4,7 +4,7 @@ import ForgotPasswordPage from "../../pages/ForgotPasswordPage/ForgotPasswordPag
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage/ResetPasswordPage";
-import SignInPage from "../../pages/SignUpPage/SignUnPage";
+import SignInPage from "../../pages/SignUpPage/SignUpPage";
 import {
   defaultPath,
   signinPath,

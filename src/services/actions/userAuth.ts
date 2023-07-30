@@ -10,6 +10,8 @@ import { Dispatch } from "react";
 import { ActionTypes } from "../../shared/types/Actions";
 import { LoginData } from "../../shared/types/LoginData";
 import { getCookie } from "../helpers";
+import { NavigateFunction } from "react-router-dom";
+import { loginPath } from "../../shared/paths";
 
 export const LOGOUT = "LOGOUT";
 export const ADD_NEW_USER = "ADD_NEW_USER";
@@ -21,7 +23,8 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 
 export const addNewUser =
-  (newUser: NewUser) => (dispatch: Dispatch<ActionTypes>) => {
+  (newUser: NewUser, navigate: NavigateFunction) =>
+  (dispatch: Dispatch<ActionTypes>) => {
     dispatch({ type: SET_USER_REQUEST });
     registerUser(newUser)
       .then(({ success, user, accessToken, refreshToken, message }) => {
@@ -30,6 +33,7 @@ export const addNewUser =
         document.cookie = `accessToken=${accessToken}`;
         document.cookie = `refreshToken=${refreshToken}`;
         dispatch({ type: SET_USER_SUCCESS, name, email });
+        navigate(loginPath);
       })
       .catch((err) => {
         console.error(err);
@@ -75,29 +79,33 @@ export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
         name,
       });
     })
-    .catch(async () => {
-      try {
-        const { accessToken, refreshToken: newRefreshToken } =
-          await refreshToken(getCookie("refreshToken"));
-        document.cookie = `refreshToken=${newRefreshToken};`;
-        document.cookie = `accessToken=${accessToken};`;
+    .catch(async (err) => {
+      if (err.message === "jwt expired") {
         try {
-          const {
-            user: { email, name },
-            accessToken,
-            refreshToken,
-          } = await getUser(token);
-          document.cookie = `refreshToken=${refreshToken};`;
+          const { accessToken, refreshToken: newRefreshToken } =
+            await refreshToken(getCookie("refreshToken"));
+          document.cookie = `refreshToken=${newRefreshToken};`;
           document.cookie = `accessToken=${accessToken};`;
-          dispatch({
-            type: LOGIN_SUCCESS,
-            email,
-            name,
-          });
-        } catch {}
-      } catch (err) {
-        return console.error("Update token request failed");
+          try {
+            const {
+              user: { email, name },
+              accessToken,
+              refreshToken,
+            } = await getUser(token);
+            document.cookie = `refreshToken=${refreshToken};`;
+            document.cookie = `accessToken=${accessToken};`;
+            dispatch({
+              type: LOGIN_SUCCESS,
+              email,
+              name,
+            });
+          } catch {}
+        } catch (err) {
+          return console.error("Update token request failed");
+        }
+        return;
       }
+      console.error("Request to get user is not successful");
     });
 };
 
