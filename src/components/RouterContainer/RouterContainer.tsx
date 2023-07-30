@@ -16,59 +16,55 @@ import {
   ordersPath,
 } from "../../shared/paths";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
-import { useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
+import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 
-const RoutesContainer = () => {
-  const {
-    selectedIngredient: { _id },
-  } = useSelector((store: State) => store.ingredientModal);
-  return (
-    <Routes>
-      <Route path={ordersPath} element={<HomePage />} />
-      <Route path={`${ingredientsPath}/${_id}`} element={<HomePage />} />
-      <Route path={defaultPath} element={<HomePage />} />
-      <Route
-        path={signinPath}
-        element={
-          <ProtectedRoute>
-            <SignInPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={loginPath}
-        element={
-          <ProtectedRoute>
-            <LoginPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={forgotPasswordPath}
-        element={
-          <ProtectedRoute>
-            <ForgotPasswordPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={resetPasswordPath}
-        element={
-          <ProtectedRoute>
-            <ResetPasswordPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={profilePath}
-        element={
-          <ProtectedRoute auth>
-            <ProfilePage />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
-  );
-};
+const RoutesContainer = ({ selectedId }: { selectedId: string }) => (
+  <Routes>
+    <Route path={ordersPath} element={<HomePage />} />
+    <Route path={`${ingredientsPath}/${selectedId}`} element={<HomePage />} />
+    <Route path={defaultPath} element={<HomePage />} />
+    <Route
+      path={signinPath}
+      element={
+        <ProtectedRoute>
+          <SignInPage />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path={loginPath}
+      element={
+        <ProtectedRoute>
+          <LoginPage />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path={forgotPasswordPath}
+      element={
+        <ProtectedRoute>
+          <ForgotPasswordPage />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path={resetPasswordPath}
+      element={
+        <ProtectedRoute>
+          <ResetPasswordPage />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path={profilePath}
+      element={
+        <ProtectedRoute auth>
+          <ProfilePage />
+        </ProtectedRoute>
+      }
+    />
+    <Route path="/*" element={<NotFoundPage />} />
+  </Routes>
+);
+
 export default RoutesContainer;
