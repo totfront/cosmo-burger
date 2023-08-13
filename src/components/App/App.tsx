@@ -1,31 +1,28 @@
 import styles from "./App.module.css";
+import { BrowserRouter } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { Store } from "../../shared/types/Store";
-import { useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import RoutesContainer from "../RouterContainer/RouterContainer";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../../services/actions/userAuth";
+import { State } from "../../shared/types/State";
+import { useEffect } from "react";
 
 function App() {
-  const { error } = useSelector((store: Store) => store.ingredients);
+  const dispatch: any = useDispatch();
+  const { _id } = useSelector(
+    (state: State) => state.ingredientModal.selectedIngredient
+  );
+
+  useEffect(() => {
+    dispatch(getUserData());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
-      <AppHeader />
-      <main className={`${styles.main} mt-10 mb-10`}>
-        <h2 className={`${styles.heading} text_type_main-large mb-5`}>
-          Соберите бургер
-        </h2>
-        {!error ? (
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        ) : (
-          <>'Что-то пошло не так, перезагрузите страницу</>
-        )}
-      </main>
+      <BrowserRouter>
+        <AppHeader />
+        <RoutesContainer selectedId={_id} />
+      </BrowserRouter>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 .header {
     font-family: 'Jet Brains Mono', Arial, sans-serif;
     background-color: var(--grey);
+    margin-bottom: 40px;
 }
 
 .navBar {

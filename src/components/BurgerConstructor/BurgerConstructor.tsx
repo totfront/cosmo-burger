@@ -7,7 +7,7 @@ import {
 import styles from "./burgerConstructor.module.css";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
-import { Store } from "../../shared/types/Store";
+import { State } from "../../shared/types/State";
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
   MOVE_CONSTRUCTOR_INGREDIENT,
@@ -17,16 +17,20 @@ import {
 import { useDrop } from "react-dnd";
 import { Ingredient } from "../../shared/types/Ingredient";
 import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredient";
-import { submitOrder } from "../../services/actions/order";
 import {
   DECREASE_INGREDIENTS_COUNTER,
   INCREASE_INGREDIENTS_COUNTER,
 } from "../../services/actions/ingredients";
+import { submitOrder } from "../../services/apis/burgerApi";
+import { useNavigate } from "react-router-dom";
+import { loginPath } from "../../shared/paths";
 
 const BurgerConstructor: FC = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isAuthorized } = useSelector((state: State) => state.user);
   const { ingredients, totalPrice, error } = useSelector(
-    (store: Store) => store.orderConstructor
+    (state: State) => state.orderConstructor
   );
 
   const buns = ingredients.filter((i) => i.type === "bun");
@@ -35,6 +39,8 @@ const BurgerConstructor: FC = () => {
 
   const [isModalShown, setIsModalShown] = useState(false);
 
+  // todo: make it beautiful and used
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "ingredient",
     drop: (ingredient: Ingredient) => {
@@ -75,6 +81,9 @@ const BurgerConstructor: FC = () => {
 
   const onClick = (e: any) => {
     e.preventDefault();
+    if (!isAuthorized) {
+      return navigate(loginPath);
+    }
     setIsModalShown(true);
     const ingredientsIds = ingredients.map((i) => i._id);
     dispatch(submitOrder(ingredientsIds) as any);
@@ -127,13 +136,28 @@ const BurgerConstructor: FC = () => {
           "Something went wrong, reload or pray 🙏"
         )}
       </div>
-      <span className={styles.price}>
-        <span className="mr-2 text text_type_digits-medium">{totalPrice}</span>
-        <CurrencyIcon type="primary" />
-      </span>
-      <Button onClick={onClick} htmlType="button" type="primary" size="large">
-        Оформить заказ
-      </Button>
+      {ingredients.length ? (
+        <>
+          <span className={styles.price}>
+            <span className="mr-2 text text_type_digits-medium">
+              {totalPrice}
+            </span>
+            <CurrencyIcon type="primary" />
+          </span>
+          <Button
+            onClick={onClick}
+            htmlType="button"
+            type="primary"
+            size="large"
+          >
+            Оформить заказ
+          </Button>
+        </>
+      ) : (
+        <p className={`${styles.explanation} text text_type_main-default`}>
+          Перетащите сюда ингридиенты 👇
+        </p>
+      )}
       {isModalShown && <OrderDetails onClose={() => setIsModalShown(false)} />}
     </section>
   );

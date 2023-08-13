@@ -3,14 +3,14 @@ import Modal from "../Modal/Modal";
 import styles from "./orderDetails.module.css";
 import doneImage from "../../images/done.svg";
 import { useSelector } from "react-redux";
-import { Store } from "../../shared/types/Store";
+import { State } from "../../shared/types/State";
 
 type Props = {
   onClose: () => void;
 };
 
 const OrderDetails: FC<Props> = ({ onClose }) => {
-  const { id, name } = useSelector((store: Store) => store.orderDetails);
+  const { id, name } = useSelector((store: State) => store.orderDetails);
 
   return (
     <Modal onClose={onClose}>

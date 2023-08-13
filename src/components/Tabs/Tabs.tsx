@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Store } from "../../shared/types/Store";
+import { State } from "../../shared/types/State";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC } from "react";
 import { switchTabActionCreator } from "../../services/actions/ingredients";
@@ -11,9 +11,7 @@ type Props = {
 
 const Tabs: FC<Props> = ({ currentTab }) => {
   const dispatch: any = useDispatch();
-  const {
-    ingredients: { tabs },
-  } = useSelector((store: Store) => store);
+  const { tabs } = useSelector((store: State) => store.ingredients);
 
   // TODO: create a proper shape of the store for the ingredients Ingredient[] and tabs (most likely we do not need it)
   if (currentTab === "main") {

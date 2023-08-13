@@ -27,6 +27,8 @@ const ConstructorIngredient: FC<Props> = ({
 }) => {
   const { image, price, name, type } = ingredient;
   const ref = useRef<HTMLLIElement>(null);
+  //todo: read what does it do
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ handlerId }, drop] = useDrop<
     DragItem,
     void,

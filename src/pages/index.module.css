@@ -1,0 +1,88 @@
+.container {
+    max-width: 1280px;
+    margin: auto;
+}
+
+.navWrapper {
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.list {
+    padding: 0;
+    margin-bottom: 80px;
+}
+
+.listItem {
+    margin-top: 15px;
+    list-style: none;
+    margin-left: 30px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+}
+
+.navButton {
+    font-size: 24px;
+    color: var(--dark-grey);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-shadow: none;
+
+    &:hover {
+        text-shadow: var(--purple) 1px 5px 10px;
+        transition: all 0.3s;
+    }
+}
+
+.navButtonActive {
+    color: var(--light-grey);
+}
+
+.wrapper {
+    max-width: 480px;
+    margin: auto;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.submit {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 80px;
+}
+
+.inputName, .inputEmail, .inputPassword {
+    margin-bottom: 24px;
+}
+
+.text {
+    text-align: center;
+}
+
+.description {
+    margin-left: 40px;
+    max-width: 320px;
+}
+
+.link {
+    color: var(--purple);
+    text-decoration: none;
+    text-shadow: none;
+
+    &:hover {
+        text-shadow: var(--purple) 1px 5px 10px;
+        text-decoration: underline;
+        transition: all 0.3s;
+    }
+}

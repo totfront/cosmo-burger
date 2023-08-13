@@ -5,8 +5,9 @@ import {
   SET_TOTAL_PRICE,
 } from "../../services/actions/constructor";
 import {
+  HIDE_HOME_PAGE,
   HIDE_INGREDIENT_MODAL,
-  SET_MODAL_INGREDIENT,
+  SHOW_INGREDIENT_MODAL,
 } from "../../services/actions/ingredientModal";
 import {
   GET_INGREDIENTS_ERROR,
@@ -26,13 +27,22 @@ import {
 import { Ingredient } from "./Ingredient";
 import { SortedIngredients } from "./SortedIngredients";
 import { SET_CONSTRUCTOR_INGREDIENTS } from "../../services/actions/constructor";
+import {
+  LOGOUT,
+  LOGIN_FAIL,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  SET_USER_FAIL,
+  SET_USER_REQUEST,
+  SET_USER_SUCCESS,
+} from "../../services/actions/userAuth";
 
 type HideIngredientModal = {
   type: typeof HIDE_INGREDIENT_MODAL;
 };
 
 type SetIngredientModal = {
-  type: typeof SET_MODAL_INGREDIENT;
+  type: typeof SHOW_INGREDIENT_MODAL;
   ingredient: Ingredient;
 };
 
@@ -113,7 +123,52 @@ type DecreaseDraggingCounter = {
   id: string;
 };
 
+type GetUser = {
+  type: typeof LOGOUT;
+};
+
+type SetUserRequest = {
+  type: typeof SET_USER_REQUEST;
+};
+
+type SetUserFail = {
+  type: typeof SET_USER_FAIL;
+};
+
+type SetUserSuccess = {
+  type: typeof SET_USER_SUCCESS;
+  name: string;
+  email: string;
+};
+
+type LoginRequest = {
+  type: typeof LOGIN_REQUEST;
+};
+
+type LoginFail = {
+  type: typeof LOGIN_FAIL;
+};
+
+type LoginSuccess = {
+  type: typeof LOGIN_SUCCESS;
+  email: string;
+  name: string;
+  password?: string;
+};
+
+type HideHomePage = {
+  type: typeof HIDE_HOME_PAGE;
+};
+
 export type ActionTypes =
+  | HideHomePage
+  | LoginRequest
+  | LoginFail
+  | LoginSuccess
+  | SetUserSuccess
+  | SetUserFail
+  | SetUserRequest
+  | GetUser
   | DecreaseDraggingCounter
   | IncreaseIngredientCounter
   | SubmitOrderRequest
