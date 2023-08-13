@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, SyntheticEvent, useCallback, useEffect, useState } from "react";
 import {
   Button,
   ConstructorElement,
@@ -27,7 +27,7 @@ import { loginPath } from "../../shared/paths";
 
 const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   const { isAuthorized } = useSelector((state: State) => state.user);
   const { ingredients, totalPrice, error } = useSelector(
     (state: State) => state.orderConstructor
@@ -79,17 +79,17 @@ const BurgerConstructor: FC = () => {
     [dispatch]
   );
 
-  const onClick = (e: any) => {
+  const onClick = (e: SyntheticEvent) => {
     e.preventDefault();
     if (!isAuthorized) {
       return navigate(loginPath);
     }
     setIsModalShown(true);
     const ingredientsIds = ingredients.map((i) => i._id);
-    dispatch(submitOrder(ingredientsIds) as any);
+    dispatch(submitOrder(ingredientsIds));
   };
 
-  // TODO: make buns as a LI elements. Improve the ConstructorIngredient component to get needed props abd become more universal
+  // TODO: make buns as a LI elements. Improve the ConstructorIngredient component to get needed props and become more universal
   return (
     <section className={styles.constructorWrapper} ref={drop}>
       <div className={`${styles.constructor}`}>

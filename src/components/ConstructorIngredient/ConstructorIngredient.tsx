@@ -6,7 +6,7 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDrag, useDrop } from "react-dnd";
+import { DragSourceMonitor, useDrag, useDrop } from "react-dnd";
 
 type Props = {
   ingredient: Ingredient;
@@ -27,7 +27,6 @@ const ConstructorIngredient: FC<Props> = ({
 }) => {
   const { image, price, name, type } = ingredient;
   const ref = useRef<HTMLLIElement>(null);
-  //todo: read what does it do
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ handlerId }, drop] = useDrop<
     DragItem,
@@ -88,7 +87,7 @@ const ConstructorIngredient: FC<Props> = ({
     item: () => {
       return { ...ingredient, index };
     },
-    collect: (monitor: any) => ({
+    collect: (monitor: DragSourceMonitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });

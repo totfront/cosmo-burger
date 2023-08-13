@@ -9,7 +9,7 @@ type Props = {
   children?: ReactNode;
 };
 
-export const ProtectedRoute: FC<Props> = ({ auth, children }): any => {
+export const ProtectedRoute: FC<Props> = ({ auth, children }) => {
   const location = useLocation();
   const { isAuthorized } = useSelector((store: State) => store.user);
   if (!auth && isAuthorized) {

@@ -48,7 +48,7 @@ export const constructorReducer = (
         action.ingredient.type === "bun"
           ? [
               ...state.ingredients.filter(
-                (ingredient: any) => ingredient.type !== "bun"
+                (ingredient: Ingredient) => ingredient.type !== "bun"
               ),
               action.ingredient,
             ]

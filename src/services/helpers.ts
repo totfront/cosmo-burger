@@ -31,7 +31,10 @@ const sortIngredients = (
   return result;
 };
 
-const searchMenuItems = (searchStrings: string | string[], database: any[]) => {
+const searchMenuItems = (
+  searchStrings: string | string[],
+  database: (Ingredient & { counter?: number })[]
+) => {
   if (searchStrings === "Булки") searchStrings = "булка";
   if (searchStrings === "Соусы") searchStrings = "Соус";
   if (typeof searchStrings === "string") {
