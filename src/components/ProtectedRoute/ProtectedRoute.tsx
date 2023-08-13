@@ -9,7 +9,7 @@ type Props = {
   children?: ReactNode;
 };
 
-export const ProtectedRoute: FC<Props> = ({ auth, children }) => {
+export const ProtectedRoute: FC<Props> = ({ auth, children = null }) => {
   const location = useLocation();
   const { isAuthorized } = useSelector((store: State) => store.user);
   if (!auth && isAuthorized) {
@@ -21,5 +21,5 @@ export const ProtectedRoute: FC<Props> = ({ auth, children }) => {
     return <Navigate to={loginPath} state={{ from: location }} replace />;
   }
 
-  return children;
+  return <>{children}</>;
 };

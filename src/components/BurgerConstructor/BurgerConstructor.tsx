@@ -1,4 +1,5 @@
 import { FC, SyntheticEvent, useCallback, useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 import {
   Button,
   ConstructorElement,
@@ -98,7 +99,7 @@ const BurgerConstructor: FC = () => {
             {topBun && (
               <ConstructorElement
                 extraClass="ml-2"
-                text={topBun.name}
+                text={`${topBun.name} (верх)`}
                 price={topBun.price}
                 thumbnail={topBun.image}
                 type="top"
@@ -112,7 +113,7 @@ const BurgerConstructor: FC = () => {
                     ingredient.type !== "bun" && (
                       <ConstructorIngredient
                         ingredient={ingredient}
-                        key={ingredient.name + index}
+                        key={uuid()}
                         index={index}
                         onDelete={() => onDelete(index, ingredient._id)}
                         onDrop={onDrop}
@@ -124,7 +125,7 @@ const BurgerConstructor: FC = () => {
             {bottomBun && (
               <ConstructorElement
                 extraClass="ml-2"
-                text={bottomBun.name}
+                text={`${bottomBun.name} (низ)`}
                 price={bottomBun.price}
                 thumbnail={bottomBun.image}
                 type="bottom"

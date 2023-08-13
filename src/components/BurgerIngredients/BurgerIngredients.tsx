@@ -11,6 +11,7 @@ import Tabs from "../Tabs/Tabs";
 import { getIngredients } from "../../services/actions/ingredients";
 import { useLocation, useNavigate } from "react-router-dom";
 import { defaultPath } from "../../shared/paths";
+import { v4 as uuid } from "uuid";
 
 const BurgerIngredients: FC = () => {
   const location = useLocation();
@@ -84,7 +85,7 @@ const BurgerIngredients: FC = () => {
             {Object.entries(tabs).map(([tabKey, tabName], index) => (
               <li
                 className={styles.ingredientsGroupWrapper}
-                key={tabName + index}
+                key={uuid()}
                 ref={tabRefs[tabKey]}
               >
                 <h3
@@ -93,15 +94,12 @@ const BurgerIngredients: FC = () => {
                 >
                   {tabName}
                 </h3>
-                {getIngredientGroup(tabKey)?.map((ingredient, index) => {
-                  const { name } = ingredient;
-                  return (
-                    <BurgerIngredient
-                      ingredient={ingredient}
-                      key={name + index}
-                    />
-                  );
-                })}
+                {getIngredientGroup(tabKey)?.map((ingredient) => (
+                  <BurgerIngredient
+                    ingredient={ingredient}
+                    key={ingredient._id + ingredient.name}
+                  />
+                ))}
               </li>
             ))}
           </ul>

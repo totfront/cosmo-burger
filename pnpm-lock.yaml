@@ -29,6 +29,9 @@ dependencies:
   '@types/react-dom':
     specifier: ^18.2.0
     version: 18.2.7
+  '@types/uuid':
+    specifier: ^9.0.2
+    version: 9.0.2
   '@ya.praktikum/react-developer-burger-ui-components':
     specifier: ^1.14.0
     version: 1.14.0(react-dom@18.2.0)(react@18.2.0)
@@ -74,6 +77,9 @@ dependencies:
   typescript:
     specifier: ^4.9.5
     version: 4.9.5
+  uuid:
+    specifier: ^9.0.0
+    version: 9.0.0
   web-vitals:
     specifier: ^2.1.4
     version: 2.1.4
@@ -2705,6 +2711,10 @@ packages:
 
   /@types/use-sync-external-store@0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
+    dev: false
+
+  /@types/uuid@9.0.2:
+    resolution: {integrity: sha512-kNnC1GFBLuhImSnV7w4njQkUiJi0ZXUycu1rUaouPqiKlXkh77JKgdRnTAp1x5eBwcIwbtI+3otwzuIDEuDoxQ==}
     dev: false
 
   /@types/ws@8.5.5:
@@ -9977,6 +9987,11 @@ packages:
 
   /uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
+
+  /uuid@9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
     hasBin: true
     dev: false
 
