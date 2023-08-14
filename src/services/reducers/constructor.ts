@@ -1,8 +1,8 @@
 import { ActionTypes } from "../../shared/types/Actions";
 import { Ingredient } from "../../shared/types/Ingredient";
+import { v4 as uuid } from "uuid";
 import {
   SET_TOTAL_PRICE,
-  SET_CONSTRUCTOR_INGREDIENTS,
   ADD_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   MOVE_CONSTRUCTOR_INGREDIENT,
@@ -37,12 +37,6 @@ export const constructorReducer = (
         totalPrice: action.totalPrice,
       };
     }
-    case SET_CONSTRUCTOR_INGREDIENTS: {
-      return {
-        ...state,
-        ingredients: action.ingredients,
-      };
-    }
     case ADD_CONSTRUCTOR_INGREDIENT: {
       const currentIngredientsWithNewOne =
         action.ingredient.type === "bun"
@@ -50,9 +44,9 @@ export const constructorReducer = (
               ...state.ingredients.filter(
                 (ingredient: Ingredient) => ingredient.type !== "bun"
               ),
-              action.ingredient,
+              { ...action.ingredient, uuid: uuid() },
             ]
-          : [...state.ingredients, action.ingredient];
+          : [...state.ingredients, { ...action.ingredient, uuid: uuid() }];
       return {
         ...state,
         ingredients: sortIngredients(currentIngredientsWithNewOne),

@@ -1,5 +1,4 @@
 import { FC, SyntheticEvent, useCallback, useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
 import {
   Button,
   ConstructorElement,
@@ -113,7 +112,7 @@ const BurgerConstructor: FC = () => {
                     ingredient.type !== "bun" && (
                       <ConstructorIngredient
                         ingredient={ingredient}
-                        key={uuid()}
+                        key={ingredient.uuid}
                         index={index}
                         onDelete={() => onDelete(index, ingredient._id)}
                         onDrop={onDrop}

@@ -85,7 +85,7 @@ const BurgerIngredients: FC = () => {
             {Object.entries(tabs).map(([tabKey, tabName], index) => (
               <li
                 className={styles.ingredientsGroupWrapper}
-                key={uuid()}
+                key={index}
                 ref={tabRefs[tabKey]}
               >
                 <h3

@@ -26,7 +26,6 @@ import {
 } from "../../services/actions/order";
 import { Ingredient } from "./Ingredient";
 import { SortedIngredients } from "./SortedIngredients";
-import { SET_CONSTRUCTOR_INGREDIENTS } from "../../services/actions/constructor";
 import {
   LOGOUT,
   LOGIN_FAIL,
@@ -80,11 +79,6 @@ type SelectSaucesTabAction = {
 type IncreaseTotalPrice = {
   type: typeof SET_TOTAL_PRICE;
   totalPrice: number;
-};
-
-type SetConstructorIngredients = {
-  type: typeof SET_CONSTRUCTOR_INGREDIENTS;
-  ingredients: SortedIngredients;
 };
 
 type AddConstructorIngredient = {
@@ -185,5 +179,5 @@ export type ActionTypes =
   | HideIngredientModal
   | SetIngredientModal
   | IncreaseTotalPrice
-  | SetConstructorIngredients
+  // | SetConstructorIngredients
   | AddConstructorIngredient;
