@@ -7,34 +7,35 @@
 
 .navBar {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
     justify-content: space-between;
     max-width: 1280px;
     margin: auto;
+    position: relative;
 }
 
 .btnContainer {
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
     gap: 8px;
-}
-
-.button {
-    background-color: transparent;
-    border: 0;
-    display: grid;
-    grid-template-columns: auto auto;
-    align-items: center;
-    justify-content: center;
-    min-width: 178px;
-    cursor: pointer;
 }
 
 .link {
     text-decoration: none;
     color:  var(--light-grey);
+    padding: 20px 16px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
 .linkDisabled {
     color:  var(--dark-grey); 
+}
+
+.logo {
+    justify-self: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
 }

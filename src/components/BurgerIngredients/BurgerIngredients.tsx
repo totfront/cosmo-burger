@@ -11,7 +11,7 @@ import Tabs from "../Tabs/Tabs";
 import { getIngredients } from "../../services/actions/ingredients";
 import { useLocation, useNavigate } from "react-router-dom";
 import { defaultPath } from "../../shared/paths";
-import { v4 as uuid } from "uuid";
+import Modal from "../Modal/Modal";
 
 const BurgerIngredients: FC = () => {
   const location = useLocation();
@@ -105,7 +105,11 @@ const BurgerIngredients: FC = () => {
           </ul>
         </>
       )}
-      {isModalShown && <IngredientDetails onClose={onModalClose} />}
+      {isModalShown && (
+        <Modal onClose={onModalClose} title="Детали ингредиента">
+          <IngredientDetails />
+        </Modal>
+      )}
     </section>
   );
 };

@@ -24,6 +24,7 @@ import {
 import { submitOrder } from "../../services/apis/burgerApi";
 import { useNavigate } from "react-router-dom";
 import { loginPath } from "../../shared/paths";
+import Modal from "../Modal/Modal";
 
 const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
@@ -158,7 +159,11 @@ const BurgerConstructor: FC = () => {
           Перетащите сюда ингридиенты 👇
         </p>
       )}
-      {isModalShown && <OrderDetails onClose={() => setIsModalShown(false)} />}
+      {isModalShown && (
+        <Modal onClose={() => setIsModalShown(false)}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 };

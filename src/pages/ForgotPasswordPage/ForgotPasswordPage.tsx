@@ -4,7 +4,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../index.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { SyntheticEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { checkEmail } from "../../services/apis/authorizationApi";
 import { resetPasswordPath } from "../../shared/paths";
 
@@ -14,7 +14,7 @@ const ForgotPasswordPage = () => {
   const handleChange = (value: string) => {
     setEmail(value);
   };
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       checkEmail(email);
