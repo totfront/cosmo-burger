@@ -1,12 +1,11 @@
 import {
   BurgerIcon,
-  Button,
   ListIcon,
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./appHeader.module.css";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { defaultPath, ordersPath, profilePath } from "../../shared/paths";
 import { useEffect, useState } from "react";
 
