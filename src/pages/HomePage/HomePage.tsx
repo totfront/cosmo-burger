@@ -15,13 +15,12 @@ const HomePage = () => {
   const { error } = useSelector((store: State) => store.ingredients);
   const { pathname } = location;
   const isOrders = pathname === "/orders";
-  const header = isOrders ? "Лента заказов" : "Соберите бургер";
 
   return (
     <main className={`${styles.main} mt-10 mb-10`}>
       {!isHomePageHidden && (
         <h2 className={`${styles.heading} text_type_main-large mb-5`}>
-          {header}
+          {isOrders ? "Лента заказов" : "Соберите бургер"}
         </h2>
       )}
       {!error && !isOrders ? (

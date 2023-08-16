@@ -4,10 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ingredientsPath } from "../../shared/paths";
-import {
-  HIDE_HOME_PAGE,
-  SHOW_INGREDIENT_MODAL,
-} from "../../services/actions/ingredientModal";
 
 const IngredientDetails: FC = () => {
   const dispatch = useDispatch();
@@ -26,12 +22,7 @@ const IngredientDetails: FC = () => {
   } = useSelector((store: State) => store.ingredientModal);
 
   useEffect(() => {
-    const { from: pathname } = location.state || { from: { pathname: "" } };
     navigate(`${ingredientsPath}/${_id}`);
-    if (!pathname) {
-      dispatch({ type: HIDE_HOME_PAGE });
-      dispatch({ type: SHOW_INGREDIENT_MODAL });
-    }
   }, [_id, navigate, dispatch, location.state]);
 
   return (

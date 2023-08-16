@@ -17,14 +17,16 @@ import {
 } from "../../shared/paths";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import { useEffect, useState } from "react";
 import { getIdFromPath } from "../../services/helpers";
+import { HIDE_HOME_PAGE } from "../../services/actions/ingredientModal";
 
 const RoutesContainer = () => {
+  const dispatch = useDispatch();
   const [id, setId] = useState("");
-  const { pathname } = useLocation();
+  const { pathname, state } = useLocation();
   const { _id } = useSelector(
     (state: State) =>
       state.ingredientModal.selectedIngredient || {
@@ -36,8 +38,9 @@ const RoutesContainer = () => {
     setId(_id);
     if (pathname.includes(`${ingredientsPath}/`)) {
       setId(getIdFromPath(pathname));
+      dispatch({ type: HIDE_HOME_PAGE });
     }
-  }, [_id, id, pathname]);
+  }, [_id, id, pathname, dispatch, state?.from]);
   return (
     <Routes>
       <Route path={ordersPath} element={<HomePage />} />

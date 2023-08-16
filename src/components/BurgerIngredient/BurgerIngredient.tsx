@@ -47,7 +47,7 @@ const BurgerIngredient: FC<Props> = ({ ingredient }) => {
           <CurrencyIcon type="primary" />
         </div>
         <span className={"text text_type_main-default"}>{name}</span>
-        {counter && <Counter count={counter} />}
+        {counter && counter !== 0 ? <Counter count={counter} /> : null}
       </button>
     </>
   );
