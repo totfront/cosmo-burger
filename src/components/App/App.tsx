@@ -1,7 +1,7 @@
 import styles from "./App.module.css";
 import { BrowserRouter } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
-import RoutesContainer from "../RouterContainer/RouterContainer";
+import Router from "../Router/Router";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../../services/actions/userAuth";
 import { useEffect } from "react";
@@ -17,7 +17,7 @@ function App() {
     <div className={styles.app}>
       <BrowserRouter>
         <AppHeader />
-        <RoutesContainer />
+        <Router />
       </BrowserRouter>
     </div>
   );

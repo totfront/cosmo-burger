@@ -1,14 +1,12 @@
 import { ActionTypes } from "../../shared/types/Actions";
 import { IngredientModal } from "../../shared/types/IngredientModal";
 import {
-  HIDE_HOME_PAGE,
   HIDE_INGREDIENT_MODAL,
   SHOW_INGREDIENT_MODAL,
 } from "../actions/ingredientModal";
 
 const initialState: IngredientModal = {
   isModalShown: false,
-  isHomePageHidden: false,
   selectedIngredient: {
     name: "",
     image: "",
@@ -42,13 +40,6 @@ export const ingredientModalReducer = (
       return {
         ...state,
         isModalShown: false,
-        isHomePageHidden: false,
-      };
-    }
-    case HIDE_HOME_PAGE: {
-      return {
-        ...state,
-        isHomePageHidden: true,
       };
     }
     default: {

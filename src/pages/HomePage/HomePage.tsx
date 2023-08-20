@@ -9,24 +9,19 @@ import { useLocation } from "react-router-dom";
 
 const HomePage = () => {
   const location = useLocation();
-  const { isHomePageHidden } = useSelector(
-    (store: State) => store.ingredientModal
-  );
   const { error } = useSelector((store: State) => store.ingredients);
   const { pathname } = location;
   const isOrders = pathname === "/orders";
 
   return (
     <main className={`${styles.main} mt-10 mb-10`}>
-      {!isHomePageHidden && (
-        <h2 className={`${styles.heading} text_type_main-large mb-5`}>
-          {isOrders ? "Лента заказов" : "Соберите бургер"}
-        </h2>
-      )}
+      <h2 className={`${styles.heading} text_type_main-large mb-5`}>
+        {isOrders ? "Лента заказов" : "Соберите бургер"}
+      </h2>
       {!error && !isOrders ? (
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
-          {!isHomePageHidden && <BurgerConstructor />}
+          <BurgerConstructor />
         </DndProvider>
       ) : (
         <p className={`text text_type_main-small ${styles.text}`}>

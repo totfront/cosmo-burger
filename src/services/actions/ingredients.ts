@@ -22,16 +22,17 @@ export const getIngredients = () => (dispatch: Dispatch<ActionTypes>) => {
         type: GET_INGREDIENTS_SUCCESS,
         ingredients: sortedIngredients,
       });
-      const ingredientsBasedOnUrl = Object.values(data).find(
-        (i) => i._id === getIdFromPath(location.pathname)
+      const modalIngredientId = getIdFromPath(location.pathname);
+      const getUrlIdIngredient = Object.values(data).find(
+        (i) => i._id === modalIngredientId
       );
       if (
-        location.pathname.includes(`${ingredientsPath}/`) &&
-        ingredientsBasedOnUrl !== undefined
+        location.pathname.includes(`${ingredientsPath}/${modalIngredientId}`) &&
+        getUrlIdIngredient !== undefined
       ) {
         dispatch({
           type: SHOW_INGREDIENT_MODAL,
-          ingredient: ingredientsBasedOnUrl,
+          ingredient: getUrlIdIngredient,
         });
       }
     })

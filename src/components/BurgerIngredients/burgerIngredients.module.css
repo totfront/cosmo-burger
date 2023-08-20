@@ -18,6 +18,7 @@
 
 .ingredientsGroupWrapper {
     display: grid;
+    gap: 0 24px;
     grid-template-columns: 1fr 1fr;
 }
 
