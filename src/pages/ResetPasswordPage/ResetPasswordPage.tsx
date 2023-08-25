@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../index.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { SyntheticEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { resetPassword } from "../../services/apis/authorizationApi";
 import { loginPath } from "../../shared/paths";
 
@@ -14,7 +14,7 @@ const ResetPasswordPage = () => {
   const [password, setPassword] = useState("");
   const [passPhrase, setPassPhrase] = useState("");
 
-  const onSubmit = (e: SyntheticEvent) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     resetPassword({ password, token: passPhrase })
       .then(({ success }) => {

@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../index.module.css";
 import { Link } from "react-router-dom";
-import { SyntheticEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { handleInputChange } from "../../services/helpers";
 import { authorizeUser } from "../../services/actions/userAuth";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = (e: SyntheticEvent) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(authorizeUser({ email, password }));
   };

@@ -45,15 +45,10 @@ export const authorizeUser =
   (credentials: LoginData) => (dispatch: Dispatch<ActionTypes>) => {
     dispatch({ type: LOGIN_REQUEST });
     login(credentials)
-      .then(({ success, user, accessToken, refreshToken, message }) => {
-        if (!success) {
-          throw new Error(message);
-        }
-
+      .then(({ user, accessToken, refreshToken, message }) => {
         const { name, email } = user;
         document.cookie = `refreshToken=${refreshToken}`;
         document.cookie = `accessToken=${accessToken}`;
-
         dispatch({
           type: LOGIN_SUCCESS,
           email,
@@ -70,9 +65,7 @@ export const authorizeUser =
 export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
   const token = getCookie("accessToken");
   getUser(token)
-    .then(({ user: { email, name }, accessToken, refreshToken }) => {
-      document.cookie = `refreshToken=${refreshToken};`;
-      document.cookie = `accessToken=${accessToken};`;
+    .then(({ user: { email, name } }) => {
       dispatch({
         type: LOGIN_SUCCESS,
         email,
@@ -86,26 +79,30 @@ export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
             await refreshToken(getCookie("refreshToken"));
           document.cookie = `refreshToken=${newRefreshToken};`;
           document.cookie = `accessToken=${accessToken};`;
+
           try {
             const {
               user: { email, name },
-              accessToken,
-              refreshToken,
-            } = await getUser(token);
-            document.cookie = `refreshToken=${refreshToken};`;
-            document.cookie = `accessToken=${accessToken};`;
+              accessToken: newAccessToken,
+              refreshToken: newRefreshToken,
+            } = await getUser(accessToken);
+            document.cookie = `refreshToken=${newRefreshToken};`;
+            document.cookie = `accessToken=${newAccessToken};`;
+
             dispatch({
               type: LOGIN_SUCCESS,
               email,
               name,
             });
-          } catch {}
-        } catch (err) {
-          return console.error("Update token request failed");
+          } catch (innerErr) {
+            console.error("Failed to get user:", innerErr);
+          }
+        } catch (refreshErr) {
+          console.error("Update token request failed:", refreshErr);
         }
-        return;
+      } else {
+        console.error("Request to get user is not successful:", err);
       }
-      console.error("Request to get user is not successful");
     });
 };
 

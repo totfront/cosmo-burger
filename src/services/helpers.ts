@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Ingredient } from "../shared/types/Ingredient";
 import { SortedIngredients } from "../shared/types/SortedIngredients";
+import { ingredientsPath } from "../shared/paths";
 
 const tabNameConverter = (name: string) => {
   if (name === "Булки") return "buns";
@@ -31,7 +32,10 @@ const sortIngredients = (
   return result;
 };
 
-const searchMenuItems = (searchStrings: string | string[], database: any[]) => {
+const searchMenuItems = (
+  searchStrings: string | string[],
+  database: (Ingredient & { counter?: number })[]
+) => {
   if (searchStrings === "Булки") searchStrings = "булка";
   if (searchStrings === "Соусы") searchStrings = "Соус";
   if (typeof searchStrings === "string") {
@@ -81,7 +85,11 @@ const handleInputChange = (
   setter(value);
 };
 
+const getIdFromPath = (path: string) =>
+  path.substring(ingredientsPath.length + 1, path.length);
+
 export {
+  getIdFromPath,
   handleInputChange,
   searchMenuItems,
   tabNameConverter,

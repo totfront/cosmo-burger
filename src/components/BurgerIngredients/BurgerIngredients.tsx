@@ -3,21 +3,12 @@ import { useInView } from "react-intersection-observer";
 
 import styles from "./burgerIngredients.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
-import { HIDE_INGREDIENT_MODAL } from "../../services/actions/ingredientModal";
 import Tabs from "../Tabs/Tabs";
 import { getIngredients } from "../../services/actions/ingredients";
-import { useLocation, useNavigate } from "react-router-dom";
-import { defaultPath } from "../../shared/paths";
 
 const BurgerIngredients: FC = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { isModalShown, isHomePageHidden } = useSelector(
-    (store: State) => store.ingredientModal
-  );
   const { tabs, ingredients } = useSelector(
     (store: State) => store.ingredients
   );
@@ -65,49 +56,35 @@ const BurgerIngredients: FC = () => {
     return result;
   };
 
-  const onModalClose = () => {
-    const {
-      from: { pathname },
-    } = location.state || { from: { pathname: defaultPath } };
-    dispatch({
-      type: HIDE_INGREDIENT_MODAL,
-    });
-    navigate(pathname);
-  };
-
   return (
     <section className={`${styles.wrapper}`}>
-      {!isHomePageHidden && (
-        <>
-          <Tabs currentTab={currentTab} />
-          <ul id={"ingredients"} className={styles.ingredients}>
-            {Object.entries(tabs).map(([tabKey, tabName], index) => (
-              <li
-                className={styles.ingredientsGroupWrapper}
-                key={tabName + index}
-                ref={tabRefs[tabKey]}
+      <Tabs currentTab={currentTab} />
+      {ingredients ? (
+        <ul id={"ingredients"} className={styles.ingredients}>
+          {Object.entries(tabs).map(([tabKey, tabName], index) => (
+            <li
+              className={styles.ingredientsGroupWrapper}
+              key={index}
+              ref={tabRefs[tabKey]}
+            >
+              <h3
+                id={tabName}
+                className={`${styles.ingredientsHeading} text text_type_main-medium mt-4 mb-6`}
               >
-                <h3
-                  id={tabName}
-                  className={`${styles.ingredientsHeading} text text_type_main-medium mt-4 mb-6`}
-                >
-                  {tabName}
-                </h3>
-                {getIngredientGroup(tabKey)?.map((ingredient, index) => {
-                  const { name } = ingredient;
-                  return (
-                    <BurgerIngredient
-                      ingredient={ingredient}
-                      key={name + index}
-                    />
-                  );
-                })}
-              </li>
-            ))}
-          </ul>
-        </>
+                {tabName}
+              </h3>
+              {getIngredientGroup(tabKey)?.map((ingredient) => (
+                <BurgerIngredient
+                  ingredient={ingredient}
+                  key={ingredient._id + ingredient.name}
+                />
+              ))}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        "wait 🫠"
       )}
-      {isModalShown && <IngredientDetails onClose={onModalClose} />}
     </section>
   );
 };

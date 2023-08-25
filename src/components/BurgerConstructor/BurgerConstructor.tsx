@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, SyntheticEvent, useCallback, useEffect, useState } from "react";
 import {
   Button,
   ConstructorElement,
@@ -24,10 +24,11 @@ import {
 import { submitOrder } from "../../services/apis/burgerApi";
 import { useNavigate } from "react-router-dom";
 import { loginPath } from "../../shared/paths";
+import Modal from "../Modal/Modal";
 
 const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   const { isAuthorized } = useSelector((state: State) => state.user);
   const { ingredients, totalPrice, error } = useSelector(
     (state: State) => state.orderConstructor
@@ -79,17 +80,17 @@ const BurgerConstructor: FC = () => {
     [dispatch]
   );
 
-  const onClick = (e: any) => {
+  const onClick = (e: SyntheticEvent) => {
     e.preventDefault();
     if (!isAuthorized) {
       return navigate(loginPath);
     }
     setIsModalShown(true);
     const ingredientsIds = ingredients.map((i) => i._id);
-    dispatch(submitOrder(ingredientsIds) as any);
+    dispatch(submitOrder(ingredientsIds));
   };
 
-  // TODO: make buns as a LI elements. Improve the ConstructorIngredient component to get needed props abd become more universal
+  // TODO: make buns as a LI elements. Improve the ConstructorIngredient component to get needed props and become more universal
   return (
     <section className={styles.constructorWrapper} ref={drop}>
       <div className={`${styles.constructor}`}>
@@ -98,7 +99,7 @@ const BurgerConstructor: FC = () => {
             {topBun && (
               <ConstructorElement
                 extraClass="ml-2"
-                text={topBun.name}
+                text={`${topBun.name} (верх)`}
                 price={topBun.price}
                 thumbnail={topBun.image}
                 type="top"
@@ -112,7 +113,7 @@ const BurgerConstructor: FC = () => {
                     ingredient.type !== "bun" && (
                       <ConstructorIngredient
                         ingredient={ingredient}
-                        key={ingredient.name + index}
+                        key={ingredient.uuid}
                         index={index}
                         onDelete={() => onDelete(index, ingredient._id)}
                         onDrop={onDrop}
@@ -124,7 +125,7 @@ const BurgerConstructor: FC = () => {
             {bottomBun && (
               <ConstructorElement
                 extraClass="ml-2"
-                text={bottomBun.name}
+                text={`${bottomBun.name} (низ)`}
                 price={bottomBun.price}
                 thumbnail={bottomBun.image}
                 type="bottom"
@@ -158,7 +159,11 @@ const BurgerConstructor: FC = () => {
           Перетащите сюда ингридиенты 👇
         </p>
       )}
-      {isModalShown && <OrderDetails onClose={() => setIsModalShown(false)} />}
+      {isModalShown && (
+        <Modal onClose={() => setIsModalShown(false)}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 };

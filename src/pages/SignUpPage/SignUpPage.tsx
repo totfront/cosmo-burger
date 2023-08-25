@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../index.module.css";
-import { SyntheticEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { addNewUser } from "../../services/actions/userAuth";
 import { useDispatch } from "react-redux";
 import { handleInputChange } from "../../services/helpers";
@@ -18,7 +18,7 @@ const SignInPage = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const onSubmit = (e: SyntheticEvent) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addNewUser({ name, email, password }, navigate));
   };

@@ -1,14 +1,12 @@
 .ingredient {
     position: relative;
-    padding: 0;
-    width: 100%;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
     justify-content: center;
     justify-items: center;
-    background-color: transparent;
-    border: 0;
+    text-decoration: none;
+    text-align: center;
     color: var(--light-grey);
     cursor: pointer;
     @media (max-width: 1280px) {

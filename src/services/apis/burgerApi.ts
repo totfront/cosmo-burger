@@ -6,14 +6,13 @@ import {
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
 } from "../actions/order";
-
-const ingredientsUrl = "https://norma.nomoreparties.space/api";
+import { NoMorePartiesUrl } from "../../shared/paths";
 
 const fetchData = () =>
-  fetch(`${ingredientsUrl}/ingredients`).then((res) => checkResponse(res));
+  fetch(`${NoMorePartiesUrl}/ingredients`).then((res) => checkResponse(res));
 
 const sendOrder = (ingredients: string[]) =>
-  fetch(`${ingredientsUrl}/orders`, {
+  fetch(`${NoMorePartiesUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
