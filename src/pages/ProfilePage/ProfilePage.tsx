@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import { logoutUser } from "../../services/actions/userAuth";
 import { useNavigate } from "react-router-dom";
-import { ordersPath } from "../../shared/paths";
-import { FeedItem } from "../../components/FeedItem/FeedItem";
+import { ordersPath, profilePath } from "../../shared/paths";
+import { Order } from "../../components/Order/Order";
 
 const profile = "profile";
 const history = "history";
@@ -65,7 +65,7 @@ const ProfilePage = () => {
               type="button"
               onClick={() => {
                 navButtonClick(() => {
-                  navigate(ordersPath);
+                  navigate(`${profilePath}${ordersPath}`);
                 });
               }}
             >
@@ -127,9 +127,9 @@ const ProfilePage = () => {
         </div>
       ) : (
         <ul className={`${styles.feed}`}>
-          <FeedItem withStatus />
-          <FeedItem withStatus />
-          <FeedItem withStatus />
+          <Order withStatus />
+          <Order withStatus />
+          <Order withStatus />
         </ul>
       )}
     </div>

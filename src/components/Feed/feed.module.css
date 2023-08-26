@@ -7,7 +7,7 @@
     grid-column-start: span 3;
 }
 
-.feed {
+.orders {
     list-style: none;
     display: grid;
     gap: 16px;

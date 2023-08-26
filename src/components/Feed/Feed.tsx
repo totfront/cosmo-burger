@@ -1,16 +1,16 @@
-import { FeedItem } from "../FeedItem/FeedItem";
-import styles from "./orders.module.css";
+import { Order } from "../Order/Order";
+import styles from "./feed.module.css";
 
-export const Orders = () => (
+export const Feed = () => (
   <section className={`${styles.pageContainer}`}>
     <h1 className={`${styles.pageHeading} text text_type_main-large  mb-5`}>
       Лента заказов
     </h1>
-    <ul className={styles.feed}>
-      <FeedItem />
-      <FeedItem />
-      <FeedItem />
-      <FeedItem />
+    <ul className={styles.orders}>
+      <Order />
+      <Order />
+      <Order />
+      <Order />
     </ul>
     <section className={styles.infoSection}>
       <article className={styles.statusListWrapper}>

@@ -1,9 +1,9 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import testImage from "../../images/bun-01.svg";
-import styles from "./feedItem.module.css";
+import styles from "./order.module.css";
 
-export const FeedItem = ({ withStatus = false }) => (
-  <li className={styles.feedItem}>
+export const Order = ({ withStatus = false }) => (
+  <li className={styles.order}>
     <div className={styles.header}>
       <span
         className={`${styles.orderNumber} text text_type_digits-default mr-4`}
