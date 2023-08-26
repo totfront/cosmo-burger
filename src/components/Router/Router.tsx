@@ -23,6 +23,7 @@ import { useEffect, useState } from "react";
 import { getIdFromPath } from "../../services/helpers";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import { Feed } from "../Feed/Feed";
 
 const Router = () => {
   const [id, setId] = useState("");
@@ -53,7 +54,7 @@ const Router = () => {
     <>
       <Routes location={background || location}>
         <Route path={defaultPath} element={<HomePage />} />
-        <Route path={ordersPath} element={<HomePage />} />
+        <Route path={ordersPath} element={<Feed />} />
         <Route
           path={`${ingredientsPath}/:id`}
           element={<IngredientDetails />}
