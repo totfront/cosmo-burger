@@ -1,7 +1,7 @@
 import { FeedItem } from "../FeedItem/FeedItem";
-import styles from "./feed.module.css";
+import styles from "./orders.module.css";
 
-export const Feed = () => (
+export const Orders = () => (
   <section className={`${styles.pageContainer}`}>
     <h1 className={`${styles.pageHeading} text text_type_main-large  mb-5`}>
       Лента заказов

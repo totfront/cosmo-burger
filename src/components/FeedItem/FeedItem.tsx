@@ -2,7 +2,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import testImage from "../../images/bun-01.svg";
 import styles from "./feedItem.module.css";
 
-export const FeedItem = () => (
+export const FeedItem = ({ withStatus = false }) => (
   <li className={styles.feedItem}>
     <div className={styles.header}>
       <span
@@ -17,9 +17,11 @@ export const FeedItem = () => (
     <h3 className={`${styles.heading} text text_type_main-medium mt-6 mb-2`}>
       Death Star Starship Main бургер
     </h3>
-    <span className={`${styles.status} text text_type_main-small`}>
-      Готовится
-    </span>
+    {withStatus && (
+      <span className={`${styles.status} text text_type_main-small`}>
+        Готовится
+      </span>
+    )}
     <div className={`${styles.footer}  mt-6`}>
       <ul className={styles.ingredientsImages}>
         <li className={`${styles.ingredient}`}>

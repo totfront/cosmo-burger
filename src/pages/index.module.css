@@ -86,3 +86,10 @@
         transition: all 0.3s;
     }
 }
+
+.feed {
+    list-style: none;
+    margin-left: 380px;
+    display: grid;
+    gap: 24px;
+}

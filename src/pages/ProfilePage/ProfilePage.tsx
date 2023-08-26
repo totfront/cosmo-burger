@@ -11,6 +11,7 @@ import { State } from "../../shared/types/State";
 import { logoutUser } from "../../services/actions/userAuth";
 import { useNavigate } from "react-router-dom";
 import { ordersPath } from "../../shared/paths";
+import { FeedItem } from "../../components/FeedItem/FeedItem";
 
 const profile = "profile";
 const history = "history";
@@ -38,7 +39,7 @@ const ProfilePage = () => {
 
   const navButtonClick = (func: () => void) => {
     func();
-    // todo: on 4th sprint
+    // todo: on 4th sprint ))
   };
 
   return (
@@ -91,38 +92,46 @@ const ProfilePage = () => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </section>
-      <div className={styles.wrapper}>
-        <form className={styles.form}>
-          <Input
-            extraClass={styles.inputName}
-            onChange={({ target: { value } }) =>
-              handleInputChange(value, setName)
-            }
-            name="name"
-            value={name}
-            placeholder="Имя"
-          />
-          <EmailInput
-            onChange={({ target: { value } }) =>
-              handleInputChange(value, setEmail)
-            }
-            extraClass={styles.inputEmail}
-            value={email}
-            name={"email"}
-            isIcon={false}
-            placeholder="E-mail"
-          />
-          <PasswordInput
-            extraClass={styles.inputPassword}
-            onChange={({ target: { value } }) =>
-              handleInputChange(value, setPassword)
-            }
-            value={password}
-            name={"email"}
-            placeholder="Пароль"
-          />
-        </form>
-      </div>
+      {false ? (
+        <div className={styles.wrapper}>
+          <form className={styles.form}>
+            <Input
+              extraClass={styles.inputName}
+              onChange={({ target: { value } }) =>
+                handleInputChange(value, setName)
+              }
+              name="name"
+              value={name}
+              placeholder="Имя"
+            />
+            <EmailInput
+              onChange={({ target: { value } }) =>
+                handleInputChange(value, setEmail)
+              }
+              extraClass={styles.inputEmail}
+              value={email}
+              name={"email"}
+              isIcon={false}
+              placeholder="E-mail"
+            />
+            <PasswordInput
+              extraClass={styles.inputPassword}
+              onChange={({ target: { value } }) =>
+                handleInputChange(value, setPassword)
+              }
+              value={password}
+              name={"email"}
+              placeholder="Пароль"
+            />
+          </form>
+        </div>
+      ) : (
+        <ul className={`${styles.feed}`}>
+          <FeedItem withStatus />
+          <FeedItem withStatus />
+          <FeedItem withStatus />
+        </ul>
+      )}
     </div>
   );
 };
