@@ -6,7 +6,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./appHeader.module.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { defaultPath, ordersPath, profilePath } from "../../shared/paths";
+import {
+  defaultPath,
+  feedPath,
+  ordersPath,
+  profilePath,
+} from "../../shared/paths";
 import { useEffect, useState } from "react";
 
 const AppHeader = () => {
@@ -41,7 +46,7 @@ const AppHeader = () => {
               activeNavLink !== ordersPath && styles.linkDisabled
             } ml-2 text text_type_main-default`}
             onClick={() => onClickHandler(ordersPath)}
-            to={ordersPath}
+            to={feedPath}
           >
             <ListIcon type="primary" />
             Лента заказов

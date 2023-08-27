@@ -14,6 +14,7 @@ import {
   profilePath,
   ingredientsPath,
   ordersPath,
+  feedPath,
 } from "../../shared/paths";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
@@ -55,9 +56,8 @@ const Router = () => {
     <>
       <Routes location={background || location}>
         <Route path={defaultPath} element={<HomePage />} />
-        <Route path={ordersPath} element={<Orders />} />
-        <Route path={`${ordersPath}/:id`} element={<Orders />} />
-        <Route path={`${ordersPath}/:id`} element={<OrderDetails />} />
+        <Route path={feedPath} element={<Orders />} />
+        <Route path={`${feedPath}/:id`} element={<OrderDetails />} />
         <Route
           path={signinPath}
           element={
@@ -92,6 +92,22 @@ const Router = () => {
         />
         <Route
           path={profilePath}
+          element={
+            <ProtectedRoute auth>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={`${profilePath}${ordersPath}`}
+          element={
+            <ProtectedRoute auth>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={`${profilePath}${ordersPath}/:id`}
           element={
             <ProtectedRoute auth>
               <ProfilePage />

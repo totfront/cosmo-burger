@@ -9,16 +9,12 @@ import { handleInputChange } from "../../services/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import { logoutUser } from "../../services/actions/userAuth";
-import { useNavigate } from "react-router-dom";
-import { ordersPath, profilePath } from "../../shared/paths";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { loginPath, ordersPath, profilePath } from "../../shared/paths";
 import { Order } from "../../components/Order/Order";
 
-const profile = "profile";
-const history = "history";
-const exit = "exit";
-
 const ProfilePage = () => {
-  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const {
     name: currentName,
     email: currentEmail,
@@ -28,71 +24,58 @@ const ProfilePage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [activeNavItem, setActiveNavItem] = useState("");
 
   useEffect(() => {
-    setActiveNavItem(profile);
     setName(currentName);
     setEmail(currentEmail);
     setPassword(currentPassword);
   }, [currentEmail, currentName, currentPassword]);
-
-  const navButtonClick = (func: () => void) => {
-    func();
-    // todo: on 4th sprint ))
-  };
 
   return (
     <div className={styles.container}>
       <section className={styles.navWrapper}>
         <ul className={styles.list}>
           <li className={styles.listItem}>
-            <button
-              className={`${styles.navButton} ${
-                activeNavItem === profile && styles.navButtonActive
-              }`}
+            <Link
+              to={`${profilePath}`}
+              className={`${styles.navLink} ${
+                pathname === profilePath && styles.navLinkActive
+              } text text_type_main-default`}
               type="button"
-              onClick={() => navButtonClick(() => {})}
             >
               Профиль
-            </button>
+            </Link>
           </li>
           <li className={styles.listItem}>
-            <button
-              className={`${styles.navButton} ${
-                activeNavItem === history && styles.navButtonActive
-              }`}
+            <Link
+              to={`${profilePath}${ordersPath}`}
+              className={`${styles.navLink} ${
+                pathname !== profilePath && styles.navLinkActive
+              } text text_type_main-default`}
               type="button"
-              onClick={() => {
-                navButtonClick(() => {
-                  navigate(`${profilePath}${ordersPath}`);
-                });
-              }}
             >
               История заказов
-            </button>
+            </Link>
           </li>
           <li className={styles.listItem}>
-            <button
-              className={`${styles.navButton} ${
-                activeNavItem === exit && styles.navButtonActive
-              }`}
+            <Link
+              to={loginPath}
+              // todo: investigate why user redirected to homepage
+              className={`${styles.navLink} text text_type_main-default`}
               type="button"
-              onClick={() =>
-                navButtonClick(() => {
-                  dispatch(logoutUser());
-                })
-              }
+              onClick={() => {
+                dispatch(logoutUser());
+              }}
             >
               Выход
-            </button>
+            </Link>
           </li>
         </ul>
         <p className={`text text_type_main-small ${styles.description}`}>
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </section>
-      {false ? (
+      {pathname === profilePath ? (
         <div className={styles.wrapper}>
           <form className={styles.form}>
             <Input
