@@ -5,6 +5,5 @@ export const loginPath = "/login";
 export const signinPath = "/signin";
 export const profilePath = "/profile";
 export const ingredientsPath = "/ingredients";
-export const feedPath = "/feed";
-export const ordersPath = "/orders";
+export const ordersPath = "/feed";
 export const NoMorePartiesUrl = "https://norma.nomoreparties.space/api";

@@ -21,7 +21,7 @@
     flex-direction: column;
     gap: 16px;
     max-height: 256px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .ingredient {

@@ -35,6 +35,7 @@
     display: inline-block;
     max-width: 64px;
     max-height: 64px;
+    height: 100%;
 }
 
 .ingredient:before, .ingredient:after {

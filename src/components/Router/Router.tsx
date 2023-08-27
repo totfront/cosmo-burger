@@ -57,7 +57,7 @@ const Router = () => {
         <Route path={defaultPath} element={<HomePage />} />
         <Route path={ordersPath} element={<Orders />} />
         <Route path={`${ordersPath}/:id`} element={<Orders />} />
-        <Route path={`${ordersPath}/test`} element={<OrderDetails />} />
+        <Route path={`${ordersPath}/:id`} element={<OrderDetails />} />
         <Route
           path={signinPath}
           element={

@@ -11,7 +11,7 @@
     margin: 0;
     padding: 0;
     max-height: calc(100vh - 295px); /* высота окна - высота всех элементов кроме ингредиентов */
-    overflow-y: scroll;
+    overflow-y: auto;
     display: grid;
     gap: 32px 40px;
 }
