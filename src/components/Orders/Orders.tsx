@@ -1,7 +1,7 @@
 import { Order } from "../Order/Order";
-import styles from "./feed.module.css";
+import styles from "./orders.module.css";
 
-export const Feed = () => (
+export const Orders = () => (
   <section className={`${styles.pageContainer}`}>
     <h1 className={`${styles.pageHeading} text text_type_main-large  mb-5`}>
       Лента заказов
@@ -38,7 +38,7 @@ export const Feed = () => (
           Выполнено за все время:
         </h2>
         <span className={`${styles.textShadow} text text_type_digits-large`}>
-          752 752
+          321
         </span>
       </article>
       <article className={`${styles.totalWrapper} mt-15`}>

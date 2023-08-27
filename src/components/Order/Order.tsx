@@ -18,9 +18,7 @@ export const Order = ({ withStatus = false }) => (
       Death Star Starship Main бургер
     </h3>
     {withStatus && (
-      <span className={`${styles.status} text text_type_main-small`}>
-        Готовится
-      </span>
+      <span className={`text text_type_main-small`}>Готовится</span>
     )}
     <div className={`${styles.footer}  mt-6`}>
       <ul className={styles.ingredientsImages}>

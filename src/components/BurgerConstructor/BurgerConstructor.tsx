@@ -5,7 +5,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
-import OrderDetails from "../OrderDetails/OrderDetails";
+import OrderDetails from "../Confirmation/Confirmation";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import {
