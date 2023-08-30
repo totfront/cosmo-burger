@@ -90,9 +90,7 @@ const Router = () => {
           path={`${profilePath}${ordersPath}/:id`}
           element={
             <ProtectedRoute auth>
-              <Modal onClose={onClose}>
-                <OrderDetails />
-              </Modal>
+              <OrderDetails />
             </ProtectedRoute>
           }
         />
@@ -157,7 +155,9 @@ const Router = () => {
             path={`${profilePath}${ordersPath}/:id`}
             element={
               <ProtectedRoute auth>
-                <OrderDetails isModal />
+                <Modal onClose={onClose}>
+                  <OrderDetails isModal />
+                </Modal>
               </ProtectedRoute>
             }
           />

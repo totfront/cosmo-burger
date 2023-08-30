@@ -40,7 +40,6 @@ const BurgerConstructor: FC = () => {
 
   const [isModalShown, setIsModalShown] = useState(false);
 
-  // todo: make it beautiful and used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "ingredient",
