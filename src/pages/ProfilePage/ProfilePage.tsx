@@ -9,7 +9,7 @@ import { handleInputChange } from "../../services/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import { logoutUser } from "../../services/actions/userAuth";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { loginPath, ordersPath, profilePath } from "../../shared/paths";
 import { Order } from "../../components/Order/Order";
 
@@ -60,7 +60,6 @@ const ProfilePage = () => {
           <li className={styles.listItem}>
             <Link
               to={loginPath}
-              // todo: investigate why user redirected to homepage
               className={`${styles.navLink} text text_type_main-default`}
               type="button"
               onClick={() => {

@@ -1,14 +1,18 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import testImage from "../../images/bun-01.svg";
 import styles from "./order.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const Order = ({ withStatus = false }) => {
-  // const { pathname } = useLocation();
+  const location = useLocation();
 
   return (
     <li className={styles.listItem}>
-      <Link className={styles.link} to={"pathname"}>
+      <Link
+        className={styles.link}
+        to={"ololo"}
+        state={{ background: location }}
+      >
         <div className={styles.header}>
           <span
             className={`${styles.orderNumber} text text_type_digits-default mr-4`}

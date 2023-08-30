@@ -25,6 +25,10 @@ const Modal: FC<Props> = ({ onClose, children, title }) => {
   );
 
   useEffect(() => {
+    console.log("Modal!");
+  }, []);
+
+  useEffect(() => {
     document.addEventListener("keydown", keyPressHandler);
     return () => {
       document.removeEventListener("keydown", keyPressHandler);

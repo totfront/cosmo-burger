@@ -36,6 +36,7 @@ const Router = () => {
 
   const { pathname, state } = location;
   const background = state && state.background;
+  console.log({ background });
 
   const { _id } = useSelector(
     (state: State) =>
@@ -55,22 +56,62 @@ const Router = () => {
   return (
     <>
       <Routes location={background || location}>
+        {/* 🏠 homepage */}
         <Route path={defaultPath} element={<HomePage />} />
-        <Route path={feedPath} element={<Orders />} />
-        <Route path={`${feedPath}/:id`} element={<OrderDetails />} />
+        {/* ingredients 🧽🧽 => 🆔 id */}
         <Route
-          path={signinPath}
+          path={`${ingredientsPath}/:id`}
+          element={<IngredientDetails />}
+        />
+        {/* 📜 feed */}
+        <Route path={feedPath} element={<Orders />} />
+        {/* 📜 feed => 🪟 modal */}
+        <Route path={`${feedPath}/:id`} element={<OrderDetails />} />
+        {/* 🗿 profile page */}
+        <Route
+          path={profilePath}
           element={
-            <ProtectedRoute>
-              <SignInPage />
+            <ProtectedRoute auth>
+              <ProfilePage />
             </ProtectedRoute>
           }
         />
+        {/* 🗿 profile page => 🤔 orders */}
+        <Route
+          path={`${profilePath}${ordersPath}`}
+          element={
+            <ProtectedRoute auth>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        {/* 🗿 profile page => 🤔 orders => 🆔 id */}
+        <Route
+          path={`${profilePath}${ordersPath}/:id`}
+          element={
+            <ProtectedRoute auth>
+              <Modal onClose={onClose}>
+                <OrderDetails />
+              </Modal>
+            </ProtectedRoute>
+          }
+        />
+        {/* 🤷‍♀️ */}
+        <Route path="/*" element={<NotFoundPage />} />
+        {/* authentication */}
         <Route
           path={loginPath}
           element={
             <ProtectedRoute>
               <LoginPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={signinPath}
+          element={
+            <ProtectedRoute>
+              <SignInPage />
             </ProtectedRoute>
           }
         />
@@ -90,40 +131,34 @@ const Router = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path={profilePath}
-          element={
-            <ProtectedRoute auth>
-              <ProfilePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={`${profilePath}${ordersPath}`}
-          element={
-            <ProtectedRoute auth>
-              <ProfilePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={`${profilePath}${ordersPath}/:id`}
-          element={
-            <ProtectedRoute auth>
-              <ProfilePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       {background && (
         <Routes>
+          {/* 🚫🧽🧽 ingredients => 🆔 id */}
           <Route
             path={`${ingredientsPath}/:id`}
             element={
               <Modal onClose={onClose} title="Детали ингредиента">
                 <IngredientDetails />
               </Modal>
+            }
+          />
+          {/* 🚫📜 feed => 🆔 id*/}
+          <Route
+            path={`${feedPath}/:id`}
+            element={
+              <Modal onClose={onClose}>
+                <OrderDetails isModal />
+              </Modal>
+            }
+          />
+          {/* 🚫🗿 profile page => 🤔 orders => 🆔 id */}
+          <Route
+            path={`${profilePath}${ordersPath}/:id`}
+            element={
+              <ProtectedRoute auth>
+                <OrderDetails isModal />
+              </ProtectedRoute>
             }
           />
         </Routes>

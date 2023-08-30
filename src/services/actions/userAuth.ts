@@ -45,7 +45,7 @@ export const authorizeUser =
   (credentials: LoginData) => (dispatch: Dispatch<ActionTypes>) => {
     dispatch({ type: LOGIN_REQUEST });
     login(credentials)
-      .then(({ user, accessToken, refreshToken, message }) => {
+      .then(({ user, accessToken, refreshToken }) => {
         const { name, email } = user;
         document.cookie = `refreshToken=${refreshToken}`;
         document.cookie = `accessToken=${accessToken}`;
@@ -83,11 +83,7 @@ export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
           try {
             const {
               user: { email, name },
-              accessToken: newAccessToken,
-              refreshToken: newRefreshToken,
             } = await getUser(accessToken);
-            document.cookie = `refreshToken=${newRefreshToken};`;
-            document.cookie = `accessToken=${newAccessToken};`;
 
             dispatch({
               type: LOGIN_SUCCESS,

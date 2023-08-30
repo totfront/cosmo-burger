@@ -1,10 +1,19 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./orderDetails.module.css";
 import testImage from "../../images/bun-02.svg";
+import { FC } from "react";
 
-export const OrderDetails = () => (
+type Props = {
+  isModal?: boolean;
+};
+
+export const OrderDetails: FC<Props> = ({ isModal }) => (
   <section className={`${styles.wrapper}`}>
-    <p className={`${styles.orderNumber} text text_type_digits-default mb-10`}>
+    <p
+      className={`${styles.orderNumber} ${
+        !isModal && styles.positionCenter
+      } text text_type_digits-default mb-10`}
+    >
       #034533
     </p>
     <h3 className={`text text_type_main-medium mb-3`}>
