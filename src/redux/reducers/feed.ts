@@ -13,12 +13,16 @@ interface FeedStore {
   status: WsStatus;
   error: undefined | string;
   orders: Order[];
+  total: number;
+  totalToday: number;
 }
 
 const initialStore: FeedStore = {
   status: WsStatus.CLOSED,
   error: "",
   orders: [],
+  total: 0,
+  totalToday: 0,
 };
 
 // export const FeedReducer = createReducer(initialStore, (builder) => {
@@ -65,9 +69,12 @@ export const feedReducer = (state = initialStore, action: FeedActions) => {
       };
     }
     case FEED_WS_ORDER:
+      const { orders, total, totalToday } = action.payload;
       return {
         ...state,
-        orders: action.payload.orders,
+        orders,
+        total,
+        totalToday,
       };
     case FEED_WS_ERROR:
       return {};

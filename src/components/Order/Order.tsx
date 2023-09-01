@@ -4,7 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 import { FC } from "react";
 import { Order as OrderResponse } from "../../redux/types/dataModels";
 import { useSelector } from "react-redux";
-import { getAllIngredients, getTotalPrice } from "../../services/helpers";
+import {
+  categorizeIds,
+  getAllIngredients,
+  getTotalPrice,
+} from "../../services/helpers";
 import { State } from "../../shared/types/State";
 
 interface Props extends OrderResponse {
@@ -24,6 +28,7 @@ export const Order: FC<Props> = ({
   );
   const allIngredients = getAllIngredients(sortedIngredients);
   const orderPrice = getTotalPrice(allIngredients, ingredients);
+  const categorizedIngredients = categorizeIds(ingredients);
 
   return (
     <li className={styles.listItem}>
@@ -39,6 +44,7 @@ export const Order: FC<Props> = ({
             {number}
           </span>
           <span className={`text text_type_main-default text_color_inactive`}>
+            {/* todo: не забудь добавить dayjs */}
             Сегодня, 16:20
           </span>
         </div>
@@ -52,36 +58,43 @@ export const Order: FC<Props> = ({
         )}
         <div className={`${styles.footer}  mt-6`}>
           <ul className={styles.ingredientsImages}>
-            {ingredients.map((id, index) => {
+            {categorizedIngredients.uniqIds?.map((id, index) => {
               const imgUrl = allIngredients.find((i) => i._id === id)?.image;
-              const maxIngredients = 5;
-              if (index < maxIngredients) {
-                return (
-                  <li className={`${styles.ingredient}`}>
-                    <img
-                      className={styles.ingredientImage}
-                      src={imgUrl}
-                      alt="test"
-                    />
-                  </li>
-                );
-              }
-              if (index === 5) {
-                return (
-                  <li className={`${styles.ingredient}`}>
-                    <img
-                      className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
-                      src={imgUrl}
-                      alt="test"
-                    />
-                    <span
-                      className={`${styles.ingredientsCounter} text text_type_digits-default`}
-                    >{`+${ingredients.length - maxIngredients}`}</span>
-                  </li>
-                );
-              }
+              return (
+                <li className={`${styles.ingredient}`} key={index}>
+                  <img
+                    className={styles.ingredientImage}
+                    src={imgUrl}
+                    alt="test"
+                  />
+                </li>
+              );
             })}
+
+            {categorizedIngredients.repeatedIds &&
+              categorizedIngredients.repeatedIds?.length > 0 && (
+                <li className={`${styles.ingredient}`}>
+                  {categorizedIngredients.repeatedIds.map((item, index) => {
+                    const imgUrl = allIngredients.find(
+                      (i) => i._id === item.id
+                    )?.image;
+                    return (
+                      <div key={index}>
+                        <img
+                          className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
+                          src={imgUrl}
+                          alt="test"
+                        />
+                        <span
+                          className={`${styles.ingredientsCounter} text text_type_digits-default`}
+                        >{`x${item.count}`}</span>
+                      </div>
+                    );
+                  })}
+                </li>
+              )}
           </ul>
+
           <div className={styles.price}>
             <span className={`text text_type_digits-default mr-2`}>
               {orderPrice}

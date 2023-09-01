@@ -107,7 +107,29 @@ const getTotalPrice = (
     .reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
 };
 
+const categorizeIds = (
+  ids: string[]
+): { uniqIds?: string[]; repeatedIds?: { id: string; count: number }[] } => {
+  const idCountMap: { [id: string]: number } = {};
+
+  ids.forEach((id) => {
+    idCountMap[id] = (idCountMap[id] || 0) + 1;
+  });
+
+  const uniqIds = Object.keys(idCountMap).filter((id) => idCountMap[id] === 1);
+
+  const repeatedIds = Object.keys(idCountMap)
+    .filter((id) => idCountMap[id] > 1)
+    .map((id) => ({ id, count: idCountMap[id] }));
+
+  return {
+    uniqIds: uniqIds.length > 0 ? uniqIds : undefined,
+    repeatedIds: repeatedIds.length > 0 ? repeatedIds : undefined,
+  };
+};
+
 export {
+  categorizeIds,
   getTotalPrice,
   getAllIngredients,
   getIdFromPath,

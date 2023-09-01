@@ -3,7 +3,9 @@ import { State } from "../../shared/types/State";
 import { useSelector } from "react-redux";
 
 export const OrdersMetrics = () => {
-  const { orders } = useSelector((state: State) => state.feed);
+  const { orders, total, totalToday } = useSelector(
+    (state: State) => state.feed
+  );
   return (
     <section className={styles.infoSection}>
       <article className={styles.statusListWrapper}>
@@ -43,13 +45,13 @@ export const OrdersMetrics = () => {
           Выполнено за все время:
         </h2>
         <span className={`${styles.textShadow} text text_type_digits-large`}>
-          321
+          {total}
         </span>
       </article>
       <article className={`${styles.totalWrapper} mt-15`}>
         <h2 className={`text text_type_main-medium`}>Выполнено за сегодня:</h2>
         <span className={`${styles.textShadow} text text_type_digits-large`}>
-          123
+          {totalToday}
         </span>
       </article>
     </section>
