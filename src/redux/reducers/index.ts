@@ -1,3 +1,4 @@
+import { feedReducer } from "./feed";
 import { combineReducers } from "redux";
 import { ingredientsReducer } from "./ingredients";
 import { ingredientModalReducer } from "./ingredientModal";
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   ingredientModal: ingredientModalReducer,
   orderDetails: orderReducer,
   user: userReducer,
+  feed: feedReducer,
 });

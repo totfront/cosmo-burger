@@ -1,10 +1,29 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import testImage from "../../images/bun-01.svg";
 import styles from "./order.module.css";
 import { Link, useLocation } from "react-router-dom";
+import { FC } from "react";
+import { Order as OrderResponse } from "../../redux/types/dataModels";
+import { useSelector } from "react-redux";
+import { getAllIngredients, getTotalPrice } from "../../services/helpers";
+import { State } from "../../shared/types/State";
 
-export const Order = ({ withStatus = false }) => {
+interface Props extends OrderResponse {
+  withStatus?: boolean;
+}
+
+export const Order: FC<Props> = ({
+  withStatus = false,
+  number,
+  name,
+  status,
+  ingredients,
+}) => {
   const location = useLocation();
+  const { ingredients: sortedIngredients } = useSelector(
+    (state: State) => state.ingredients
+  );
+  const allIngredients = getAllIngredients(sortedIngredients);
+  const orderPrice = getTotalPrice(allIngredients, ingredients);
 
   return (
     <li className={styles.listItem}>
@@ -17,7 +36,7 @@ export const Order = ({ withStatus = false }) => {
           <span
             className={`${styles.orderNumber} text text_type_digits-default mr-4`}
           >
-            #034535
+            {number}
           </span>
           <span className={`text text_type_main-default text_color_inactive`}>
             Сегодня, 16:20
@@ -26,37 +45,47 @@ export const Order = ({ withStatus = false }) => {
         <h3
           className={`${styles.heading} text text_type_main-medium mt-6 mb-2`}
         >
-          Death Star Starship Main бургер
+          {name}
         </h3>
         {withStatus && (
-          <span className={`text text_type_main-small`}>Готовится</span>
+          <span className={`text text_type_main-small`}>{status}</span>
         )}
         <div className={`${styles.footer}  mt-6`}>
           <ul className={styles.ingredientsImages}>
-            <li className={`${styles.ingredient}`}>
-              <img
-                className={styles.ingredientImage}
-                src={testImage}
-                alt="test"
-              />
-            </li>
-            <li className={`${styles.ingredient}`}>
-              <img
-                className={styles.ingredientImage}
-                src={testImage}
-                alt="test"
-              />
-            </li>
-            <li className={`${styles.ingredient}`}>
-              <img
-                className={styles.ingredientImage}
-                src={testImage}
-                alt="test"
-              />
-            </li>
+            {ingredients.map((id, index) => {
+              const imgUrl = allIngredients.find((i) => i._id === id)?.image;
+              const maxIngredients = 5;
+              if (index < maxIngredients) {
+                return (
+                  <li className={`${styles.ingredient}`}>
+                    <img
+                      className={styles.ingredientImage}
+                      src={imgUrl}
+                      alt="test"
+                    />
+                  </li>
+                );
+              }
+              if (index === 5) {
+                return (
+                  <li className={`${styles.ingredient}`}>
+                    <img
+                      className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
+                      src={imgUrl}
+                      alt="test"
+                    />
+                    <span
+                      className={`${styles.ingredientsCounter} text text_type_digits-default`}
+                    >{`+${ingredients.length - maxIngredients}`}</span>
+                  </li>
+                );
+              }
+            })}
           </ul>
           <div className={styles.price}>
-            <span className={`text text_type_digits-default mr-2`}>480</span>
+            <span className={`text text_type_digits-default mr-2`}>
+              {orderPrice}
+            </span>
             <CurrencyIcon type="primary" />
           </div>
         </div>

@@ -13,14 +13,14 @@ import {
   MOVE_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   SET_TOTAL_PRICE,
-} from "../../services/actions/constructor";
+} from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
 import { Ingredient } from "../../shared/types/Ingredient";
 import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredient";
 import {
   DECREASE_INGREDIENTS_COUNTER,
   INCREASE_INGREDIENTS_COUNTER,
-} from "../../services/actions/ingredients";
+} from "../../redux/actions/ingredients";
 import { submitOrder } from "../../services/apis/burgerApi";
 import { useNavigate } from "react-router-dom";
 import { loginPath } from "../../shared/paths";

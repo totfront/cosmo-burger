@@ -7,7 +7,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../index.module.css";
 import { FormEvent, useState } from "react";
-import { addNewUser } from "../../services/actions/userAuth";
+import { addNewUser } from "../../services/userAuth";
 import { useDispatch } from "react-redux";
 import { handleInputChange } from "../../services/helpers";
 

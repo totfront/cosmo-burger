@@ -24,7 +24,7 @@ import { useEffect, useState } from "react";
 import { getIdFromPath } from "../../services/helpers";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { Orders } from "../Orders/Orders";
+import { Feed } from "../Feed/Feed";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
 
 const Router = () => {
@@ -36,7 +36,6 @@ const Router = () => {
 
   const { pathname, state } = location;
   const background = state && state.background;
-  console.log({ background });
 
   const { _id } = useSelector(
     (state: State) =>
@@ -64,7 +63,7 @@ const Router = () => {
           element={<IngredientDetails />}
         />
         {/* 📜 feed */}
-        <Route path={feedPath} element={<Orders />} />
+        <Route path={feedPath} element={<Feed />} />
         {/* 📜 feed => 🪟 modal */}
         <Route path={`${feedPath}/:id`} element={<OrderDetails />} />
         {/* 🗿 profile page */}
@@ -162,6 +161,7 @@ const Router = () => {
             }
           />
         </Routes>
+        // todo: to fuck with Outlet a bit more
       )}
     </>
   );

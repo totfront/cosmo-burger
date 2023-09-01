@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { handleInputChange } from "../../services/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
-import { logoutUser } from "../../services/actions/userAuth";
+import { logoutUser } from "../../services/userAuth";
 import { Link, useLocation } from "react-router-dom";
 import { loginPath, ordersPath, profilePath } from "../../shared/paths";
 import { Order } from "../../components/Order/Order";
@@ -109,9 +109,9 @@ const ProfilePage = () => {
         </div>
       ) : (
         <ul className={`${styles.feed}`}>
+          {/* <Order withStatus />
           <Order withStatus />
-          <Order withStatus />
-          <Order withStatus />
+          <Order withStatus /> */}
         </ul>
       )}
     </div>

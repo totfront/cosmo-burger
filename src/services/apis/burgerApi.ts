@@ -5,7 +5,7 @@ import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
-} from "../actions/order";
+} from "../../redux/actions/order";
 import { NoMorePartiesUrl } from "../../shared/paths";
 
 const fetchData = () =>

@@ -1,17 +1,17 @@
-import { NewUser } from "../../shared/types/NewUser";
+import { NewUser } from "../shared/types/NewUser";
 import {
   getUser,
   login,
   logout,
   refreshToken,
   registerUser,
-} from "../apis/authorizationApi";
+} from "./apis/authorizationApi";
 import { Dispatch } from "react";
-import { ActionTypes } from "../../shared/types/Actions";
-import { LoginData } from "../../shared/types/LoginData";
-import { getCookie } from "../helpers";
+import { ActionTypes } from "../shared/types/Actions";
+import { LoginData } from "../shared/types/LoginData";
+import { getCookie } from "./helpers";
 import { NavigateFunction } from "react-router-dom";
-import { loginPath } from "../../shared/paths";
+import { loginPath } from "../shared/paths";
 
 export const LOGOUT = "LOGOUT";
 export const ADD_NEW_USER = "ADD_NEW_USER";

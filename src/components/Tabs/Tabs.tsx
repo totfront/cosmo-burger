@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC } from "react";
-import { switchTabActionCreator } from "../../services/actions/ingredients";
+import { switchTabActionCreator } from "../../redux/actions/ingredients";
 import styles from "./tabs.module.css";
 
 type Props = {

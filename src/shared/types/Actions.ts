@@ -3,12 +3,12 @@ import {
   MOVE_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   SET_TOTAL_PRICE,
-} from "../../services/actions/constructor";
+} from "../../redux/actions/constructor";
 import {
   HIDE_HOME_PAGE,
   HIDE_INGREDIENT_MODAL,
   SHOW_INGREDIENT_MODAL,
-} from "../../services/actions/ingredientModal";
+} from "../../redux/actions/ingredientModal";
 import {
   GET_INGREDIENTS_ERROR,
   GET_INGREDIENTS_REQUEST,
@@ -18,12 +18,12 @@ import {
   SELECT_SAUCES_TAB,
   INCREASE_INGREDIENTS_COUNTER,
   DECREASE_INGREDIENTS_COUNTER,
-} from "../../services/actions/ingredients";
+} from "../../redux/actions/ingredients";
 import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
-} from "../../services/actions/order";
+} from "../../redux/actions/order";
 import { Ingredient } from "./Ingredient";
 import { SortedIngredients } from "./SortedIngredients";
 import {
@@ -34,7 +34,7 @@ import {
   SET_USER_FAIL,
   SET_USER_REQUEST,
   SET_USER_SUCCESS,
-} from "../../services/actions/userAuth";
+} from "../../services/userAuth";
 
 type HideIngredientModal = {
   type: typeof HIDE_INGREDIENT_MODAL;

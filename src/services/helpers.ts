@@ -88,7 +88,28 @@ const handleInputChange = (
 const getIdFromPath = (path: string) =>
   path.substring(ingredientsPath.length + 1, path.length);
 
+const getAllIngredients = (
+  sortedIngredients: SortedIngredients
+): Ingredient[] => {
+  return Object.values(sortedIngredients)
+    .flatMap((category) =>
+      category.count ? Array(category.count).fill(category) : category
+    )
+    .flat();
+};
+
+const getTotalPrice = (
+  ingredients: Ingredient[],
+  ingredientIds: string[]
+): number => {
+  return ingredients
+    .filter((ingredient) => ingredientIds.includes(ingredient._id))
+    .reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
+};
+
 export {
+  getTotalPrice,
+  getAllIngredients,
   getIdFromPath,
   handleInputChange,
   searchMenuItems,

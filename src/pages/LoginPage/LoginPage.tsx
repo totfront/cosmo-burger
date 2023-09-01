@@ -7,7 +7,7 @@ import styles from "../index.module.css";
 import { Link } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { handleInputChange } from "../../services/helpers";
-import { authorizeUser } from "../../services/actions/userAuth";
+import { authorizeUser } from "../../services/userAuth";
 import { useDispatch } from "react-redux";
 
 const LoginPage = () => {

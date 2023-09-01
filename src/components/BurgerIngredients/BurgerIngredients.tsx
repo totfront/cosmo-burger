@@ -3,16 +3,14 @@ import { useInView } from "react-intersection-observer";
 
 import styles from "./burgerIngredients.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import Tabs from "../Tabs/Tabs";
-import { getIngredients } from "../../services/actions/ingredients";
 
 const BurgerIngredients: FC = () => {
   const { tabs, ingredients } = useSelector(
     (store: State) => store.ingredients
   );
-  const dispatch: any = useDispatch();
 
   const [currentTab, setCurrentTab] = useState("bun");
   const { ref: innersTabRef, inView: areInnersVisible } = useInView();
@@ -24,10 +22,6 @@ const BurgerIngredients: FC = () => {
     inners: innersTabRef,
     sauces: saucesTabRef,
   };
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   useEffect(() => {
     if (areBunsVisible) {

@@ -3,7 +3,7 @@ import styles from "./ingredientDetails.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getIngredients } from "../../services/actions/ingredients";
+import { getIngredients } from "../../redux/actions/ingredients";
 
 const IngredientDetails: FC = () => {
   const dispatch: any = useDispatch();

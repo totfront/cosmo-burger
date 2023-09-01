@@ -30,7 +30,7 @@
     width: 100%;
     list-style: none;
 
-    :not(:first-child) {
+    > :not(:first-child) {
         margin-left: -10px;
     }
 }
@@ -75,6 +75,20 @@
     transform: translate(-50%, -50%);
     max-height: 50px;
     z-index: 1;
+}
+
+.contrastDecrease {
+    filter: contrast(0.7);
+}
+
+.ingredientsCounter {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: 0;
+    color: var(--light-grey);
 }
 
 .footer {

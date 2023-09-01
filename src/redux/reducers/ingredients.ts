@@ -8,7 +8,7 @@ import {
   GET_INGREDIENTS_SUCCESS,
   INCREASE_INGREDIENTS_COUNTER,
 } from "../actions/ingredients";
-import { sortIngredients } from "../helpers";
+import { sortIngredients } from "../../services/helpers";
 
 const buns = "Булки";
 const sauces = "Соусы";

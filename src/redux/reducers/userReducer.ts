@@ -7,7 +7,7 @@ import {
   SET_USER_FAIL,
   SET_USER_REQUEST,
   SET_USER_SUCCESS,
-} from "../actions/userAuth";
+} from "../../services/userAuth";
 
 export type UserState = typeof initialState;
 
