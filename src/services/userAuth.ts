@@ -9,9 +9,9 @@ import {
 import { Dispatch } from "react";
 import { ActionTypes } from "../shared/types/Actions";
 import { LoginData } from "../shared/types/LoginData";
-import { getCookie } from "./helpers";
+import { getCookie, setCookie } from "./helpers";
 import { NavigateFunction } from "react-router-dom";
-import { loginPath } from "../shared/paths";
+import { defaultPath, loginPath } from "../shared/paths";
 import { accessToken } from "../shared/names";
 
 export const LOGOUT = "LOGOUT";
@@ -31,8 +31,11 @@ export const addNewUser =
       .then(({ success, user, accessToken, refreshToken, message }) => {
         if (!success) throw new Error(message);
         const { name, email } = user;
-        document.cookie = `accessToken=${accessToken}`;
-        document.cookie = `refreshToken=${refreshToken}`;
+        // document.cookie = `accessToken=${accessToken}`;
+        // document.cookie = `refreshToken=${refreshToken}`;
+        setCookie("refreshToken", refreshToken, { path: defaultPath });
+        setCookie("accessToken", accessToken, { path: defaultPath });
+
         dispatch({ type: SET_USER_SUCCESS, name, email });
         navigate(loginPath);
       })
@@ -48,8 +51,10 @@ export const authorizeUser =
     login(credentials)
       .then(({ user, accessToken, refreshToken }) => {
         const { name, email } = user;
-        document.cookie = `refreshToken=${refreshToken}`;
-        document.cookie = `accessToken=${accessToken}`;
+        // document.cookie = `accessToken=${accessToken}`;
+        // document.cookie = `refreshToken=${refreshToken}`;
+        setCookie("refreshToken", refreshToken, { path: defaultPath });
+        setCookie("accessToken", accessToken, { path: defaultPath });
         dispatch({
           type: LOGIN_SUCCESS,
           email,
@@ -78,8 +83,8 @@ export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
         try {
           const { accessToken, refreshToken: newRefreshToken } =
             await refreshToken();
-          document.cookie = `refreshToken=${newRefreshToken};`;
-          document.cookie = `accessToken=${accessToken};`;
+          setCookie("refreshToken", newRefreshToken, { path: defaultPath });
+          setCookie("accessToken", accessToken, { path: defaultPath });
 
           try {
             const {
@@ -111,8 +116,8 @@ export const logoutUser = () => (dispatch: Dispatch<ActionTypes>) =>
           `Response contain { success: ${success}, message: ${message}}`
         );
       }
-      document.cookie = `refreshToken=;`;
-      document.cookie = `accessToken=;`;
+      setCookie("refreshToken", "", { path: defaultPath });
+      setCookie("accessToken", "", { path: defaultPath });
       dispatch({ type: LOGOUT });
     })
     .catch((err: Error) => console.error(err));

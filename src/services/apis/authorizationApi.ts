@@ -58,12 +58,15 @@ export const resetPassword = ({ password, token }: PasswordResetData) =>
     body: JSON.stringify({ password, token }),
   }).then((res) => checkResponse(res));
 
-export const refreshToken = () => {
-  return fetch(`${noMorePartiesApiUrl}/auth/token`, {
+export const refreshToken = async () => {
+  const res = await fetch(`${noMorePartiesApiUrl}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ refreshToken: getCookie(refrToken) }),
-  }).then((res) => checkResponse(res));
+    body: JSON.stringify({
+      refreshToken: getCookie(refrToken),
+    }),
+  });
+  return await checkResponse(res);
 };

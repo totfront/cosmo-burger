@@ -30,6 +30,7 @@ export const Order: FC<Props> = (props) => {
   const orderPrice = getTotalPrice(allIngredients, ingredients);
   const categorizedIngredients = categorizeIds(ingredients);
   const time = getTimeStamp(updatedAt);
+  const { repeatedIds, uniqIds } = categorizedIngredients;
 
   const onClick = () => {
     dispatch({ type: SET_ORDER_DETAILS_MODAL, payload: { ...props } });
@@ -63,7 +64,7 @@ export const Order: FC<Props> = (props) => {
         )}
         <div className={`${styles.footer}  mt-6`}>
           <ul className={styles.ingredientsImages}>
-            {categorizedIngredients.uniqIds?.map((id) => {
+            {uniqIds?.map((id) => {
               const imgUrl = allIngredients.find((i) => i._id === id)?.image;
               return (
                 <li className={`${styles.ingredient}`} key={uuid()}>
@@ -75,28 +76,23 @@ export const Order: FC<Props> = (props) => {
                 </li>
               );
             })}
-            {categorizedIngredients.repeatedIds &&
-              categorizedIngredients.repeatedIds?.length > 0 && (
-                <li className={`${styles.ingredient}`}>
-                  {categorizedIngredients.repeatedIds.map((item) => {
-                    const imgUrl = allIngredients.find(
-                      (i) => i._id === item.id
-                    )?.image;
-                    return (
-                      <div className={styles.ingredientInner} key={uuid()}>
-                        <img
-                          className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
-                          src={imgUrl}
-                          alt="test"
-                        />
-                        <span
-                          className={`${styles.ingredientsCounter} text text_type_digits-default`}
-                        >{`+${item.count}`}</span>
-                      </div>
-                    );
-                  })}
+            {repeatedIds?.map((item) => {
+              const imgUrl = allIngredients.find(
+                (i) => i._id === item.id
+              )?.image;
+              return (
+                <li className={`${styles.ingredient}`} key={uuid()}>
+                  <img
+                    className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
+                    src={imgUrl}
+                    alt="test"
+                  />
+                  <span
+                    className={`${styles.ingredientsCounter} text text_type_digits-default`}
+                  >{`${item.count}`}</span>
                 </li>
-              )}
+              );
+            })}
           </ul>
 
           <div className={styles.price}>
