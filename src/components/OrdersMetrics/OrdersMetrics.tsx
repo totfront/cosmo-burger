@@ -29,7 +29,7 @@ export const OrdersMetrics = () => {
         <ul className={styles.statusList}>
           {orders.map(
             (o, index) =>
-              index < 30 &&
+              index < 50 &&
               o.status !== "done" && (
                 <li
                   className={`${styles.readyOrder} text_type_digits-default mt-2`}

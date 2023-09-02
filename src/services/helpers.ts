@@ -3,33 +3,35 @@ import { Ingredient } from "../shared/types/Ingredient";
 import { SortedIngredients } from "../shared/types/SortedIngredients";
 import { ingredientsPath } from "../shared/paths";
 
-import dayjs from "dayjs";
-import isToday from "dayjs/plugin/isToday";
-import isYesterday from "dayjs/plugin/isYesterday";
-
-dayjs.extend(isToday, isYesterday);
-
 const getTimeStamp = (lastEdit: string): string => {
-  let day;
-  const editedToday = dayjs().isToday();
-  const editedYesterday = dayjs(lastEdit).isYesterday();
+  // Convert the input date string to a Date object
+  const inputDateObj: Date = new Date(lastEdit);
 
-  if (editedToday) {
-    return (day = "Сегодня");
-  }
-  if (editedYesterday) {
-    return (day = "Вчера");
-  }
-  // Convert the provided time format to a Date object
-  const providedDate = new Date(lastEdit);
-  // Get the current date as a Date object
-  const currentDate = new Date();
+  // Get the current date
+  const currentDate: Date = new Date();
+
   // Calculate the time difference in milliseconds
-  const timeDifference: number = providedDate.getTime() - currentDate.getTime();
-  // Convert the time difference to days
-  const daysBefore = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-  // todo: care about 11-14, 21-24, etc days spelling
-  return (day = `${daysBefore} ${daysBefore < 5 ? "дня" : "дней"} назад`);
+  const timeDifference: number = currentDate.getTime() - inputDateObj.getTime();
+
+  // Calculate the number of days
+  const daysDifference: number = Math.floor(
+    timeDifference / (1000 * 60 * 60 * 24)
+  );
+
+  // Get the time in "HH:MM" format
+  const hours = inputDateObj.getHours().toString().padStart(2, "0");
+  const minutes = inputDateObj.getMinutes().toString().padStart(2, "0");
+  const timeString = `${hours}:${minutes}`;
+
+  if (daysDifference === 0) {
+    return `Сегодня, ${timeString}`;
+  } else if (daysDifference === 1) {
+    return `Вчера, ${timeString}`;
+  } else {
+    return `${daysDifference} ${
+      daysDifference < 5 ? "дня" : "дней"
+    } назад, ${timeString}`;
+  }
 };
 
 const tabNameConverter = (name: string) => {

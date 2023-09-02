@@ -32,7 +32,6 @@ export const Order: FC<Props> = ({
   const allIngredients = getAllIngredients(sortedIngredients);
   const orderPrice = getTotalPrice(allIngredients, ingredients);
   const categorizedIngredients = categorizeIds(ingredients);
-
   const time = getTimeStamp(updatedAt);
 
   return (
@@ -74,7 +73,6 @@ export const Order: FC<Props> = ({
                 </li>
               );
             })}
-
             {categorizedIngredients.repeatedIds &&
               categorizedIngredients.repeatedIds?.length > 0 && (
                 <li className={`${styles.ingredient}`}>
@@ -92,7 +90,7 @@ export const Order: FC<Props> = ({
                         />
                         <span
                           className={`${styles.ingredientsCounter} text text_type_digits-default`}
-                        >{`x${item.count}`}</span>
+                        >{`+${item.count}`}</span>
                       </>
                     );
                   })}

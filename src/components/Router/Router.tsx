@@ -55,18 +55,18 @@ const Router = () => {
   return (
     <>
       <Routes location={background || location}>
-        {/* 🏠 homepage */}
+        {/* homepage */}
         <Route path={defaultPath} element={<HomePage />} />
-        {/* ingredients 🧽🧽 => 🆔 id */}
+        {/* ingredients => id */}
         <Route
           path={`${ingredientsPath}/:id`}
           element={<IngredientDetails />}
         />
-        {/* 📜 feed */}
+        {/* feed */}
         <Route path={feedPath} element={<Feed />} />
-        {/* 📜 feed => 🪟 modal */}
+        {/* feed => modal */}
         <Route path={`${feedPath}/:id`} element={<OrderDetails />} />
-        {/* 🗿 profile page */}
+        {/* profile page */}
         <Route
           path={profilePath}
           element={
@@ -75,7 +75,7 @@ const Router = () => {
             </ProtectedRoute>
           }
         />
-        {/* 🗿 profile page => 🤔 orders */}
+        {/* profile page => orders */}
         <Route
           path={`${profilePath}${ordersPath}`}
           element={
@@ -84,7 +84,7 @@ const Router = () => {
             </ProtectedRoute>
           }
         />
-        {/* 🗿 profile page => 🤔 orders => 🆔 id */}
+        {/* profile page => orders => id */}
         <Route
           path={`${profilePath}${ordersPath}/:id`}
           element={
@@ -93,7 +93,7 @@ const Router = () => {
             </ProtectedRoute>
           }
         />
-        {/* 🤷‍♀️ */}
+        {/* 404 */}
         <Route path="/*" element={<NotFoundPage />} />
         {/* authentication */}
         <Route
@@ -131,7 +131,7 @@ const Router = () => {
       </Routes>
       {background && (
         <Routes>
-          {/* 🚫🧽🧽 ingredients => 🆔 id */}
+          {/* ingredients => id */}
           <Route
             path={`${ingredientsPath}/:id`}
             element={
@@ -140,7 +140,7 @@ const Router = () => {
               </Modal>
             }
           />
-          {/* 🚫📜 feed => 🆔 id*/}
+          {/* feed => id*/}
           <Route
             path={`${feedPath}/:id`}
             element={
@@ -149,7 +149,7 @@ const Router = () => {
               </Modal>
             }
           />
-          {/* 🚫🗿 profile page => 🤔 orders => 🆔 id */}
+          {/* profile page => orders => id */}
           <Route
             path={`${profilePath}${ordersPath}/:id`}
             element={
