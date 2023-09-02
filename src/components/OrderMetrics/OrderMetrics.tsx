@@ -9,7 +9,7 @@ export const OrderMetrics = () => {
   );
   return (
     <section className={styles.infoSection}>
-      <article className={styles.statusListWrapper}>
+      <article>
         <h3 className={`text text_type_main-medium mb-4`}>Готовы:</h3>
         <ul className={styles.statusList}>
           {orders.map(
@@ -26,7 +26,7 @@ export const OrderMetrics = () => {
           )}
         </ul>
       </article>
-      <article className={styles.statusListWrapper}>
+      <article>
         <h2 className={`text text_type_main-medium mb-4`}>В работе:</h2>
         <ul className={styles.statusList}>
           {orders.map(

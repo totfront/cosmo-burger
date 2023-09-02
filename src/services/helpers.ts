@@ -116,8 +116,13 @@ const handleInputChange = (
   setter(value);
 };
 
-const getIdFromPath = (path: string) =>
-  path.substring(ingredientsPath.length + 1, path.length);
+const getIdFromPath = (path: string) => {
+  // Split the path string by "/"
+  const parts: string[] = path.split("/");
+  // Get the last part of the path (after the last "/")
+  const lastPart: string = parts[parts.length - 1];
+  return lastPart;
+};
 
 const getAllIngredients = (
   sortedIngredients: SortedIngredients
