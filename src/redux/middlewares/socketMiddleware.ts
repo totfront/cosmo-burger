@@ -13,6 +13,7 @@ import {
   FeedActions,
 } from "../actions/feed";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { accessToken } from "../../shared/names";
 
 export type AppThunkAction<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -50,10 +51,7 @@ export const socketMiddleware =
         onOrder,
         // onOpen, onError
       } = wsActions;
-      const accessToken = getCookie("accessToken");
-      // todo: reconsider token adding out of the middleware
-      if (wsConnect.match(action) && accessToken) {
-        // socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
+      if (wsConnect.match(action)) {
         socket = new WebSocket(`${wsUrl}`);
       }
       if (socket) {

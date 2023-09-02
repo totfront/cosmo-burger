@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { checkResponse } from "../helpers";
+import { checkResponse, getCookie } from "../helpers";
 import { ActionTypes } from "../../shared/types/Actions";
 import {
   SUBMIT_ORDER_FAIL,
@@ -7,6 +7,9 @@ import {
   SUBMIT_ORDER_SUCCESS,
 } from "../../redux/actions/order";
 import { noMorePartiesApiUrl } from "../../shared/paths";
+import { accessToken } from "../../shared/names";
+
+const token = getCookie(accessToken);
 
 const fetchData = () =>
   fetch(`${noMorePartiesApiUrl}/ingredients`).then((res) => checkResponse(res));
@@ -16,6 +19,7 @@ const sendOrder = (ingredients: string[]) =>
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
+      Authorization: `${token}`,
     },
     body: JSON.stringify({ ingredients }),
   }).then((res) => checkResponse(res));

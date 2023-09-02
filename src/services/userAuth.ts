@@ -12,6 +12,7 @@ import { LoginData } from "../shared/types/LoginData";
 import { getCookie } from "./helpers";
 import { NavigateFunction } from "react-router-dom";
 import { loginPath } from "../shared/paths";
+import { accessToken } from "../shared/names";
 
 export const LOGOUT = "LOGOUT";
 export const ADD_NEW_USER = "ADD_NEW_USER";
@@ -63,7 +64,7 @@ export const authorizeUser =
   };
 
 export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
-  const token = getCookie("accessToken");
+  const token = getCookie(accessToken);
   getUser(token)
     .then(({ user: { email, name } }) => {
       dispatch({
@@ -76,7 +77,7 @@ export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
       if (err.message === "jwt expired") {
         try {
           const { accessToken, refreshToken: newRefreshToken } =
-            await refreshToken(getCookie("refreshToken"));
+            await refreshToken();
           document.cookie = `refreshToken=${newRefreshToken};`;
           document.cookie = `accessToken=${accessToken};`;
 

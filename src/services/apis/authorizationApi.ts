@@ -1,3 +1,4 @@
+import { refreshToken as refrToken } from "./../../shared/names";
 import { noMorePartiesApiUrl } from "../../shared/paths";
 import { LoginData } from "../../shared/types/LoginData";
 import { NewUser } from "../../shared/types/NewUser";
@@ -36,7 +37,7 @@ export const logout = () =>
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ token: getCookie("refreshToken") }),
+    body: JSON.stringify({ token: getCookie(refrToken) }),
   }).then((res) => checkResponse(res));
 
 export const login = ({ email, password }: LoginData) =>
@@ -57,11 +58,12 @@ export const resetPassword = ({ password, token }: PasswordResetData) =>
     body: JSON.stringify({ password, token }),
   }).then((res) => checkResponse(res));
 
-export const refreshToken = (token = "") =>
-  fetch(`${noMorePartiesApiUrl}/auth/token`, {
+export const refreshToken = () => {
+  return fetch(`${noMorePartiesApiUrl}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ token }),
+    body: JSON.stringify({ refreshToken: getCookie(refrToken) }),
   }).then((res) => checkResponse(res));
+};

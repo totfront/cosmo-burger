@@ -5,11 +5,12 @@ import { FeedWsActions } from "./actions/feed";
 import { wsNoMorePartiesOrdersUrl } from "../shared/paths";
 import { OrdersHistoryWSActions } from "./actions/ordersHistory";
 import { getCookie } from "../services/helpers";
+import { accessToken } from "../shared/names";
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => {
-    const token = getCookie("accessToken")?.replace("Bearer ", "");
+    const token = getCookie(accessToken)?.replace("Bearer ", "");
     return getDefaultMiddleware().concat(
       socketMiddleware(`${wsNoMorePartiesOrdersUrl}/all`, FeedWsActions),
       socketMiddleware(
