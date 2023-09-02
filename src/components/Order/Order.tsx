@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { FC } from "react";
 import { Order as OrderResponse } from "../../redux/types/dataModels";
 import { useSelector } from "react-redux";
+import { v4 as uuid } from "uuid";
+
 import {
   categorizeIds,
   getAllIngredients,
@@ -29,6 +31,7 @@ export const Order: FC<Props> = ({
   const allIngredients = getAllIngredients(sortedIngredients);
   const orderPrice = getTotalPrice(allIngredients, ingredients);
   const categorizedIngredients = categorizeIds(ingredients);
+  console.log({ uniqs: categorizedIngredients.uniqIds });
 
   return (
     <li className={styles.listItem}>
@@ -58,10 +61,10 @@ export const Order: FC<Props> = ({
         )}
         <div className={`${styles.footer}  mt-6`}>
           <ul className={styles.ingredientsImages}>
-            {categorizedIngredients.uniqIds?.map((id, index) => {
+            {categorizedIngredients.uniqIds?.map((id) => {
               const imgUrl = allIngredients.find((i) => i._id === id)?.image;
               return (
-                <li className={`${styles.ingredient}`} key={index}>
+                <li className={`${styles.ingredient}`} key={uuid()}>
                   <img
                     className={styles.ingredientImage}
                     src={imgUrl}
@@ -74,12 +77,12 @@ export const Order: FC<Props> = ({
             {categorizedIngredients.repeatedIds &&
               categorizedIngredients.repeatedIds?.length > 0 && (
                 <li className={`${styles.ingredient}`}>
-                  {categorizedIngredients.repeatedIds.map((item, index) => {
+                  {categorizedIngredients.repeatedIds.map((item) => {
                     const imgUrl = allIngredients.find(
                       (i) => i._id === item.id
                     )?.image;
                     return (
-                      <div key={index}>
+                      <>
                         <img
                           className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
                           src={imgUrl}
@@ -88,7 +91,7 @@ export const Order: FC<Props> = ({
                         <span
                           className={`${styles.ingredientsCounter} text text_type_digits-default`}
                         >{`x${item.count}`}</span>
-                      </div>
+                      </>
                     );
                   })}
                 </li>
