@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Order } from "../Order/Order";
-import { OrdersMetrics } from "../OrdersMetrics/OrdersMetrics";
+import { OrderMetrics } from "../OrderMetrics/OrderMetrics";
 import styles from "./feed.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { FEED_WS_CONNECT } from "../../redux/actions/feed";
@@ -24,7 +24,7 @@ export const Feed = () => {
           return <Order {...order} key={uuid()} />;
         })}
       </ul>
-      <OrdersMetrics />
+      <OrderMetrics />
     </section>
   );
 };

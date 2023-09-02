@@ -140,7 +140,7 @@ const Router = () => {
               </Modal>
             }
           />
-          {/* feed => id*/}
+          {/* feed => id */}
           <Route
             path={`${feedPath}/:id`}
             element={

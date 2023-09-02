@@ -26,6 +26,7 @@ import {
 } from "../../redux/actions/order";
 import { Ingredient } from "./Ingredient";
 import { SortedIngredients } from "./SortedIngredients";
+import { SET_ORDER_DETAILS_MODAL } from "../../redux/actions/orderDetailsModal";
 import {
   LOGOUT,
   LOGIN_FAIL,
@@ -35,6 +36,7 @@ import {
   SET_USER_REQUEST,
   SET_USER_SUCCESS,
 } from "../../services/userAuth";
+import { Order } from "../../redux/types/dataModels";
 
 type HideIngredientModal = {
   type: typeof HIDE_INGREDIENT_MODAL;
@@ -154,7 +156,13 @@ type HideHomePage = {
   type: typeof HIDE_HOME_PAGE;
 };
 
+type SetOrderDetailsModal = {
+  type: typeof SET_ORDER_DETAILS_MODAL;
+  payload: Order;
+};
+
 export type ActionTypes =
+  | SetOrderDetailsModal
   | HideHomePage
   | LoginRequest
   | LoginFail

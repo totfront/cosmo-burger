@@ -3,7 +3,7 @@ import styles from "./order.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { FC } from "react";
 import { Order as OrderResponse } from "../../redux/types/dataModels";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import {
   categorizeIds,
@@ -12,34 +12,36 @@ import {
   getTotalPrice,
 } from "../../services/helpers";
 import { State } from "../../shared/types/State";
+import { SET_ORDER_DETAILS_MODAL } from "../../redux/actions/orderDetailsModal";
 
 interface Props extends OrderResponse {
   withStatus?: boolean;
 }
 
-export const Order: FC<Props> = ({
-  withStatus = false,
-  number,
-  name,
-  status,
-  ingredients,
-  updatedAt,
-}) => {
+export const Order: FC<Props> = (props) => {
+  const { number, name, status, ingredients, updatedAt, _id, withStatus } =
+    props;
   const location = useLocation();
   const { ingredients: sortedIngredients } = useSelector(
     (state: State) => state.ingredients
   );
+  const dispatch = useDispatch();
   const allIngredients = getAllIngredients(sortedIngredients);
   const orderPrice = getTotalPrice(allIngredients, ingredients);
   const categorizedIngredients = categorizeIds(ingredients);
   const time = getTimeStamp(updatedAt);
 
+  const onClick = () => {
+    dispatch({ type: SET_ORDER_DETAILS_MODAL, payload: { ...props } });
+  };
+
   return (
     <li className={styles.listItem}>
       <Link
         className={styles.link}
-        to={"ololo"}
+        to={_id}
         state={{ background: location }}
+        onClick={onClick}
       >
         <div className={styles.header}>
           <span
@@ -81,9 +83,8 @@ export const Order: FC<Props> = ({
                       (i) => i._id === item.id
                     )?.image;
                     return (
-                      <>
+                      <div className={styles.ingredientInner} key={uuid()}>
                         <img
-                          key={uuid()}
                           className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
                           src={imgUrl}
                           alt="test"
@@ -91,7 +92,7 @@ export const Order: FC<Props> = ({
                         <span
                           className={`${styles.ingredientsCounter} text text_type_digits-default`}
                         >{`+${item.count}`}</span>
-                      </>
+                      </div>
                     );
                   })}
                 </li>

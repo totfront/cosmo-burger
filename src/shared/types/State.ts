@@ -3,7 +3,7 @@ import { Constructor } from "./Constructor";
 import { OrderDetails } from "./OrderDetails";
 import { Ingredients } from "./Ingredients";
 import { UserState } from "../../redux/reducers/userReducer";
-import { OrdersResponse } from "../../redux/types/dataModels";
+import { Order, OrdersResponse } from "../../redux/types/dataModels";
 
 export type State = {
   ingredients: Ingredients;
@@ -12,4 +12,5 @@ export type State = {
   orderDetails: OrderDetails;
   user: UserState;
   feed: OrdersResponse;
+  orderDetailsModal: Order;
 };

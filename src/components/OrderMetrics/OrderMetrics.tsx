@@ -1,8 +1,9 @@
-import styles from "./ordersMetrics.module.css";
+import styles from "./orderMetrics.module.css";
 import { State } from "../../shared/types/State";
 import { useSelector } from "react-redux";
+import { v4 as uuid } from "uuid";
 
-export const OrdersMetrics = () => {
+export const OrderMetrics = () => {
   const { orders, total, totalToday } = useSelector(
     (state: State) => state.feed
   );
@@ -16,6 +17,7 @@ export const OrdersMetrics = () => {
               index < 30 &&
               o.status === "done" && (
                 <li
+                  key={uuid()}
                   className={`${styles.readyOrder} text_type_digits-default mt-2`}
                 >
                   {o.number}
@@ -32,6 +34,7 @@ export const OrdersMetrics = () => {
               index < 50 &&
               o.status !== "done" && (
                 <li
+                  key={uuid()}
                   className={`${styles.readyOrder} text_type_digits-default mt-2`}
                 >
                   {o.number}

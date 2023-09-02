@@ -81,6 +81,11 @@
     filter: contrast(0.7);
 }
 
+.ingredientInner {
+    position: relative;
+    height: 100%;
+}
+
 .ingredientsCounter {
     position: absolute;
     z-index: 2;
