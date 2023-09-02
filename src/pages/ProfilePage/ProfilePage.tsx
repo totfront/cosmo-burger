@@ -37,10 +37,6 @@ const ProfilePage = () => {
     dispatch({ type: ORDERS_HISTORY_WS_CONNECT });
   }, [dispatch]);
 
-  if (!orders) {
-    return null;
-  }
-
   return (
     <div className={styles.container}>
       <section className={styles.navWrapper}>
@@ -119,9 +115,9 @@ const ProfilePage = () => {
         </div>
       ) : (
         <ul className={`${styles.feed}`}>
-          {orders.map((order) => (
-            <Order withStatus {...order} />
-          ))}
+          {orders
+            ? orders.map((order) => <Order withStatus {...order} />)
+            : "🤔"}
         </ul>
       )}
     </div>

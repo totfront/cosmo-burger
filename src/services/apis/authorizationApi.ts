@@ -8,7 +8,8 @@ import { checkResponse, getCookie } from "../helpers";
 export const getUser = (token = "") =>
   fetch(`${noMorePartiesApiUrl}/auth/user`, {
     headers: {
-      authorization: token,
+      "Content-Type": "application/json",
+      "Authorization": token,
     },
   }).then((res) => checkResponse(res));
 
@@ -63,6 +64,7 @@ export const refreshToken = async () => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": refrToken,
     },
     body: JSON.stringify({
       refreshToken: getCookie(refrToken),

@@ -1,4 +1,3 @@
-// import { createReducer } from "@reduxjs/toolkit";
 import { WsStatus } from "../../shared/types/WsStatus";
 import {
   FeedActions,
@@ -52,16 +51,6 @@ export const feedReducer = (state = initialStore, action: FeedActions) => {
         ...state,
         status: WsStatus.OPEN,
       };
-    // case FEED_WS_CONNECTING:
-    //   return {
-    //     ...state,
-    //     status: WsStatus.CONNECTING,
-    //   };
-    // case FEED_WS_CLOSING:
-    //   return {
-    //     ...state,
-    //     status: WsStatus.CLOSING,
-    //   };
     case FEED_WS_CLOSED: {
       return {
         ...state,
@@ -77,7 +66,10 @@ export const feedReducer = (state = initialStore, action: FeedActions) => {
         totalToday,
       };
     case FEED_WS_ERROR:
-      return {};
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return state;
   }

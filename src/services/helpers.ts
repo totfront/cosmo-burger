@@ -178,10 +178,10 @@ const setCookie = (
     options.expires = options.expires.toUTCString();
   }
 
-  let updatedCookie =
-    encodeURIComponent(name) + "=" + encodeURIComponent(value);
+  let updatedCookie = name + "=" + value;
 
   for (let optionKey in options) {
+    console.log({ options, updatedCookie });
     updatedCookie += "; " + optionKey;
     let optionValue = options[optionKey];
     if (optionValue !== true) {
