@@ -6,13 +6,13 @@ import {
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
 } from "../../redux/actions/order";
-import { NoMorePartiesUrl } from "../../shared/paths";
+import { noMorePartiesApiUrl } from "../../shared/paths";
 
 const fetchData = () =>
-  fetch(`${NoMorePartiesUrl}/ingredients`).then((res) => checkResponse(res));
+  fetch(`${noMorePartiesApiUrl}/ingredients`).then((res) => checkResponse(res));
 
 const sendOrder = (ingredients: string[]) =>
-  fetch(`${NoMorePartiesUrl}/orders`, {
+  fetch(`${noMorePartiesApiUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",

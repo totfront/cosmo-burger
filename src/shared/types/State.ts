@@ -12,5 +12,6 @@ export type State = {
   orderDetails: OrderDetails;
   user: UserState;
   feed: OrdersResponse;
+  ordersHistory: OrdersResponse;
   orderDetailsModal: Order;
 };

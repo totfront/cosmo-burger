@@ -12,6 +12,7 @@ import { logoutUser } from "../../services/userAuth";
 import { Link, useLocation } from "react-router-dom";
 import { loginPath, ordersPath, profilePath } from "../../shared/paths";
 import { Order } from "../../components/Order/Order";
+import { ORDERS_HISTORY_WS_CONNECT } from "../../redux/actions/ordersHistory";
 
 const ProfilePage = () => {
   const { pathname } = useLocation();
@@ -20,6 +21,7 @@ const ProfilePage = () => {
     email: currentEmail,
     password: currentPassword,
   } = useSelector((store: State) => store.user);
+  const { orders } = useSelector((state: State) => state.ordersHistory);
   const dispatch: any = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +32,14 @@ const ProfilePage = () => {
     setEmail(currentEmail);
     setPassword(currentPassword);
   }, [currentEmail, currentName, currentPassword]);
+
+  useEffect(() => {
+    dispatch({ type: ORDERS_HISTORY_WS_CONNECT });
+  }, [dispatch]);
+
+  if (!orders) {
+    return null;
+  }
 
   return (
     <div className={styles.container}>
@@ -109,9 +119,9 @@ const ProfilePage = () => {
         </div>
       ) : (
         <ul className={`${styles.feed}`}>
-          {/* <Order withStatus />
-          <Order withStatus />
-          <Order withStatus /> */}
+          {orders.map((order) => (
+            <Order withStatus {...order} />
+          ))}
         </ul>
       )}
     </div>

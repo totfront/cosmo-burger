@@ -7,4 +7,5 @@ export const profilePath = "/profile";
 export const ingredientsPath = "/ingredients";
 export const feedPath = "/feed";
 export const ordersPath = "/orders";
-export const NoMorePartiesUrl = "https://norma.nomoreparties.space/api";
+export const noMorePartiesApiUrl = "https://norma.nomoreparties.space/api";
+export const noMorePartiesOrdersUrl = "wss://norma.nomoreparties.space/orders";
