@@ -5,6 +5,7 @@ import styles from "./feed.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { FEED_WS_CONNECT } from "../../redux/actions/feed";
 import { State } from "../../shared/types/State";
+import { v4 as uuid } from "uuid";
 
 export const Feed = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export const Feed = () => {
       </h1>
       <ul className={styles.orders}>
         {orders.map(({ ...order }) => {
-          return <Order {...order} />;
+          return <Order {...order} key={uuid()} />;
         })}
       </ul>
       <OrdersMetrics />

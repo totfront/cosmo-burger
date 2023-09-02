@@ -3,6 +3,35 @@ import { Ingredient } from "../shared/types/Ingredient";
 import { SortedIngredients } from "../shared/types/SortedIngredients";
 import { ingredientsPath } from "../shared/paths";
 
+import dayjs from "dayjs";
+import isToday from "dayjs/plugin/isToday";
+import isYesterday from "dayjs/plugin/isYesterday";
+
+dayjs.extend(isToday, isYesterday);
+
+const getTimeStamp = (lastEdit: string): string => {
+  let day;
+  const editedToday = dayjs().isToday();
+  const editedYesterday = dayjs(lastEdit).isYesterday();
+
+  if (editedToday) {
+    return (day = "Сегодня");
+  }
+  if (editedYesterday) {
+    return (day = "Вчера");
+  }
+  // Convert the provided time format to a Date object
+  const providedDate = new Date(lastEdit);
+  // Get the current date as a Date object
+  const currentDate = new Date();
+  // Calculate the time difference in milliseconds
+  const timeDifference: number = providedDate.getTime() - currentDate.getTime();
+  // Convert the time difference to days
+  const daysBefore = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  // todo: care about 11-14, 21-24, etc days spelling
+  return (day = `${daysBefore} ${daysBefore < 5 ? "дня" : "дней"} назад`);
+};
+
 const tabNameConverter = (name: string) => {
   if (name === "Булки") return "buns";
   if (name === "Соусы") return "souses";
@@ -129,6 +158,7 @@ const categorizeIds = (
 };
 
 export {
+  getTimeStamp,
   categorizeIds,
   getTotalPrice,
   getAllIngredients,

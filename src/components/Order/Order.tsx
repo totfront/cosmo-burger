@@ -5,10 +5,10 @@ import { FC } from "react";
 import { Order as OrderResponse } from "../../redux/types/dataModels";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
-
 import {
   categorizeIds,
   getAllIngredients,
+  getTimeStamp,
   getTotalPrice,
 } from "../../services/helpers";
 import { State } from "../../shared/types/State";
@@ -23,6 +23,7 @@ export const Order: FC<Props> = ({
   name,
   status,
   ingredients,
+  updatedAt,
 }) => {
   const location = useLocation();
   const { ingredients: sortedIngredients } = useSelector(
@@ -31,7 +32,8 @@ export const Order: FC<Props> = ({
   const allIngredients = getAllIngredients(sortedIngredients);
   const orderPrice = getTotalPrice(allIngredients, ingredients);
   const categorizedIngredients = categorizeIds(ingredients);
-  console.log({ uniqs: categorizedIngredients.uniqIds });
+
+  const time = getTimeStamp(updatedAt);
 
   return (
     <li className={styles.listItem}>
@@ -47,8 +49,7 @@ export const Order: FC<Props> = ({
             {number}
           </span>
           <span className={`text text_type_main-default text_color_inactive`}>
-            {/* todo: не забудь добавить dayjs */}
-            Сегодня, 16:20
+            {time}
           </span>
         </div>
         <h3
@@ -84,6 +85,7 @@ export const Order: FC<Props> = ({
                     return (
                       <>
                         <img
+                          key={uuid()}
                           className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
                           src={imgUrl}
                           alt="test"
