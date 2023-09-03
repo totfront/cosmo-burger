@@ -42,6 +42,8 @@ export const OrderDetails: FC<Props> = ({ isModal }) => {
   const allIngredients = getAllIngredients(sortedIngredients);
   const orderPrice = getTotalPrice(allIngredients, ingredients);
   const categorizedIngredients = categorizeIds(ingredients);
+  const statusText =
+    status === "done" ? ("Выполнен" ? "pending" : "Готовится") : "Отменен";
 
   return (
     <section className={`${styles.wrapper}`}>
@@ -54,7 +56,7 @@ export const OrderDetails: FC<Props> = ({ isModal }) => {
       </p>
       <h3 className={`text text_type_main-medium mb-3`}>{name}</h3>
       <p className={`${styles.status} text text_type_main-default mb-15`}>
-        {status === "done" ? "Выполнен" : "Готовится"}
+        {statusText}
       </p>
       <h3 className={`text text_type_main-medium mb-6`}>Состав:</h3>
       <ul className={`${styles.ingredients} mb-10 mr-6`}>

@@ -36,6 +36,9 @@ export const Order: FC<Props> = (props) => {
     dispatch({ type: SET_ORDER_DETAILS_MODAL, payload: { ...props } });
   };
 
+  const statusText =
+    status === "done" ? ("Выполнен" ? "pending" : "Готовится") : "Отменен";
+
   return (
     <li className={styles.listItem}>
       <Link
@@ -60,7 +63,7 @@ export const Order: FC<Props> = (props) => {
           {name}
         </h3>
         {withStatus && (
-          <span className={`text text_type_main-small`}>{status}</span>
+          <span className={`text text_type_main-small`}>{statusText}</span>
         )}
         <div className={`${styles.footer}  mt-6`}>
           <ul className={styles.ingredientsImages}>
