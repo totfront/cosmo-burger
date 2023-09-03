@@ -1,15 +1,9 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import styles from "./ingredientDetails.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
-import { useLocation, useNavigate } from "react-router-dom";
-import { getIngredients } from "../../redux/actions/ingredients";
-import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
 
 const IngredientDetails: FC = () => {
-  const dispatch: AppDispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
   const {
     selectedIngredient: {
       name,
@@ -21,10 +15,6 @@ const IngredientDetails: FC = () => {
       _id,
     },
   } = useSelector((store: State) => store.ingredientModal);
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [_id, navigate, dispatch, location.state]);
 
   return (
     <div className={styles.inner}>

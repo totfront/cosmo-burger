@@ -11,8 +11,6 @@ import { accessToken } from "../../shared/names";
 import { getUser, refreshToken } from "./authorizationApi";
 import { LOGIN_SUCCESS } from "../userAuth";
 
-const token = getCookie(accessToken);
-
 const fetchData = () =>
   fetch(`${noMorePartiesApiUrl}/ingredients`).then((res) => checkResponse(res));
 
@@ -21,7 +19,7 @@ const sendOrder = (ingredients: string[]) =>
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      Authorization: `${token}`,
+      Authorization: getCookie(accessToken) ?? "",
     },
     body: JSON.stringify({ ingredients }),
   }).then((res) => checkResponse(res));

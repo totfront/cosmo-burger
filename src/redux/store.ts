@@ -10,13 +10,9 @@ import { OrdersHistoryWSActions } from "./actions/ordersHistory";
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => {
-    const token = getCookie(accessToken)?.replace("Bearer ", "");
     return getDefaultMiddleware().concat(
-      socketMiddleware(`${wsNoMorePartiesOrdersUrl}/all`, FeedWsActions),
-      socketMiddleware(
-        `${wsNoMorePartiesOrdersUrl}?token=${token}`,
-        OrdersHistoryWSActions
-      )
+      socketMiddleware(FeedWsActions),
+      socketMiddleware(OrdersHistoryWSActions)
     );
   },
 });

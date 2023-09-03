@@ -1,5 +1,5 @@
 import {
-  wsClosed,
+  wsClose,
   wsInit,
   wsError,
   wsOpen,
@@ -9,6 +9,6 @@ import {
 export type TFeedWsActions =
   | ReturnType<typeof wsInit>
   | ReturnType<typeof wsOpen>
-  | ReturnType<typeof wsClosed>
+  | ReturnType<typeof wsClose>
   | ReturnType<typeof wsOrder>
   | ReturnType<typeof wsError>;

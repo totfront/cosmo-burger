@@ -8,8 +8,8 @@ export const FEED_WS_ORDER = "FEED_WS_ORDER";
 export const FEED_WS_ERROR = "FEED_WS_ERROR";
 
 export const wsInit = createAction<string, typeof FEED_WS_INIT>(FEED_WS_INIT);
-export const wsOpen = createAction<OrdersResponse>(FEED_WS_OPEN);
-export const wsClosed = createAction(FEED_WS_CLOSED);
+export const wsOpen = createAction(FEED_WS_OPEN);
+export const wsClose = createAction(FEED_WS_CLOSED);
 export const wsOrder = createAction<OrdersResponse>(FEED_WS_ORDER);
 export const wsError = createAction<string, typeof FEED_WS_ERROR>(
   FEED_WS_ERROR
@@ -19,6 +19,6 @@ export const FeedWsActions = {
   wsInit,
   onOrder: wsOrder,
   wsOpen,
-  wsClosed,
+  wsClose,
   wsError,
 };

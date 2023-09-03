@@ -5,19 +5,27 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../index.module.css";
 import { useEffect, useState } from "react";
-import { handleInputChange } from "../../services/helpers";
+import { getCookie, handleInputChange } from "../../services/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import { logoutUser } from "../../services/userAuth";
 import { Link, useLocation } from "react-router-dom";
-import { loginPath, ordersPath, profilePath } from "../../shared/paths";
+import {
+  loginPath,
+  noMorePartiesApiUrl,
+  ordersPath,
+  profilePath,
+  wsNoMorePartiesOrdersUrl,
+} from "../../shared/paths";
 import { Order } from "../../components/Order/Order";
 import {
+  ORDERS_HISTORY_WS_CLOSED,
   ORDERS_HISTORY_WS_INIT,
-  ORDERS_HISTORY_WS_OPEN,
+  // ORDERS_HISTORY_WS_OPEN,
 } from "../../redux/actions/ordersHistory";
 import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
 import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
+import { accessToken } from "../../shared/names";
 
 const ProfilePage = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -32,6 +40,7 @@ const ProfilePage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const token = getCookie(accessToken);
 
   useEffect(() => {
     setName(currentName);
@@ -40,9 +49,19 @@ const ProfilePage = () => {
   }, [currentEmail, currentName, currentPassword]);
 
   useEffect(() => {
-    dispatch({ type: ORDERS_HISTORY_WS_INIT, payload: WsStatus.CONNECTING });
-    dispatch({ type: ORDERS_HISTORY_WS_OPEN, payload: WsStatus.OPEN });
-  }, [dispatch]);
+    dispatch({
+      type: ORDERS_HISTORY_WS_INIT,
+      payload: `${wsNoMorePartiesOrdersUrl}?token=${token?.replace(
+        "Bearer ",
+        ""
+      )}`,
+    });
+
+    // dispatch({ type: ORDERS_HISTORY_WS_OPEN, payload: WsStatus.OPEN });
+    return () => {
+      dispatch({ type: ORDERS_HISTORY_WS_CLOSED, payload: WsStatus.CLOSED });
+    };
+  }, [dispatch, token]);
 
   return (
     <div className={styles.container}>
