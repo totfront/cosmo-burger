@@ -5,6 +5,7 @@ import {
   FEED_WS_CLOSED,
   FEED_WS_ORDER,
   FEED_WS_ERROR,
+  FEED_WS_INIT,
 } from "../actions/feed";
 import { Order } from "../types/dataModels";
 
@@ -24,6 +25,7 @@ const initialStore: FeedStore = {
   totalToday: 0,
 };
 
+// todo: (optional) rewrite with toolkit
 // export const FeedReducer = createReducer(initialStore, (builder) => {
 //   builder
 //     .addCase(wsConnecting, (state) => {
@@ -50,6 +52,11 @@ export const feedReducer = (state = initialStore, action: TFeedWsActions) => {
       return {
         ...state,
         status: WsStatus.OPEN,
+      };
+    case FEED_WS_INIT:
+      return {
+        ...state,
+        status: action.payload,
       };
     case FEED_WS_CLOSED: {
       return {

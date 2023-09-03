@@ -1,13 +1,15 @@
 import { Dispatch } from "react";
-import { checkResponse, getCookie } from "../helpers";
+import { checkResponse, getCookie, setCookie } from "../helpers";
 import { TActions } from "../../shared/types/Actions";
 import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
 } from "../../redux/actions/order";
-import { noMorePartiesApiUrl } from "../../shared/paths";
+import { defaultPath, noMorePartiesApiUrl } from "../../shared/paths";
 import { accessToken } from "../../shared/names";
+import { getUser, refreshToken } from "./authorizationApi";
+import { LOGIN_SUCCESS } from "../userAuth";
 
 const token = getCookie(accessToken);
 
@@ -37,12 +39,36 @@ export const submitOrder =
           name: name,
         });
       })
-      .catch((error) => {
-        console.error(`Submit order request failed with error: ${error}`);
-        dispatch({
-          type: SUBMIT_ORDER_FAIL,
-          error,
-        });
+      .catch(async (error) => {
+        if (error.message === "jwt expired") {
+          try {
+            const { accessToken, refreshToken: newRefreshToken } =
+              await refreshToken();
+            setCookie("refreshToken", newRefreshToken, { path: defaultPath });
+            setCookie("accessToken", accessToken, { path: defaultPath });
+            try {
+              const {
+                user: { email, name },
+              } = await getUser(accessToken);
+              dispatch({
+                type: LOGIN_SUCCESS,
+                email,
+                name,
+              });
+            } catch (innerErr) {
+              console.error("Failed to get user:", innerErr);
+            }
+          } catch (refreshErr) {
+            console.error("Update token request failed:", refreshErr);
+          }
+          console.error(
+            `Submit order request failed with error: ${error.message}`
+          );
+          dispatch({
+            type: SUBMIT_ORDER_FAIL,
+            error,
+          });
+        }
       });
   };
 

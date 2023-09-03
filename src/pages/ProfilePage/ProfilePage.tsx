@@ -12,10 +12,16 @@ import { logoutUser } from "../../services/userAuth";
 import { Link, useLocation } from "react-router-dom";
 import { loginPath, ordersPath, profilePath } from "../../shared/paths";
 import { Order } from "../../components/Order/Order";
-import { ORDERS_HISTORY_WS_CONNECT } from "../../redux/actions/ordersHistory";
+import {
+  ORDERS_HISTORY_WS_INIT,
+  ORDERS_HISTORY_WS_OPEN,
+} from "../../redux/actions/ordersHistory";
 import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
+import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
 
 const ProfilePage = () => {
+  const dispatch: AppDispatch = useDispatch();
+
   const { pathname } = useLocation();
   const {
     name: currentName,
@@ -23,7 +29,6 @@ const ProfilePage = () => {
     password: currentPassword,
   } = useSelector((store: State) => store.user);
   const { orders } = useSelector((state: State) => state.ordersHistory);
-  const dispatch: AppDispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -35,7 +40,8 @@ const ProfilePage = () => {
   }, [currentEmail, currentName, currentPassword]);
 
   useEffect(() => {
-    dispatch({ type: ORDERS_HISTORY_WS_CONNECT } as any);
+    dispatch({ type: ORDERS_HISTORY_WS_INIT, payload: WsStatus.CONNECTING });
+    dispatch({ type: ORDERS_HISTORY_WS_OPEN, payload: WsStatus.OPEN });
   }, [dispatch]);
 
   return (

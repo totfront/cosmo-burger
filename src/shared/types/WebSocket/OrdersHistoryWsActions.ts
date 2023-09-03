@@ -1,13 +1,13 @@
 import {
   wsClosed,
-  wsConnect,
+  wsInit,
   wsError,
   wsOpen,
   wsOrder,
-} from "../../../redux/actions/feed";
+} from "../../../redux/actions/ordersHistory";
 
 export type TOrdersHistoryWsActions =
-  | ReturnType<typeof wsConnect>
+  | ReturnType<typeof wsInit>
   | ReturnType<typeof wsOpen>
   | ReturnType<typeof wsClosed>
   | ReturnType<typeof wsOrder>

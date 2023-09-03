@@ -3,7 +3,7 @@ import { Order } from "../Order/Order";
 import { OrderMetrics } from "../OrderMetrics/OrderMetrics";
 import styles from "./feed.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { FEED_WS_CLOSED, FEED_WS_CONNECT } from "../../redux/actions/feed";
+import { FEED_WS_CLOSED, FEED_WS_INIT } from "../../redux/actions/feed";
 import { State } from "../../shared/types/State";
 import { v4 as uuid } from "uuid";
 
@@ -12,7 +12,7 @@ export const Feed = () => {
   const { orders } = useSelector((state: State) => state.feed);
 
   useEffect(() => {
-    dispatch({ type: FEED_WS_CONNECT });
+    dispatch({ type: FEED_WS_INIT });
     return () => {
       dispatch({ type: FEED_WS_CLOSED });
     };

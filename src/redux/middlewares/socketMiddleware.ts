@@ -13,7 +13,7 @@ import { TOrdersHistoryWsActions } from "../../shared/types/WebSocket/OrdersHist
 type RootState = ReturnType<typeof rootReducer>;
 
 interface WsStoreActions {
-  wsConnect: ActionCreatorWithPayload<string>;
+  wsInit: ActionCreatorWithPayload<string>;
   onOrder: ActionCreatorWithPayload<OrdersResponse>;
   wsOpen: ActionCreatorWithPayload<OrdersResponse>;
   wsClosed: ActionCreatorWithoutPayload;
@@ -30,8 +30,8 @@ export const socketMiddleware =
 
     return (next) => (action: AppActions) => {
       const { dispatch } = store;
-      const { wsConnect, onOrder, wsClosed, wsOpen, wsError } = wsActions;
-      if (wsConnect.match(action)) {
+      const { wsInit, onOrder, wsClosed, wsOpen, wsError } = wsActions;
+      if (wsInit.match(action)) {
         socket = new WebSocket(`${wsUrl}`);
       }
       if (socket) {
@@ -52,16 +52,6 @@ export const socketMiddleware =
         socket.onclose = (event) => {
           dispatch(wsClosed());
         };
-
-        // if (action.type === wsOrder.type) {
-        //   const { payload } = action;
-        //   socket.send(
-        //     JSON.stringify({
-        //       ...(payload as OrdersResponse),
-        //       token: new URLSearchParams(wsUrl).get("token"),
-        //     })
-        //   );
-        // }
       }
 
       next(action);

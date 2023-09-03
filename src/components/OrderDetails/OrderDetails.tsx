@@ -12,7 +12,7 @@ import {
 } from "../../services/helpers";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { useLocation } from "react-router-dom";
-import { FEED_WS_CONNECT } from "../../redux/actions/feed";
+import { FEED_WS_INIT } from "../../redux/actions/feed";
 
 type Props = {
   isModal?: boolean;
@@ -30,7 +30,7 @@ export const OrderDetails: FC<Props> = ({ isModal }) => {
   const order = orders.find(({ _id }) => _id === pathId);
 
   useEffect(() => {
-    dispatch({ type: FEED_WS_CONNECT });
+    dispatch({ type: FEED_WS_INIT });
   }, [dispatch]);
 
   if (!order) {

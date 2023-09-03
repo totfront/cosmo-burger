@@ -1,4 +1,3 @@
-// import { createReducer } from "@reduxjs/toolkit";
 import { TOrdersHistoryWsActions } from "../../shared/types/WebSocket/OrdersHistoryWsActions";
 import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
 import {
@@ -6,10 +5,11 @@ import {
   ORDERS_HISTORY_WS_CLOSED,
   ORDERS_HISTORY_WS_ORDER,
   ORDERS_HISTORY_WS_ERROR,
+  ORDERS_HISTORY_WS_INIT,
 } from "../actions/ordersHistory";
 import { Order, OrdersResponse } from "../types/dataModels";
 
-interface FeedStore {
+interface OrdersHistory {
   status: WsStatus;
   error: undefined | string;
   orders: Order[];
@@ -17,7 +17,7 @@ interface FeedStore {
   totalToday: number;
 }
 
-const initialStore: FeedStore = {
+const initialStore: OrdersHistory = {
   status: WsStatus.CLOSED,
   error: "",
   orders: [],
@@ -25,6 +25,7 @@ const initialStore: FeedStore = {
   totalToday: 0,
 };
 
+// todo: (optional) rewrite with toolkit
 // export const FeedReducer = createReducer(initialStore, (builder) => {
 //   builder
 //     .addCase(wsConnecting, (state) => {
@@ -53,18 +54,13 @@ export const ordersHistoryReducer = (
     case ORDERS_HISTORY_WS_OPEN:
       return {
         ...state,
-        status: WsStatus.OPEN,
+        status: action.payload,
       };
-    // case ORDERS_HISTORY_WS_CONNECTING:
-    //   return {
-    //     ...state,
-    //     status: WsStatus.CONNECTING,
-    //   };
-    // case ORDERS_HISTORY_WS_CLOSING:
-    //   return {
-    //     ...state,
-    //     status: WsStatus.CLOSING,
-    //   };
+    case ORDERS_HISTORY_WS_INIT:
+      return {
+        ...state,
+        status: action.payload,
+      };
     case ORDERS_HISTORY_WS_CLOSED: {
       return {
         ...state,
@@ -80,7 +76,10 @@ export const ordersHistoryReducer = (
         totalToday,
       };
     case ORDERS_HISTORY_WS_ERROR:
-      return {};
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return state;
   }
