@@ -1,16 +1,15 @@
-import { Dispatch } from "react";
 import { fetchData } from "../../services/apis/burgerApi";
-import { TActions } from "../../shared/types/Actions";
 import { getIdFromPath, sortIngredients } from "../../services/helpers";
 import { ingredientsPath } from "../../shared/paths";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { SHOW_INGREDIENT_MODAL } from "./ingredientModal";
+import { AppDispatch } from "../middlewares/socketMiddleware";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_ERROR = "GET_INGREDIENTS_ERROR";
 
-export const getIngredients = () => (dispatch: Dispatch<TActions>) => {
+export const getIngredients = () => (dispatch: AppDispatch) => {
   const { location } = window;
   dispatch({
     type: GET_INGREDIENTS_REQUEST,

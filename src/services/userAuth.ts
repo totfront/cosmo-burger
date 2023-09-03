@@ -6,13 +6,12 @@ import {
   refreshToken,
   registerUser,
 } from "./apis/authorizationApi";
-import { Dispatch } from "react";
-import { TActions } from "../shared/types/Actions";
 import { LoginData } from "../shared/types/LoginData";
 import { getCookie, setCookie } from "./helpers";
 import { NavigateFunction } from "react-router-dom";
 import { defaultPath, loginPath } from "../shared/paths";
 import { accessToken } from "../shared/names";
+import { AppDispatch } from "../redux/middlewares/socketMiddleware";
 
 export const LOGOUT = "LOGOUT";
 export const ADD_NEW_USER = "ADD_NEW_USER";
@@ -24,15 +23,12 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 
 export const addNewUser =
-  (newUser: NewUser, navigate: NavigateFunction) =>
-  (dispatch: Dispatch<TActions>) => {
+  (newUser: NewUser, navigate: NavigateFunction) => (dispatch: AppDispatch) => {
     dispatch({ type: SET_USER_REQUEST });
     registerUser(newUser)
       .then(({ success, user, accessToken, refreshToken, message }) => {
         if (!success) throw new Error(message);
         const { name, email } = user;
-        // document.cookie = `accessToken=${accessToken}`;
-        // document.cookie = `refreshToken=${refreshToken}`;
         setCookie("refreshToken", refreshToken, { path: defaultPath });
         setCookie("accessToken", accessToken, { path: defaultPath });
 
@@ -46,13 +42,11 @@ export const addNewUser =
   };
 
 export const authorizeUser =
-  (credentials: LoginData) => (dispatch: Dispatch<TActions>) => {
+  (credentials: LoginData) => (dispatch: AppDispatch) => {
     dispatch({ type: LOGIN_REQUEST });
     login(credentials)
       .then(({ user, accessToken, refreshToken }) => {
         const { name, email } = user;
-        // document.cookie = `accessToken=${accessToken}`;
-        // document.cookie = `refreshToken=${refreshToken}`;
         setCookie("refreshToken", refreshToken, { path: defaultPath });
         setCookie("accessToken", accessToken, { path: defaultPath });
         dispatch({
@@ -68,7 +62,7 @@ export const authorizeUser =
       });
   };
 
-export const getUserData = () => (dispatch: Dispatch<TActions>) => {
+export const getUserData = () => (dispatch: AppDispatch) => {
   const token = getCookie(accessToken);
   getUser(token)
     .then(({ user: { email, name } }) => {
@@ -108,7 +102,7 @@ export const getUserData = () => (dispatch: Dispatch<TActions>) => {
     });
 };
 
-export const logoutUser = () => (dispatch: Dispatch<TActions>) =>
+export const logoutUser = () => (dispatch: AppDispatch) =>
   logout()
     .then(({ success, message }) => {
       if (!success) {
