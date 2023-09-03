@@ -10,9 +10,10 @@ import { FormEvent, useState } from "react";
 import { addNewUser } from "../../services/userAuth";
 import { useDispatch } from "react-redux";
 import { handleInputChange } from "../../services/helpers";
+import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
 
 const SignInPage = () => {
-  const dispatch: any = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

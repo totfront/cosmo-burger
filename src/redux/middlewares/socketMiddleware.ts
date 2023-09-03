@@ -1,82 +1,66 @@
-import type { Middleware, MiddlewareAPI } from "redux";
-// import { getCurrentTimestamp } from "../../services/datetime";
-import type { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { store } from "../store";
-import { getCookie } from "../../services/helpers";
+import type { Middleware } from "redux";
+import type { ThunkDispatch } from "redux-thunk";
 import { OrdersResponse } from "../types/dataModels";
 import {
-  //   FEED_WS_CONNECT,
-  //   FEED_WS_DISCONNECT,
-  //   FEED_WS_ERROR,
-  //   FEED_WS_OPEN,
-  //   FEED_WS_ORDER,
-  FeedActions,
-} from "../actions/feed";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { accessToken } from "../../shared/names";
+  ActionCreatorWithPayload,
+  ActionCreatorWithoutPayload,
+} from "@reduxjs/toolkit";
+import { rootReducer } from "../reducers";
+import { TActions } from "../../shared/types/Actions";
+import { TFeedWsActions } from "../../shared/types/WebSocket/FeedWsActions";
+import { TOrdersHistoryWsActions } from "../../shared/types/WebSocket/OrdersHistoryWsActions";
 
-export type AppThunkAction<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  AppActions
->;
+type RootState = ReturnType<typeof rootReducer>;
 
-// todo:? pending
-
-export type WsStoreActions = {
-  //   wsInit: typeof FEED_WS_CONNECT;
+interface WsStoreActions {
   wsConnect: ActionCreatorWithPayload<string>;
   onOrder: ActionCreatorWithPayload<OrdersResponse>;
-  //   sendOrder: typeof FEED_WS_ORDER;
-  //   onOpen: typeof FEED_WS_OPEN;
-  //   onError: typeof FEED_WS_ERROR;
-  //   wsDisconnect: typeof FEED_WS_DISCONNECT;
-};
+  wsOpen: ActionCreatorWithPayload<OrdersResponse>;
+  wsClosed: ActionCreatorWithoutPayload;
+  wsError: ActionCreatorWithPayload<string>;
+}
 
-export type AppActions = FeedActions;
-export type RootState = ReturnType<typeof store.getState>;
+export type AppActions = TFeedWsActions | TOrdersHistoryWsActions | TActions;
 export type AppDispatch = ThunkDispatch<RootState, unknown, AppActions>;
 
 export const socketMiddleware =
-  (wsUrl: string, wsActions: WsStoreActions): Middleware =>
-  (store: MiddlewareAPI<AppDispatch, RootState>) => {
+  (wsUrl: string, wsActions: WsStoreActions): Middleware<{}, RootState> =>
+  (store) => {
     let socket: WebSocket | null = null;
 
     return (next) => (action: AppActions) => {
       const { dispatch } = store;
-      //   const { type } = action;
-      const {
-        wsConnect,
-        onOrder,
-        // onOpen, onError
-      } = wsActions;
+      const { wsConnect, onOrder, wsClosed, wsOpen, wsError } = wsActions;
       if (wsConnect.match(action)) {
         socket = new WebSocket(`${wsUrl}`);
       }
       if (socket) {
-        // socket.onopen = (event) => {
-        //   dispatch({ type: onOpen, payload: event });
-        // };
+        socket.onopen = (event) => {
+          dispatch({ type: wsOpen, payload: event });
+        };
 
-        // socket.onerror = (event) => {
-        //   dispatch({ type: onError, payload: event });
-        // };
+        socket.onerror = (event) => {
+          dispatch({ type: wsError, payload: event });
+        };
 
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData: OrdersResponse = JSON.parse(data);
-
           dispatch(onOrder(parsedData));
         };
 
-        // socket.onclose = (event) => {
-        //   dispatch({ type: onClose, payload: event });
-        // };
+        socket.onclose = (event) => {
+          dispatch(wsClosed());
+        };
 
-        // if (type === sendOrder) {
+        // if (action.type === wsOrder.type) {
         //   const { payload } = action;
-        //   socket.send(JSON.stringify({ ...payload, token: accessToken }));
+        //   socket.send(
+        //     JSON.stringify({
+        //       ...(payload as OrdersResponse),
+        //       token: new URLSearchParams(wsUrl).get("token"),
+        //     })
+        //   );
         // }
       }
 

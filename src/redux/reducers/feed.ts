@@ -1,6 +1,6 @@
-import { WsStatus } from "../../shared/types/WsStatus";
+import { TFeedWsActions } from "../../shared/types/WebSocket/FeedWsActions";
+import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
 import {
-  FeedActions,
   FEED_WS_OPEN,
   FEED_WS_CLOSED,
   FEED_WS_ORDER,
@@ -44,7 +44,7 @@ const initialStore: FeedStore = {
 //     });
 // });
 
-export const feedReducer = (state = initialStore, action: FeedActions) => {
+export const feedReducer = (state = initialStore, action: TFeedWsActions) => {
   switch (action.type) {
     case FEED_WS_OPEN:
       return {

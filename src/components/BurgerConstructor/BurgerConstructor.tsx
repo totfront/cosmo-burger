@@ -25,10 +25,11 @@ import { submitOrder } from "../../services/apis/burgerApi";
 import { useNavigate } from "react-router-dom";
 import { loginPath } from "../../shared/paths";
 import Modal from "../Modal/Modal";
+import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
 
 const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const dispatch: any = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const { isAuthorized } = useSelector((state: State) => state.user);
   const { ingredients, totalPrice, error } = useSelector(
     (state: State) => state.orderConstructor

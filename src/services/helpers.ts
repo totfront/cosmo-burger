@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { Ingredient } from "../shared/types/Ingredient";
 import { SortedIngredients } from "../shared/types/SortedIngredients";
-import { ingredientsPath } from "../shared/paths";
 
 const getTimeStamp = (lastEdit: string): string => {
   // Convert the input date string to a Date object
@@ -181,7 +180,6 @@ const setCookie = (
   let updatedCookie = name + "=" + value;
 
   for (let optionKey in options) {
-    console.log({ options, updatedCookie });
     updatedCookie += "; " + optionKey;
     let optionValue = options[optionKey];
     if (optionValue !== true) {

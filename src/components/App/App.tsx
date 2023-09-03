@@ -6,9 +6,10 @@ import { useDispatch } from "react-redux";
 import { getUserData } from "../../services/userAuth";
 import { useEffect } from "react";
 import { getIngredients } from "../../redux/actions/ingredients";
+import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
 
 function App() {
-  const dispatch: any = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUserData());

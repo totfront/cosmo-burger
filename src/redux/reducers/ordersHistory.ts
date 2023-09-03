@@ -1,13 +1,13 @@
 // import { createReducer } from "@reduxjs/toolkit";
-import { WsStatus } from "../../shared/types/WsStatus";
+import { TOrdersHistoryWsActions } from "../../shared/types/WebSocket/OrdersHistoryWsActions";
+import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
 import {
-  OrdersHistoryActions,
   ORDERS_HISTORY_WS_OPEN,
   ORDERS_HISTORY_WS_CLOSED,
   ORDERS_HISTORY_WS_ORDER,
   ORDERS_HISTORY_WS_ERROR,
 } from "../actions/ordersHistory";
-import { Order } from "../types/dataModels";
+import { Order, OrdersResponse } from "../types/dataModels";
 
 interface FeedStore {
   status: WsStatus;
@@ -47,7 +47,7 @@ const initialStore: FeedStore = {
 
 export const ordersHistoryReducer = (
   state = initialStore,
-  action: OrdersHistoryActions
+  action: TOrdersHistoryWsActions
 ) => {
   switch (action.type) {
     case ORDERS_HISTORY_WS_OPEN:
@@ -72,7 +72,7 @@ export const ordersHistoryReducer = (
       };
     }
     case ORDERS_HISTORY_WS_ORDER:
-      const { orders, total, totalToday } = action.payload;
+      const { orders, total, totalToday } = action.payload as OrdersResponse;
       return {
         ...state,
         orders,

@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types/State";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getIngredients } from "../../redux/actions/ingredients";
+import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
 
 const IngredientDetails: FC = () => {
-  const dispatch: any = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const {

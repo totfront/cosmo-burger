@@ -37,6 +37,8 @@ import {
   SET_USER_SUCCESS,
 } from "../../services/userAuth";
 import { Order } from "../../redux/types/dataModels";
+import { TFeedWsActions } from "./WebSocket/FeedWsActions";
+import { TOrdersHistoryWsActions } from "./WebSocket/OrdersHistoryWsActions";
 
 type HideIngredientModal = {
   type: typeof HIDE_INGREDIENT_MODAL;
@@ -161,7 +163,7 @@ type SetOrderDetailsModal = {
   payload: Order;
 };
 
-export type ActionTypes =
+export type TActions =
   | SetOrderDetailsModal
   | HideHomePage
   | LoginRequest
@@ -189,3 +191,5 @@ export type ActionTypes =
   | IncreaseTotalPrice
   // | SetConstructorIngredients
   | AddConstructorIngredient;
+
+export type AppActions = TFeedWsActions | TOrdersHistoryWsActions | TActions;

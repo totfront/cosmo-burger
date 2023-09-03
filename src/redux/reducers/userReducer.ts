@@ -1,4 +1,4 @@
-import { ActionTypes } from "../../shared/types/Actions";
+import { TActions } from "../../shared/types/Actions";
 import {
   LOGOUT,
   LOGIN_FAIL,
@@ -22,7 +22,7 @@ const initialState = {
   isSetUserRequestFail: false,
 };
 
-const userReducer = (state = initialState, action: ActionTypes) => {
+const userReducer = (state = initialState, action: TActions) => {
   switch (action.type) {
     case LOGOUT: {
       return initialState;

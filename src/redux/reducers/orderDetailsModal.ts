@@ -1,11 +1,5 @@
-import { ActionTypes } from "../../shared/types/Actions";
-import {
-  SUBMIT_ORDER_FAIL,
-  SUBMIT_ORDER_REQUEST,
-  SUBMIT_ORDER_SUCCESS,
-} from "../actions/order";
+import { TActions } from "../../shared/types/Actions";
 import { SET_ORDER_DETAILS_MODAL } from "../actions/orderDetailsModal";
-import { OrdersResponse } from "../types/dataModels";
 
 export type OrderState = typeof initialState;
 
@@ -19,10 +13,7 @@ const initialState = {
   updatedAt: "",
 };
 
-const orderDetailsModalReducer = (
-  state = initialState,
-  action: ActionTypes
-) => {
+const orderDetailsModalReducer = (state = initialState, action: TActions) => {
   switch (action.type) {
     case SET_ORDER_DETAILS_MODAL: {
       return {

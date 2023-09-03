@@ -1,4 +1,4 @@
-import { ActionTypes } from "../../shared/types/Actions";
+import { TActions } from "../../shared/types/Actions";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { Ingredients } from "../../shared/types/Ingredients";
 import {
@@ -30,10 +30,7 @@ const initialState: Ingredients = {
   error: null,
 };
 
-export const ingredientsReducer = (
-  state = initialState,
-  action: ActionTypes
-) => {
+export const ingredientsReducer = (state = initialState, action: TActions) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {

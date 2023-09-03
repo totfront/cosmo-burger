@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import { checkResponse, getCookie } from "../helpers";
-import { ActionTypes } from "../../shared/types/Actions";
+import { TActions } from "../../shared/types/Actions";
 import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
@@ -25,7 +25,7 @@ const sendOrder = (ingredients: string[]) =>
   }).then((res) => checkResponse(res));
 
 export const submitOrder =
-  (ingredientsIds: string[]) => (dispatch: Dispatch<ActionTypes>) => {
+  (ingredientsIds: string[]) => (dispatch: Dispatch<TActions>) => {
     dispatch({
       type: SUBMIT_ORDER_REQUEST,
     });

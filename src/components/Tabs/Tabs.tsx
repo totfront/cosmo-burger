@@ -4,13 +4,14 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC } from "react";
 import { switchTabActionCreator } from "../../redux/actions/ingredients";
 import styles from "./tabs.module.css";
+import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
 
 type Props = {
   currentTab: string;
 };
 
 const Tabs: FC<Props> = ({ currentTab }) => {
-  const dispatch: any = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const { tabs } = useSelector((store: State) => store.ingredients);
 
   // TODO: create a proper shape of the store for the ingredients Ingredient[] and tabs (most likely we do not need it)
@@ -33,7 +34,7 @@ const Tabs: FC<Props> = ({ currentTab }) => {
           onClick={() => {
             dispatch({
               type: switchTabActionCreator(tabKey),
-            });
+            } as any);
           }}
           key={tabName + index}
         >

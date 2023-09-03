@@ -7,7 +7,7 @@ import {
   registerUser,
 } from "./apis/authorizationApi";
 import { Dispatch } from "react";
-import { ActionTypes } from "../shared/types/Actions";
+import { TActions } from "../shared/types/Actions";
 import { LoginData } from "../shared/types/LoginData";
 import { getCookie, setCookie } from "./helpers";
 import { NavigateFunction } from "react-router-dom";
@@ -25,7 +25,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 
 export const addNewUser =
   (newUser: NewUser, navigate: NavigateFunction) =>
-  (dispatch: Dispatch<ActionTypes>) => {
+  (dispatch: Dispatch<TActions>) => {
     dispatch({ type: SET_USER_REQUEST });
     registerUser(newUser)
       .then(({ success, user, accessToken, refreshToken, message }) => {
@@ -46,7 +46,7 @@ export const addNewUser =
   };
 
 export const authorizeUser =
-  (credentials: LoginData) => (dispatch: Dispatch<ActionTypes>) => {
+  (credentials: LoginData) => (dispatch: Dispatch<TActions>) => {
     dispatch({ type: LOGIN_REQUEST });
     login(credentials)
       .then(({ user, accessToken, refreshToken }) => {
@@ -68,7 +68,7 @@ export const authorizeUser =
       });
   };
 
-export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
+export const getUserData = () => (dispatch: Dispatch<TActions>) => {
   const token = getCookie(accessToken);
   getUser(token)
     .then(({ user: { email, name } }) => {
@@ -108,7 +108,7 @@ export const getUserData = () => (dispatch: Dispatch<ActionTypes>) => {
     });
 };
 
-export const logoutUser = () => (dispatch: Dispatch<ActionTypes>) =>
+export const logoutUser = () => (dispatch: Dispatch<TActions>) =>
   logout()
     .then(({ success, message }) => {
       if (!success) {
