@@ -17,7 +17,7 @@ export const OrderMetrics = () => {
               index < 30 &&
               o.status === "done" && (
                 <li
-                  key={uuid()}
+                  key={o._id + uuid()}
                   className={`${styles.readyOrder} text_type_digits-default mt-2`}
                 >
                   {o.number}
@@ -34,7 +34,7 @@ export const OrderMetrics = () => {
               index < 50 &&
               o.status !== "done" && (
                 <li
-                  key={uuid()}
+                  key={o._id + uuid()}
                   className={`${styles.readyOrder} text_type_digits-default mt-2`}
                 >
                   {o.number}

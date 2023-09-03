@@ -70,7 +70,7 @@ export const Order: FC<Props> = (props) => {
             {uniqIds?.map((id) => {
               const imgUrl = allIngredients.find((i) => i._id === id)?.image;
               return (
-                <li className={`${styles.ingredient}`} key={uuid()}>
+                <li className={`${styles.ingredient}`} key={id + uuid()}>
                   <img
                     className={styles.ingredientImage}
                     src={imgUrl}
@@ -81,10 +81,10 @@ export const Order: FC<Props> = (props) => {
             })}
             {repeatedIds?.map((item) => {
               const imgUrl = allIngredients.find(
-                (i) => i._id === item.id
+                ({ _id }) => _id === item.id
               )?.image;
               return (
-                <li className={`${styles.ingredient}`} key={uuid()}>
+                <li className={`${styles.ingredient}`} key={_id + uuid()}>
                   <img
                     className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
                     src={imgUrl}

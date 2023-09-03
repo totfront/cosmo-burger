@@ -31,7 +31,7 @@ export const Feed = () => {
       </h1>
       <ul className={styles.orders}>
         {orders.map(({ ...order }) => {
-          return <Order {...order} key={uuid()} />;
+          return <Order {...order} key={`${order._id}${uuid()}`} />;
         })}
       </ul>
       <OrderMetrics />
