@@ -54,12 +54,12 @@ export const OrderDetails: FC<Props> = ({ isModal }) => {
       <h3 className={`text text_type_main-medium mb-6`}>Состав:</h3>
       <ul className={`${styles.ingredients} mb-10 mr-6`}>
         {categorizedIngredients.uniqIds &&
-          categorizedIngredients.uniqIds.map((id) => {
+          categorizedIngredients.uniqIds.map((id, i) => {
             const { image, name, price } = allIngredients.find(
               (i) => i._id === id
             ) as Ingredient;
             return (
-              <li className={`${styles.ingredient}`}>
+              <li className={`${styles.ingredient}`} key={id + i}>
                 <div className={`${styles.ingredientImageWrapper}`}>
                   <img
                     className={`${styles.ingredientImage}`}
@@ -82,12 +82,12 @@ export const OrderDetails: FC<Props> = ({ isModal }) => {
             );
           })}
         {categorizedIngredients.repeatedIds &&
-          categorizedIngredients.repeatedIds.map(({ id, count }) => {
+          categorizedIngredients.repeatedIds.map(({ id, count }, index) => {
             const { image, name, price } = allIngredients.find(
               (i) => i._id === id
             ) as Ingredient;
             return (
-              <li className={`${styles.ingredient}`}>
+              <li className={`${styles.ingredient}`} key={id + index}>
                 <div className={`${styles.ingredientImageWrapper}`}>
                   <img
                     className={`${styles.ingredientImage}`}
