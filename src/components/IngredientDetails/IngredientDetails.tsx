@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styles from "./ingredientDetails.module.css";
-import { useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
+import { useSelector } from "../../shared/hooks";
 
 const IngredientDetails: FC = () => {
   const {
@@ -14,7 +13,7 @@ const IngredientDetails: FC = () => {
       calories,
       _id,
     },
-  } = useSelector((store: State) => store.ingredientModal);
+  } = useSelector((store) => store.ingredientModal);
 
   return (
     <div className={styles.inner}>

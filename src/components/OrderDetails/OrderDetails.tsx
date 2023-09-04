@@ -1,8 +1,6 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./orderDetails.module.css";
-import { FC, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
+import { FC } from "react";
 import {
   categorizeIds,
   getAllIngredients,
@@ -12,26 +10,21 @@ import {
 } from "../../services/helpers";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { useLocation } from "react-router-dom";
-import { FEED_WS_INIT } from "../../redux/actions/feed";
+import { useSelector } from "../../shared/hooks";
 
 type Props = {
   isModal?: boolean;
 };
 
 export const OrderDetails: FC<Props> = ({ isModal }) => {
-  const dispatch = useDispatch();
   const { ingredients: sortedIngredients } = useSelector(
-    (state: State) => state.ingredients
+    (state) => state.ingredients
   );
-  const { orders } = useSelector((state: State) => state.feed);
+  const { orders } = useSelector((state) => state.feed);
   const { pathname } = useLocation();
 
   const pathId = getIdFromPath(pathname);
   const order = orders.find(({ _id }) => _id === pathId);
-
-  useEffect(() => {
-    dispatch({ type: FEED_WS_INIT });
-  }, [dispatch]);
 
   if (!order) {
     return null;

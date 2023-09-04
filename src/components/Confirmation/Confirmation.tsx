@@ -1,12 +1,9 @@
-import { FC } from "react";
 import styles from "./confirmation.module.css";
 import doneImage from "../../images/done.svg";
-import { useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
+import { useSelector } from "../../shared/hooks";
 
-const Confirmation: FC = () => {
-  const { id, name } = useSelector((store: State) => store.orderDetails);
-  const { isRequest } = useSelector((state: State) => state.orderDetails);
+const Confirmation = () => {
+  const { id, name, isRequest } = useSelector((store) => store.orderDetails);
 
   return (
     <div className={styles.inner}>

@@ -11,7 +11,7 @@ import { getCookie, setCookie } from "./helpers";
 import { NavigateFunction } from "react-router-dom";
 import { defaultPath, loginPath } from "../shared/paths";
 import { accessToken } from "../shared/names";
-import { AppDispatch } from "../redux/middlewares/socketMiddleware";
+import { AppDispatch } from "../shared/hooks/types/AppDispatch";
 
 export const LOGOUT = "LOGOUT";
 export const ADD_NEW_USER = "ADD_NEW_USER";

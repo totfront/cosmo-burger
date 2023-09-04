@@ -1,12 +1,8 @@
 import styles from "./orderMetrics.module.css";
-import { State } from "../../shared/types/State";
-import { useSelector } from "react-redux";
-import { v4 as uuid } from "uuid";
+import { useSelector } from "../../shared/hooks";
 
 export const OrderMetrics = () => {
-  const { orders, total, totalToday } = useSelector(
-    (state: State) => state.feed
-  );
+  const { orders, total, totalToday } = useSelector((state) => state.feed);
   return (
     <section className={styles.infoSection}>
       <article>
@@ -17,7 +13,7 @@ export const OrderMetrics = () => {
               index < 30 &&
               o.status === "done" && (
                 <li
-                  key={o._id}
+                  key={o._id + index}
                   className={`${styles.readyOrder} text_type_digits-default mt-2`}
                 >
                   {o.number}
@@ -34,7 +30,7 @@ export const OrderMetrics = () => {
               index < 50 &&
               o.status !== "done" && (
                 <li
-                  key={o._id}
+                  key={o._id + index}
                   className={`${styles.readyOrder} text_type_digits-default mt-2`}
                 >
                   {o.number}

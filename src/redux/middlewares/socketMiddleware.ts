@@ -1,22 +1,11 @@
 import type { Middleware } from "redux";
-import type { ThunkDispatch } from "redux-thunk";
 import { OrdersResponse } from "../types/dataModels";
 import {
   ActionCreatorWithPayload,
   ActionCreatorWithoutPayload,
 } from "@reduxjs/toolkit";
-import { rootReducer } from "../reducers";
-import { TActions } from "../../shared/types/Actions";
-import { TFeedWsActions } from "../../shared/types/WebSocket/FeedWsActions";
-import { TOrdersHistoryWsActions } from "../../shared/types/WebSocket/OrdersHistoryWsActions";
-import {
-  noMorePartiesApiUrl,
-  wsNoMorePartiesOrdersUrl,
-} from "../../shared/paths";
-import { getCookie } from "../../services/helpers";
-import { accessToken } from "../../shared/names";
-
-type RootState = ReturnType<typeof rootReducer>;
+import { AppActions } from "../../shared/types/Actions";
+import { RootState } from "../../shared/types/State";
 
 interface WsStoreActions {
   wsInit: ActionCreatorWithPayload<string>;
@@ -25,9 +14,6 @@ interface WsStoreActions {
   wsClose: ActionCreatorWithoutPayload;
   wsError: ActionCreatorWithPayload<string>;
 }
-
-export type AppActions = TFeedWsActions | TOrdersHistoryWsActions | TActions;
-export type AppDispatch = ThunkDispatch<RootState, unknown, AppActions>;
 
 export const socketMiddleware =
   (wsActions: WsStoreActions): Middleware<{}, RootState> =>

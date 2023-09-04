@@ -18,14 +18,13 @@ import {
 } from "../../shared/paths";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
 import { useEffect, useState } from "react";
 import { getIdFromPath } from "../../services/helpers";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { Feed } from "../Feed/Feed";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
+import { useDispatch, useSelector } from "../../shared/hooks";
 
 const Router = () => {
   const [id, setId] = useState("");
@@ -38,7 +37,7 @@ const Router = () => {
   const background = state && state.background;
 
   const { _id } = useSelector(
-    (state: State) =>
+    (state) =>
       state.ingredientModal.selectedIngredient || {
         _id: getIdFromPath(pathname),
       }

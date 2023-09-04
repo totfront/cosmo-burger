@@ -1,9 +1,9 @@
 import { fetchData } from "../../services/apis/burgerApi";
 import { getIdFromPath, sortIngredients } from "../../services/helpers";
+import { AppDispatch } from "../../shared/hooks/types/AppDispatch";
 import { ingredientsPath } from "../../shared/paths";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { SHOW_INGREDIENT_MODAL } from "./ingredientModal";
-import { AppDispatch } from "../middlewares/socketMiddleware";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";

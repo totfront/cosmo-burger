@@ -6,8 +6,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
 import Confirmation from "../Confirmation/Confirmation";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
   MOVE_CONSTRUCTOR_INGREDIENT,
@@ -25,14 +23,14 @@ import { submitOrder } from "../../services/apis/burgerApi";
 import { useNavigate } from "react-router-dom";
 import { loginPath } from "../../shared/paths";
 import Modal from "../Modal/Modal";
-import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
+import { useDispatch, useSelector } from "../../shared/hooks";
 
 const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const dispatch: AppDispatch = useDispatch();
-  const { isAuthorized } = useSelector((state: State) => state.user);
+  const dispatch = useDispatch();
+  const { isAuthorized } = useSelector((state) => state.user);
   const { ingredients, totalPrice, error } = useSelector(
-    (state: State) => state.orderConstructor
+    (state) => state.orderConstructor
   );
 
   const buns = ingredients.filter((i) => i.type === "bun");

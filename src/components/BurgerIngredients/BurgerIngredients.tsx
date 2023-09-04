@@ -3,14 +3,11 @@ import { useInView } from "react-intersection-observer";
 
 import styles from "./burgerIngredients.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
-import { useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
 import Tabs from "../Tabs/Tabs";
+import { useSelector } from "../../shared/hooks";
 
 const BurgerIngredients: FC = () => {
-  const { tabs, ingredients } = useSelector(
-    (store: State) => store.ingredients
-  );
+  const { tabs, ingredients } = useSelector((store) => store.ingredients);
 
   const [currentTab, setCurrentTab] = useState("bun");
   const { ref: innersTabRef, inView: areInnersVisible } = useInView();

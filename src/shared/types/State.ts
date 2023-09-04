@@ -4,6 +4,7 @@ import { OrderDetails } from "./OrderDetails";
 import { Ingredients } from "./Ingredients";
 import { UserState } from "../../redux/reducers/userReducer";
 import { Order, OrdersResponse } from "../../redux/types/dataModels";
+import { rootReducer } from "../../redux/reducers";
 
 export type State = {
   ingredients: Ingredients;
@@ -15,3 +16,5 @@ export type State = {
   ordersHistory: OrdersResponse;
   orderDetailsModal: Order;
 };
+
+export type RootState = ReturnType<typeof rootReducer>;

@@ -8,12 +8,11 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../index.module.css";
 import { FormEvent, useState } from "react";
 import { addNewUser } from "../../services/userAuth";
-import { useDispatch } from "react-redux";
 import { handleInputChange } from "../../services/helpers";
-import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
+import { useDispatch } from "../../shared/hooks";
 
 const SignInPage = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

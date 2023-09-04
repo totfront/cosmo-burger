@@ -3,16 +3,14 @@ import styles from "./order.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { FC } from "react";
 import { Order as OrderResponse } from "../../redux/types/dataModels";
-import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuid } from "uuid";
 import {
   categorizeIds,
   getAllIngredients,
   getTimeStamp,
   getTotalPrice,
 } from "../../services/helpers";
-import { State } from "../../shared/types/State";
 import { SET_ORDER_DETAILS_MODAL } from "../../redux/actions/orderDetailsModal";
+import { useDispatch, useSelector } from "../../shared/hooks";
 
 interface Props extends OrderResponse {
   withStatus?: boolean;
@@ -23,7 +21,7 @@ export const Order: FC<Props> = (props) => {
     props;
   const location = useLocation();
   const { ingredients: sortedIngredients } = useSelector(
-    (state: State) => state.ingredients
+    (state) => state.ingredients
   );
   const dispatch = useDispatch();
   const allIngredients = getAllIngredients(sortedIngredients);

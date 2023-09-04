@@ -8,11 +8,10 @@ import { Link } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { handleInputChange } from "../../services/helpers";
 import { authorizeUser } from "../../services/userAuth";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
+import { useDispatch } from "../../shared/hooks";
 
 const LoginPage = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

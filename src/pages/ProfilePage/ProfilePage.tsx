@@ -6,13 +6,10 @@ import {
 import styles from "../index.module.css";
 import { useEffect, useState } from "react";
 import { getCookie, handleInputChange } from "../../services/helpers";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
 import { logoutUser } from "../../services/userAuth";
 import { Link, useLocation } from "react-router-dom";
 import {
   loginPath,
-  noMorePartiesApiUrl,
   ordersPath,
   profilePath,
   wsNoMorePartiesOrdersUrl,
@@ -21,22 +18,21 @@ import { Order } from "../../components/Order/Order";
 import {
   ORDERS_HISTORY_WS_CLOSED,
   ORDERS_HISTORY_WS_INIT,
-  // ORDERS_HISTORY_WS_OPEN,
 } from "../../redux/actions/ordersHistory";
-import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
 import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
 import { accessToken } from "../../shared/names";
+import { useDispatch, useSelector } from "../../shared/hooks";
 
 const ProfilePage = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const { pathname } = useLocation();
   const {
     name: currentName,
     email: currentEmail,
     password: currentPassword,
-  } = useSelector((store: State) => store.user);
-  const { orders } = useSelector((state: State) => state.ordersHistory);
+  } = useSelector((store) => store.user);
+  const { orders } = useSelector((state) => state.ordersHistory);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -56,8 +52,6 @@ const ProfilePage = () => {
         ""
       )}`,
     });
-
-    // dispatch({ type: ORDERS_HISTORY_WS_OPEN, payload: WsStatus.OPEN });
     return () => {
       dispatch({ type: ORDERS_HISTORY_WS_CLOSED, payload: WsStatus.CLOSED });
     };
@@ -142,7 +136,9 @@ const ProfilePage = () => {
       ) : (
         <ul className={`${styles.feed}`}>
           {orders
-            ? orders.map((order) => <Order withStatus {...order} />)
+            ? orders.map((order, i) => (
+                <Order withStatus {...order} key={order._id} />
+              ))
             : "🤔"}
         </ul>
       )}

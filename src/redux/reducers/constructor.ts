@@ -70,7 +70,7 @@ export const constructorReducer = (state = initialState, action: TActions) => {
       };
     }
     default: {
-      return state;
+      return { ...state };
     }
   }
 };

@@ -8,7 +8,7 @@ import { defaultPath, noMorePartiesApiUrl } from "../../shared/paths";
 import { accessToken } from "../../shared/names";
 import { getUser, refreshToken } from "./authorizationApi";
 import { LOGIN_SUCCESS } from "../userAuth";
-import { AppDispatch } from "../../redux/middlewares/socketMiddleware";
+import { AppDispatch } from "../../shared/hooks/types/AppDispatch";
 
 const fetchData = () =>
   fetch(`${noMorePartiesApiUrl}/ingredients`).then((res) => checkResponse(res));
