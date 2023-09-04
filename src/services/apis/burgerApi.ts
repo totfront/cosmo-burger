@@ -9,6 +9,7 @@ import { accessToken } from "../../shared/names";
 import { getUser, refreshToken } from "./authorizationApi";
 import { LOGIN_SUCCESS } from "../userAuth";
 import { AppDispatch } from "../../shared/hooks/types/AppDispatch";
+import { CLEAN_CONSTRUCTOR } from "../../redux/actions/constructor";
 
 const fetchData = () =>
   fetch(`${noMorePartiesApiUrl}/ingredients`).then((res) => checkResponse(res));
@@ -35,6 +36,7 @@ export const submitOrder =
           id: order.number,
           name: name,
         });
+        dispatch({ type: CLEAN_CONSTRUCTOR });
       })
       .catch(async (error) => {
         if (error.message === "jwt expired") {

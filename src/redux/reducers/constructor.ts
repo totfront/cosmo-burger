@@ -6,6 +6,7 @@ import {
   ADD_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   MOVE_CONSTRUCTOR_INGREDIENT,
+  CLEAN_CONSTRUCTOR,
 } from "../actions/constructor";
 
 const initialState = {
@@ -69,6 +70,8 @@ export const constructorReducer = (state = initialState, action: TActions) => {
         ingredients: sortIngredients(ingredients),
       };
     }
+    case CLEAN_CONSTRUCTOR:
+      return initialState;
     default: {
       return { ...state };
     }

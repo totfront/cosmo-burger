@@ -1,5 +1,6 @@
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
+  CLEAN_CONSTRUCTOR,
   MOVE_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   SET_TOTAL_PRICE,
@@ -163,7 +164,12 @@ type SetOrderDetailsModal = {
   payload: Order;
 };
 
+type CleanConstructor = {
+  type: typeof CLEAN_CONSTRUCTOR;
+};
+
 export type TActions =
+  | CleanConstructor
   | SetOrderDetailsModal
   | HideHomePage
   | LoginRequest

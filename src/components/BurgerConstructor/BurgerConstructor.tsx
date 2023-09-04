@@ -36,7 +36,6 @@ const BurgerConstructor: FC = () => {
   const buns = ingredients.filter((i) => i.type === "bun");
   const topBun = buns[0];
   const bottomBun = buns[1];
-
   const [isModalShown, setIsModalShown] = useState(false);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
