@@ -67,10 +67,10 @@ export const Order: FC<Props> = (props) => {
         )}
         <div className={`${styles.footer}  mt-6`}>
           <ul className={styles.ingredientsImages}>
-            {uniqIds?.map((id) => {
+            {uniqIds?.map((id, index) => {
               const imgUrl = allIngredients.find((i) => i._id === id)?.image;
               return (
-                <li className={`${styles.ingredient}`} key={id + uuid()}>
+                <li className={`${styles.ingredient}`} key={id}>
                   <img
                     className={styles.ingredientImage}
                     src={imgUrl}
@@ -79,12 +79,12 @@ export const Order: FC<Props> = (props) => {
                 </li>
               );
             })}
-            {repeatedIds?.map((item) => {
+            {repeatedIds?.map((item, index) => {
               const imgUrl = allIngredients.find(
                 ({ _id }) => _id === item.id
               )?.image;
               return (
-                <li className={`${styles.ingredient}`} key={_id + uuid()}>
+                <li className={`${styles.ingredient}`} key={_id + index}>
                   <img
                     className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
                     src={imgUrl}
