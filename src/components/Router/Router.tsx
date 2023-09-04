@@ -15,6 +15,7 @@ import {
   ingredientsPath,
   ordersPath,
   feedPath,
+  idPath,
 } from "../../shared/paths";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
@@ -58,13 +59,13 @@ const Router = () => {
         <Route path={defaultPath} element={<HomePage />} />
         {/* ingredients => id */}
         <Route
-          path={`${ingredientsPath}/:id`}
+          path={`${ingredientsPath}${idPath}`}
           element={<IngredientDetails />}
         />
         {/* feed */}
         <Route path={feedPath} element={<Feed />} />
         {/* feed => modal */}
-        <Route path={`${feedPath}/:id`} element={<OrderDetails />} />
+        <Route path={`${feedPath}${idPath}`} element={<OrderDetails />} />
         {/* profile page */}
         <Route
           path={profilePath}
@@ -85,7 +86,7 @@ const Router = () => {
         />
         {/* profile page => orders => id */}
         <Route
-          path={`${profilePath}${ordersPath}/:id`}
+          path={`${profilePath}${ordersPath}${idPath}`}
           element={
             <ProtectedRoute auth>
               <OrderDetails />
@@ -132,7 +133,7 @@ const Router = () => {
         <Routes>
           {/* ingredients => id */}
           <Route
-            path={`${ingredientsPath}/:id`}
+            path={`${ingredientsPath}${idPath}`}
             element={
               <Modal onClose={onClose} title="Детали ингредиента">
                 <IngredientDetails />
@@ -141,7 +142,7 @@ const Router = () => {
           />
           {/* feed => id */}
           <Route
-            path={`${feedPath}/:id`}
+            path={`${feedPath}${idPath}`}
             element={
               <Modal onClose={onClose}>
                 <OrderDetails isModal />
@@ -150,7 +151,7 @@ const Router = () => {
           />
           {/* profile page => orders => id */}
           <Route
-            path={`${profilePath}${ordersPath}/:id`}
+            path={`${profilePath}${ordersPath}${idPath}`}
             element={
               <ProtectedRoute auth>
                 <Modal onClose={onClose}>

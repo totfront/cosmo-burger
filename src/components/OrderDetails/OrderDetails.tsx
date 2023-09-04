@@ -114,12 +114,12 @@ export const OrderDetails: FC<Props> = ({ isModal }) => {
         <span className={`text text_type_main-default text_color_inactive`}>
           {time}
         </span>
-        <div className={styles.priceWrapper}>
+        <span className={styles.priceWrapper}>
           <span className={`text text_type_digits-default mr-2`}>
             {orderPrice}
           </span>
           <CurrencyIcon type="primary" />
-        </div>
+        </span>
       </p>
     </section>
   );
