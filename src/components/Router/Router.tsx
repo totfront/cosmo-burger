@@ -20,7 +20,7 @@ import {
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import { useEffect, useState } from "react";
-import { getIdFromPath } from "../../services/helpers";
+import { getLastUrlPart } from "../../services/helpers";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { Feed } from "../Feed/Feed";
@@ -40,7 +40,7 @@ const Router = () => {
   const { _id } = useSelector(
     (state) =>
       state.ingredientModal.selectedIngredient || {
-        _id: getIdFromPath(pathname),
+        _id: getLastUrlPart(pathname),
       }
   );
 
@@ -49,7 +49,7 @@ const Router = () => {
   useEffect(() => {
     setId(_id);
     if (pathname.includes(`${ingredientsPath}/`)) {
-      setId(getIdFromPath(pathname));
+      setId(getLastUrlPart(pathname));
     }
   }, [_id, id, pathname, dispatch]);
   return (

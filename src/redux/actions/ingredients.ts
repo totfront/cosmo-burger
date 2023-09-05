@@ -1,5 +1,5 @@
 import { fetchData } from "../../services/apis/burgerApi";
-import { getIdFromPath, sortIngredients } from "../../services/helpers";
+import { getLastUrlPart, sortIngredients } from "../../services/helpers";
 import { AppDispatch } from "../../shared/hooks/types/AppDispatch";
 import { ingredientsPath } from "../../shared/paths";
 import { Ingredient } from "../../shared/types/Ingredient";
@@ -21,7 +21,7 @@ export const getIngredients = () => (dispatch: AppDispatch) => {
         type: GET_INGREDIENTS_SUCCESS,
         ingredients: sortedIngredients,
       });
-      const modalIngredientId = getIdFromPath(location.pathname);
+      const modalIngredientId = getLastUrlPart(location.pathname);
       const getUrlIdIngredient = Object.values(data).find(
         (i) => i._id === modalIngredientId
       );

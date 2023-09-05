@@ -121,7 +121,7 @@ const handleInputChange = (
   setter(value);
 };
 
-const getIdFromPath = (path: string) => {
+const getLastUrlPart = (path: string) => {
   // Split the path string by "/"
   const parts: string[] = path.split("/");
   // Get the last part of the path (after the last "/")
@@ -202,7 +202,7 @@ export {
   categorizeIds,
   getTotalPrice,
   getAllIngredients,
-  getIdFromPath,
+  getLastUrlPart,
   handleInputChange,
   searchMenuItems,
   tabNameConverter,

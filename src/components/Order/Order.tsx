@@ -32,6 +32,7 @@ export const Order: FC<Props> = (props) => {
 
   const onClick = () => {
     dispatch({ type: SET_ORDER_DETAILS_MODAL, payload: { ...props } });
+    console.log({ background: location });
   };
 
   const statusText =
@@ -41,7 +42,7 @@ export const Order: FC<Props> = (props) => {
     <li className={styles.listItem}>
       <Link
         className={styles.link}
-        to={_id}
+        to={`${number}`}
         state={{ background: location }}
         onClick={onClick}
       >

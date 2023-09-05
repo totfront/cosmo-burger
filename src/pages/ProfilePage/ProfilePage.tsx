@@ -139,7 +139,7 @@ const ProfilePage = () => {
             ? orders.map((order, i) => (
                 <Order withStatus {...order} key={order._id} />
               ))
-            : "🤔"}
+            : "No orders yet 🤔"}
         </ul>
       )}
     </div>

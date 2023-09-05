@@ -1,16 +1,17 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./orderDetails.module.css";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import {
   categorizeIds,
   getAllIngredients,
-  getIdFromPath,
+  getLastUrlPart,
   getTimeStamp,
   getTotalPrice,
 } from "../../services/helpers";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "../../shared/hooks";
+import { useDispatch, useSelector } from "../../shared/hooks";
+import { getOrder } from "../../services/apis/orderApi";
 
 type Props = {
   isModal?: boolean;
@@ -20,23 +21,22 @@ export const OrderDetails: FC<Props> = ({ isModal }) => {
   const { ingredients: sortedIngredients } = useSelector(
     (state) => state.ingredients
   );
-  const { orders } = useSelector((state) => state.feed);
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const { ingredients, status, name, number, updatedAt, isPending } =
+    useSelector((state) => state.orderDetailsModal);
 
-  const pathId = getIdFromPath(pathname);
-  const order = orders.find(({ _id }) => _id === pathId);
+  useEffect(() => {
+    const orderNumber = getLastUrlPart(pathname);
+    dispatch(getOrder(getLastUrlPart(orderNumber)));
+  }, [dispatch, pathname]);
 
-  if (!order) {
-    return null;
-  }
-
-  const { ingredients, status, name, number, updatedAt } = order;
   const time = getTimeStamp(updatedAt);
   const allIngredients = getAllIngredients(sortedIngredients);
   const orderPrice = getTotalPrice(allIngredients, ingredients);
   const categorizedIngredients = categorizeIds(ingredients);
-  const statusText =
-    status === "done" ? ("Выполнен" ? "pending" : "Готовится") : "Отменен";
+
+  if (isPending) return <>Заказ не найден 🤷‍♀️</>;
 
   return (
     <section className={`${styles.wrapper}`}>
@@ -49,7 +49,7 @@ export const OrderDetails: FC<Props> = ({ isModal }) => {
       </p>
       <h3 className={`text text_type_main-medium mb-3`}>{name}</h3>
       <p className={`${styles.status} text text_type_main-default mb-15`}>
-        {statusText}
+        {status}
       </p>
       <h3 className={`text text_type_main-medium mb-6`}>Состав:</h3>
       <ul className={`${styles.ingredients} mb-10 mr-6`}>
