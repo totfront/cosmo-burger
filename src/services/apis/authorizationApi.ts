@@ -9,7 +9,7 @@ export const getUser = (token = "") =>
   fetch(`${noMorePartiesApiUrl}/auth/user`, {
     headers: {
       "Content-Type": "application/json",
-      "Authorization": token,
+      Authorization: token,
     },
   }).then((res) => checkResponse(res));
 
@@ -64,7 +64,7 @@ export const refreshToken = async () => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": refrToken,
+      Authorization: getCookie(refrToken) || "",
     },
     body: JSON.stringify({
       refreshToken: getCookie(refrToken),
