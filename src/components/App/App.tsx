@@ -2,15 +2,17 @@ import styles from "./App.module.css";
 import { BrowserRouter } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
 import Router from "../Router/Router";
-import { useDispatch } from "react-redux";
-import { getUserData } from "../../services/actions/userAuth";
+import { getUserData } from "../../services/userAuth";
 import { useEffect } from "react";
+import { getIngredients } from "../../redux/actions/ingredients";
+import { useDispatch } from "../../shared/hooks";
 
 function App() {
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUserData());
+    dispatch(getIngredients());
   }, [dispatch]);
 
   return (

@@ -7,11 +7,11 @@ import styles from "../index.module.css";
 import { Link } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { handleInputChange } from "../../services/helpers";
-import { authorizeUser } from "../../services/actions/userAuth";
-import { useDispatch } from "react-redux";
+import { authorizeUser } from "../../services/userAuth";
+import { useDispatch } from "../../shared/hooks";
 
 const LoginPage = () => {
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

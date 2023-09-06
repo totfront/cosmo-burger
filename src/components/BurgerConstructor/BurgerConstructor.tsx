@@ -5,42 +5,39 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
-import OrderDetails from "../OrderDetails/OrderDetails";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
+import Confirmation from "../Confirmation/Confirmation";
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
   MOVE_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   SET_TOTAL_PRICE,
-} from "../../services/actions/constructor";
+} from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
 import { Ingredient } from "../../shared/types/Ingredient";
 import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredient";
 import {
   DECREASE_INGREDIENTS_COUNTER,
   INCREASE_INGREDIENTS_COUNTER,
-} from "../../services/actions/ingredients";
+} from "../../redux/actions/ingredients";
 import { submitOrder } from "../../services/apis/burgerApi";
 import { useNavigate } from "react-router-dom";
 import { loginPath } from "../../shared/paths";
 import Modal from "../Modal/Modal";
+import { useDispatch, useSelector } from "../../shared/hooks";
 
 const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const dispatch: any = useDispatch();
-  const { isAuthorized } = useSelector((state: State) => state.user);
+  const dispatch = useDispatch();
+  const { isAuthorized } = useSelector((state) => state.user);
   const { ingredients, totalPrice, error } = useSelector(
-    (state: State) => state.orderConstructor
+    (state) => state.orderConstructor
   );
 
   const buns = ingredients.filter((i) => i.type === "bun");
   const topBun = buns[0];
   const bottomBun = buns[1];
-
   const [isModalShown, setIsModalShown] = useState(false);
 
-  // todo: make it beautiful and used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "ingredient",
@@ -161,7 +158,7 @@ const BurgerConstructor: FC = () => {
       )}
       {isModalShown && (
         <Modal onClose={() => setIsModalShown(false)}>
-          <OrderDetails />
+          <Confirmation />
         </Modal>
       )}
     </section>

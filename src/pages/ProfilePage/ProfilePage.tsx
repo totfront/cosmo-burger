@@ -5,124 +5,143 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../index.module.css";
 import { useEffect, useState } from "react";
-import { handleInputChange } from "../../services/helpers";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
-import { logoutUser } from "../../services/actions/userAuth";
-import { useNavigate } from "react-router-dom";
-import { ordersPath } from "../../shared/paths";
-
-const profile = "profile";
-const history = "history";
-const exit = "exit";
+import { getCookie, handleInputChange } from "../../services/helpers";
+import { logoutUser } from "../../services/userAuth";
+import { Link, useLocation } from "react-router-dom";
+import {
+  loginPath,
+  ordersPath,
+  profilePath,
+  wsNoMorePartiesOrdersUrl,
+} from "../../shared/paths";
+import { Order } from "../../components/Order/Order";
+import {
+  ORDERS_HISTORY_WS_CLOSED,
+  ORDERS_HISTORY_WS_INIT,
+} from "../../redux/actions/ordersHistory";
+import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
+import { accessToken } from "../../shared/names";
+import { useDispatch, useSelector } from "../../shared/hooks";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { pathname } = useLocation();
   const {
     name: currentName,
     email: currentEmail,
     password: currentPassword,
-  } = useSelector((store: State) => store.user);
-  const dispatch: any = useDispatch();
+  } = useSelector((store) => store.user);
+  const { orders } = useSelector((state) => state.ordersHistory);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [activeNavItem, setActiveNavItem] = useState("");
+  const token = getCookie(accessToken);
 
   useEffect(() => {
-    setActiveNavItem(profile);
     setName(currentName);
     setEmail(currentEmail);
     setPassword(currentPassword);
   }, [currentEmail, currentName, currentPassword]);
 
-  const navButtonClick = (func: () => void) => {
-    func();
-    // todo: on 4th sprint
-  };
+  useEffect(() => {
+    dispatch({
+      type: ORDERS_HISTORY_WS_INIT,
+      payload: `${wsNoMorePartiesOrdersUrl}?token=${token?.replace(
+        "Bearer ",
+        ""
+      )}`,
+    });
+    return () => {
+      dispatch({ type: ORDERS_HISTORY_WS_CLOSED, payload: WsStatus.CLOSED });
+    };
+  }, [dispatch, token]);
 
   return (
     <div className={styles.container}>
       <section className={styles.navWrapper}>
         <ul className={styles.list}>
           <li className={styles.listItem}>
-            <button
-              className={`${styles.navButton} ${
-                activeNavItem === profile && styles.navButtonActive
-              }`}
+            <Link
+              to={`${profilePath}`}
+              className={`${styles.navLink} ${
+                pathname === profilePath && styles.navLinkActive
+              } text text_type_main-default`}
               type="button"
-              onClick={() => navButtonClick(() => {})}
             >
               Профиль
-            </button>
+            </Link>
           </li>
           <li className={styles.listItem}>
-            <button
-              className={`${styles.navButton} ${
-                activeNavItem === history && styles.navButtonActive
-              }`}
+            <Link
+              to={`${profilePath}${ordersPath}`}
+              className={`${styles.navLink} ${
+                pathname !== profilePath && styles.navLinkActive
+              } text text_type_main-default`}
               type="button"
-              onClick={() => {
-                navButtonClick(() => {
-                  navigate(ordersPath);
-                });
-              }}
             >
               История заказов
-            </button>
+            </Link>
           </li>
           <li className={styles.listItem}>
-            <button
-              className={`${styles.navButton} ${
-                activeNavItem === exit && styles.navButtonActive
-              }`}
+            <Link
+              to={loginPath}
+              className={`${styles.navLink} text text_type_main-default`}
               type="button"
-              onClick={() =>
-                navButtonClick(() => {
-                  dispatch(logoutUser());
-                })
-              }
+              onClick={() => {
+                dispatch(logoutUser());
+              }}
             >
               Выход
-            </button>
+            </Link>
           </li>
         </ul>
         <p className={`text text_type_main-small ${styles.description}`}>
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </section>
-      <div className={styles.wrapper}>
-        <form className={styles.form}>
-          <Input
-            extraClass={styles.inputName}
-            onChange={({ target: { value } }) =>
-              handleInputChange(value, setName)
-            }
-            name="name"
-            value={name}
-            placeholder="Имя"
-          />
-          <EmailInput
-            onChange={({ target: { value } }) =>
-              handleInputChange(value, setEmail)
-            }
-            extraClass={styles.inputEmail}
-            value={email}
-            name={"email"}
-            isIcon={false}
-            placeholder="E-mail"
-          />
-          <PasswordInput
-            extraClass={styles.inputPassword}
-            onChange={({ target: { value } }) =>
-              handleInputChange(value, setPassword)
-            }
-            value={password}
-            name={"email"}
-            placeholder="Пароль"
-          />
-        </form>
-      </div>
+      {pathname === profilePath ? (
+        <div className={styles.wrapper}>
+          <form className={styles.form}>
+            <Input
+              extraClass={styles.inputName}
+              onChange={({ target: { value } }) =>
+                handleInputChange(value, setName)
+              }
+              name="name"
+              value={name}
+              placeholder="Имя"
+            />
+            <EmailInput
+              onChange={({ target: { value } }) =>
+                handleInputChange(value, setEmail)
+              }
+              extraClass={styles.inputEmail}
+              value={email}
+              name={"email"}
+              isIcon={false}
+              placeholder="E-mail"
+            />
+            <PasswordInput
+              extraClass={styles.inputPassword}
+              onChange={({ target: { value } }) =>
+                handleInputChange(value, setPassword)
+              }
+              value={password}
+              name={"email"}
+              placeholder="Пароль"
+            />
+          </form>
+        </div>
+      ) : (
+        <ul className={`${styles.feed}`}>
+          {orders
+            ? orders.map((order, i) => (
+                <Order withStatus {...order} key={order._id} />
+              ))
+            : "No orders yet 🤔"}
+        </ul>
+      )}
     </div>
   );
 };

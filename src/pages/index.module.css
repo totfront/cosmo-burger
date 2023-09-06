@@ -23,22 +23,20 @@
         padding-bottom: 15px;
 }
 
-.navButton {
+.navLink {
     font-size: 24px;
     color: var(--dark-grey);
     background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
     text-shadow: none;
+    text-decoration: none;
 
     &:hover {
-        text-shadow: var(--purple) 1px 5px 10px;
+        text-shadow: 0px 4px 32px rgba(51, 51, 255, 0.50), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 0px 16px rgba(51, 51, 255, 0.25);
         transition: all 0.3s;
     }
 }
 
-.navButtonActive {
+.navLinkActive {
     color: var(--light-grey);
 }
 
@@ -85,4 +83,11 @@
         text-decoration: underline;
         transition: all 0.3s;
     }
+}
+
+.feed {
+    list-style: none;
+    margin-left: 380px;
+    display: grid;
+    gap: 24px;
 }

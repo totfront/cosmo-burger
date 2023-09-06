@@ -1,0 +1,12 @@
+.inner {
+    margin: auto;
+    max-width: 520px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.image {
+    width: 480px;
+    height: 240px;
+}

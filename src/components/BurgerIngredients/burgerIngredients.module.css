@@ -10,8 +10,8 @@
 .ingredients {
     margin: 0;
     padding: 0;
-    max-height: 812px;
-    overflow-y: scroll;
+    max-height: calc(100vh - 295px); /* высота окна - высота всех элементов кроме ингредиентов */
+    overflow-y: auto;
     display: grid;
     gap: 32px 40px;
 }

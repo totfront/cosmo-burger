@@ -1,4 +1,4 @@
-import { ActionTypes } from "../../shared/types/Actions";
+import { TActions } from "../../shared/types/Actions";
 import { IngredientModal } from "../../shared/types/IngredientModal";
 import {
   HIDE_INGREDIENT_MODAL,
@@ -25,7 +25,7 @@ const initialState: IngredientModal = {
 
 export const ingredientModalReducer = (
   state = initialState,
-  action: ActionTypes
+  action: TActions
 ) => {
   switch (action.type) {
     case SHOW_INGREDIENT_MODAL: {

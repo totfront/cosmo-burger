@@ -1,18 +1,20 @@
-import { NoMorePartiesUrl } from "../../shared/paths";
+import { refreshToken as refrToken } from "./../../shared/names";
+import { noMorePartiesApiUrl } from "../../shared/paths";
 import { LoginData } from "../../shared/types/LoginData";
 import { NewUser } from "../../shared/types/NewUser";
 import { PasswordResetData } from "../../shared/types/PasswordResetData";
 import { checkResponse, getCookie } from "../helpers";
 
 export const getUser = (token = "") =>
-  fetch(`${NoMorePartiesUrl}/auth/user`, {
+  fetch(`${noMorePartiesApiUrl}/auth/user`, {
     headers: {
-      authorization: token,
+      "Content-Type": "application/json",
+      Authorization: token,
     },
   }).then((res) => checkResponse(res));
 
 export const checkEmail = (email: string) => {
-  fetch(`${NoMorePartiesUrl}/password-reset`, {
+  fetch(`${noMorePartiesApiUrl}/password-reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,7 +24,7 @@ export const checkEmail = (email: string) => {
 };
 
 export const registerUser = ({ name, email, password }: NewUser) =>
-  fetch(`${NoMorePartiesUrl}/auth/register`, {
+  fetch(`${noMorePartiesApiUrl}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,16 +33,16 @@ export const registerUser = ({ name, email, password }: NewUser) =>
   }).then((res) => checkResponse(res));
 
 export const logout = () =>
-  fetch(`${NoMorePartiesUrl}/auth/logout`, {
+  fetch(`${noMorePartiesApiUrl}/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ token: getCookie("refreshToken") }),
+    body: JSON.stringify({ token: getCookie(refrToken) }),
   }).then((res) => checkResponse(res));
 
 export const login = ({ email, password }: LoginData) =>
-  fetch(`${NoMorePartiesUrl}/auth/login`, {
+  fetch(`${noMorePartiesApiUrl}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -49,7 +51,7 @@ export const login = ({ email, password }: LoginData) =>
   }).then((res) => checkResponse(res));
 
 export const resetPassword = ({ password, token }: PasswordResetData) =>
-  fetch(`${NoMorePartiesUrl}/password-reset/reset`, {
+  fetch(`${noMorePartiesApiUrl}/password-reset/reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -57,11 +59,16 @@ export const resetPassword = ({ password, token }: PasswordResetData) =>
     body: JSON.stringify({ password, token }),
   }).then((res) => checkResponse(res));
 
-export const refreshToken = (token = "") =>
-  fetch(`${NoMorePartiesUrl}/auth/token`, {
+export const refreshToken = async () => {
+  const res = await fetch(`${noMorePartiesApiUrl}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: getCookie(refrToken) || "",
     },
-    body: JSON.stringify({ token }),
-  }).then((res) => checkResponse(res));
+    body: JSON.stringify({
+      refreshToken: getCookie(refrToken),
+    }),
+  });
+  return await checkResponse(res);
+};

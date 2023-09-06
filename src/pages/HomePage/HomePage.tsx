@@ -3,13 +3,12 @@ import styles from "./homePage.module.css";
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
 import { DndProvider } from "react-dnd";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
-import { useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "../../shared/hooks";
 
 const HomePage = () => {
   const location = useLocation();
-  const { error } = useSelector((store: State) => store.ingredients);
+  const { error } = useSelector((store) => store.ingredients);
   const { pathname } = location;
   const isOrders = pathname === "/orders";
 

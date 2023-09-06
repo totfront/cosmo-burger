@@ -1,7 +1,6 @@
-import { Dispatch } from "react";
-import { fetchData } from "../apis/burgerApi";
-import { ActionTypes } from "../../shared/types/Actions";
-import { getIdFromPath, sortIngredients } from "../helpers";
+import { fetchData } from "../../services/apis/burgerApi";
+import { getLastUrlPart, sortIngredients } from "../../services/helpers";
+import { AppDispatch } from "../../shared/hooks/types/AppDispatch";
 import { ingredientsPath } from "../../shared/paths";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { SHOW_INGREDIENT_MODAL } from "./ingredientModal";
@@ -10,7 +9,7 @@ export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_ERROR = "GET_INGREDIENTS_ERROR";
 
-export const getIngredients = () => (dispatch: Dispatch<ActionTypes>) => {
+export const getIngredients = () => (dispatch: AppDispatch) => {
   const { location } = window;
   dispatch({
     type: GET_INGREDIENTS_REQUEST,
@@ -22,7 +21,7 @@ export const getIngredients = () => (dispatch: Dispatch<ActionTypes>) => {
         type: GET_INGREDIENTS_SUCCESS,
         ingredients: sortedIngredients,
       });
-      const modalIngredientId = getIdFromPath(location.pathname);
+      const modalIngredientId = getLastUrlPart(location.pathname);
       const getUrlIdIngredient = Object.values(data).find(
         (i) => i._id === modalIngredientId
       );
@@ -50,16 +49,13 @@ export const SELECT_BUNS_TAB = "SELECT_ITEMS_TAB";
 export const SELECT_INNERS_TAB = "SELECT_INNERS_TAB";
 export const SELECT_SAUCES_TAB = "SELECT_SAUCES_TAB";
 export const switchTabActionCreator = (tabKey: string) => {
-  let result;
+  let result = SELECT_INNERS_TAB;
   switch (tabKey) {
     case "buns":
       result = SELECT_BUNS_TAB;
       break;
     case "sauces":
       result = SELECT_SAUCES_TAB;
-      break;
-    case "inners":
-      result = SELECT_INNERS_TAB;
       break;
   }
   return result;

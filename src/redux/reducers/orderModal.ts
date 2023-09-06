@@ -1,4 +1,4 @@
-import { ActionTypes } from "../../shared/types/Actions";
+import { TActions } from "../../shared/types/Actions";
 import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
@@ -17,7 +17,7 @@ const initialState = {
   error: null,
 };
 
-const orderReducer = (state = initialState, action: ActionTypes) => {
+const orderReducer = (state = initialState, action: TActions) => {
   switch (action.type) {
     case SUBMIT_ORDER_REQUEST: {
       return {

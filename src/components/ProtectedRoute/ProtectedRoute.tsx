@@ -1,8 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { FC, ReactNode } from "react";
-import { useSelector } from "react-redux";
-import { State } from "../../shared/types/State";
 import { defaultPath, loginPath } from "../../shared/paths";
+import { useSelector } from "../../shared/hooks";
 
 type Props = {
   auth?: boolean;
@@ -11,7 +10,7 @@ type Props = {
 
 export const ProtectedRoute: FC<Props> = ({ auth, children = null }) => {
   const location = useLocation();
-  const { isAuthorized } = useSelector((store: State) => store.user);
+  const { isAuthorized } = useSelector((store) => store.user);
   if (!auth && isAuthorized) {
     const {
       from: { pathname },

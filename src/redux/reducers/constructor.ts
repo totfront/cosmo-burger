@@ -1,4 +1,4 @@
-import { ActionTypes } from "../../shared/types/Actions";
+import { TActions } from "../../shared/types/Actions";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { v4 as uuid } from "uuid";
 import {
@@ -6,6 +6,7 @@ import {
   ADD_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   MOVE_CONSTRUCTOR_INGREDIENT,
+  CLEAN_CONSTRUCTOR,
 } from "../actions/constructor";
 
 const initialState = {
@@ -26,10 +27,7 @@ const sortIngredients = (ingredientsWithNew: Ingredient[]) => {
   return [bun, ...nonBuns, bun].filter(Boolean);
 };
 
-export const constructorReducer = (
-  state = initialState,
-  action: ActionTypes
-) => {
+export const constructorReducer = (state = initialState, action: TActions) => {
   switch (action.type) {
     case SET_TOTAL_PRICE: {
       return {
@@ -72,8 +70,10 @@ export const constructorReducer = (
         ingredients: sortIngredients(ingredients),
       };
     }
+    case CLEAN_CONSTRUCTOR:
+      return initialState;
     default: {
-      return state;
+      return { ...state };
     }
   }
 };

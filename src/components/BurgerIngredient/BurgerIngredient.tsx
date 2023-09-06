@@ -4,12 +4,12 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
-import { SHOW_INGREDIENT_MODAL } from "../../services/actions/ingredientModal";
+import { SHOW_INGREDIENT_MODAL } from "../../redux/actions/ingredientModal";
 import { Ingredient } from "../../shared/types/Ingredient";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { ingredientsPath } from "../../shared/paths";
+import { useDispatch } from "../../shared/hooks";
 
 type Props = {
   ingredient: Ingredient;
