@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import { ingredientsReducer } from "./ingredients";
 import { ingredientModalReducer } from "./ingredientModal";
 import { constructorReducer } from "./constructor";
-import { orderReducer } from "./orderModal";
+import { orderConfirmationModal } from "./orderConfirmationModal";
 import { userReducer } from "./userReducer";
 import { orderDetailsModalReducer } from "./orderDetailsModal";
 import { ordersHistoryReducer } from "./ordersHistory";
@@ -13,7 +13,7 @@ export const rootReducer = combineReducers({
   orderConstructor: constructorReducer,
   ingredientModal: ingredientModalReducer,
   orderDetailsModal: orderDetailsModalReducer,
-  orderDetails: orderReducer,
+  orderConfirmationModal: orderConfirmationModal,
   user: userReducer,
   feed: feedReducer,
   ordersHistory: ordersHistoryReducer,

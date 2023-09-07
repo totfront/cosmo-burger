@@ -1,4 +1,4 @@
-export type OrderDetails = {
+export type TOrderConfirmationModal = {
   id: number;
   name: string;
   isModalShown: boolean;

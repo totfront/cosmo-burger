@@ -3,7 +3,7 @@ import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
-} from "../../redux/actions/order";
+} from "../../redux/actions/orderConfirmationModal";
 import { defaultPath, noMorePartiesApiUrl } from "../../shared/paths";
 import { accessToken } from "../../shared/names";
 import { getUser, refreshToken } from "./authorizationApi";

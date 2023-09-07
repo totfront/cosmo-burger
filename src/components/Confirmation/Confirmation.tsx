@@ -3,7 +3,9 @@ import doneImage from "../../images/done.svg";
 import { useSelector } from "../../shared/hooks";
 
 const Confirmation = () => {
-  const { id, name, isRequest } = useSelector((store) => store.orderDetails);
+  const { id, name, isRequest } = useSelector(
+    (store) => store.orderConfirmationModal
+  );
 
   return (
     <div className={styles.inner}>
