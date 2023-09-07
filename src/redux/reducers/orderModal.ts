@@ -1,13 +1,12 @@
 import { TActions } from "../../shared/types/Actions";
+import { OrderDetails } from "../../shared/types/OrderDetails";
 import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
 } from "../actions/order";
 
-export type OrderState = typeof initialState;
-
-const initialState = {
+export const initialState: OrderDetails = {
   id: 0,
   name: "",
   isModalShown: false,
@@ -30,6 +29,7 @@ const orderReducer = (state = initialState, action: TActions) => {
         ...initialState,
         isRequest: false,
         isRequestFailed: true,
+        error: action.error,
       };
     }
     case SUBMIT_ORDER_SUCCESS: {

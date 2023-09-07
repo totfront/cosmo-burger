@@ -4,6 +4,6 @@ export type OrderDetails = {
   isModalShown: boolean;
   isRequest: boolean;
   isRequestFailed: boolean;
-  isRequestSubmitted: boolean;
-  error: unknown;
+  isRequestSuccess: boolean;
+  error: Error | null;
 };
