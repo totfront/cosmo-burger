@@ -8,8 +8,9 @@ import {
   MOVE_CONSTRUCTOR_INGREDIENT,
   CLEAN_CONSTRUCTOR,
 } from "../actions/constructor";
+import { Constructor } from "../../shared/types/Constructor";
 
-const initialState = {
+export const initialState: Constructor = {
   isRequest: false,
   isRequestFailed: false,
   error: null,
