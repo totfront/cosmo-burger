@@ -1,3 +1,4 @@
+import { TFeedWsActions } from "../../../shared/types/WebSocket/FeedWsActions";
 import { WsStatus } from "../../../shared/types/WebSocket/WsStatus";
 import {
   FEED_WS_OPEN,
@@ -11,7 +12,9 @@ import { feedReducer, initialState } from "./feed";
 
 describe("feed reducer", () => {
   it("handles initial state", () => {
-    expect(feedReducer(undefined, {} as any)).toEqual(initialState);
+    expect(feedReducer(undefined, {} as unknown as TFeedWsActions)).toEqual(
+      initialState
+    );
   });
 
   it("handles web socket open action", () => {

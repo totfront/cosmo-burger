@@ -5,7 +5,7 @@ import {
   SHOW_INGREDIENT_MODAL,
 } from "../../actions/ingredientModal";
 
-const initialState: IngredientModal = {
+export const initialState: IngredientModal = {
   isModalShown: false,
   selectedIngredient: {
     name: "",
