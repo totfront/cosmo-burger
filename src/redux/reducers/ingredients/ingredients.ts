@@ -14,7 +14,7 @@ const buns = "Булки";
 const sauces = "Соусы";
 const inners = "Начинки";
 
-const initialState: Ingredients = {
+export const initialState: Ingredients = {
   tabs: {
     buns,
     sauces,

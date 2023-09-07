@@ -12,7 +12,7 @@ export interface TOrderDetailsModal {
   isPending: boolean;
 }
 
-const initialState = {
+export const initialState = {
   ingredients: [],
   _id: "",
   status: "",

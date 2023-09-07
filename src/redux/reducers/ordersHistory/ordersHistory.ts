@@ -17,7 +17,7 @@ interface OrdersHistory {
   totalToday: number;
 }
 
-const initialStore: OrdersHistory = {
+export const initialStore: OrdersHistory = {
   status: WsStatus.CLOSED,
   error: "",
   orders: [],

@@ -11,7 +11,7 @@ import {
 
 export type UserState = typeof initialState;
 
-const initialState = {
+export const initialState = {
   name: "",
   email: "",
   password: "",
