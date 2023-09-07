@@ -9,7 +9,7 @@ import {
 } from "../actions/feed";
 import { Order } from "../types/dataModels";
 
-interface FeedStore {
+interface FeedState {
   status: WsStatus;
   error: undefined | string;
   orders: Order[];
@@ -17,7 +17,7 @@ interface FeedStore {
   totalToday: number;
 }
 
-const initialStore: FeedStore = {
+export const initialState: FeedState = {
   status: WsStatus.CLOSED,
   error: "",
   orders: [],
@@ -25,8 +25,8 @@ const initialStore: FeedStore = {
   totalToday: 0,
 };
 
-// todo: (optional) rewrite with toolkit
-// export const FeedReducer = createReducer(initialStore, (builder) => {
+// todo: (optional) rewrite with toolkit. Example:
+// export const FeedReducer = createReducer(initialState, (builder) => {
 //   builder
 //     .addCase(wsConnecting, (state) => {
 //       state.status = WsStatus.CONNECTING;
@@ -46,7 +46,7 @@ const initialStore: FeedStore = {
 //     });
 // });
 
-export const feedReducer = (state = initialStore, action: TFeedWsActions) => {
+export const feedReducer = (state = initialState, action: TFeedWsActions) => {
   switch (action.type) {
     case FEED_WS_OPEN:
       return {
