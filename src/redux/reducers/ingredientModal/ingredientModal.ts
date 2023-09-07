@@ -1,9 +1,9 @@
-import { TActions } from "../../shared/types/Actions";
-import { IngredientModal } from "../../shared/types/IngredientModal";
+import { TActions } from "../../../shared/types/Actions";
+import { IngredientModal } from "../../../shared/types/IngredientModal";
 import {
   HIDE_INGREDIENT_MODAL,
   SHOW_INGREDIENT_MODAL,
-} from "../actions/ingredientModal";
+} from "../../actions/ingredientModal";
 
 const initialState: IngredientModal = {
   isModalShown: false,

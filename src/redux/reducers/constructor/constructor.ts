@@ -1,5 +1,5 @@
-import { TActions } from "../../shared/types/Actions";
-import { Ingredient } from "../../shared/types/Ingredient";
+import { TActions } from "../../../shared/types/Actions";
+import { Ingredient } from "../../../shared/types/Ingredient";
 import { v4 as uuid } from "uuid";
 import {
   SET_TOTAL_PRICE,
@@ -7,8 +7,8 @@ import {
   REMOVE_CONSTRUCTOR_INGREDIENT,
   MOVE_CONSTRUCTOR_INGREDIENT,
   CLEAN_CONSTRUCTOR,
-} from "../actions/constructor";
-import { Constructor } from "../../shared/types/Constructor";
+} from "../../actions/constructor";
+import { Constructor } from "../../../shared/types/Constructor";
 
 export const initialState: Constructor = {
   isRequest: false,

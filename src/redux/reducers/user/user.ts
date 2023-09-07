@@ -1,4 +1,4 @@
-import { TActions } from "../../shared/types/Actions";
+import { TActions } from "../../../shared/types/Actions";
 import {
   LOGOUT,
   LOGIN_FAIL,
@@ -7,7 +7,7 @@ import {
   SET_USER_FAIL,
   SET_USER_REQUEST,
   SET_USER_SUCCESS,
-} from "../../services/userAuth";
+} from "../../../services/userAuth";
 
 export type UserState = typeof initialState;
 

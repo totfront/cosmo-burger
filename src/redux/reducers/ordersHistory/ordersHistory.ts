@@ -1,13 +1,13 @@
-import { TOrdersHistoryWsActions } from "../../shared/types/WebSocket/OrdersHistoryWsActions";
-import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
+import { TOrdersHistoryWsActions } from "../../../shared/types/WebSocket/OrdersHistoryWsActions";
+import { WsStatus } from "../../../shared/types/WebSocket/WsStatus";
 import {
   ORDERS_HISTORY_WS_OPEN,
   ORDERS_HISTORY_WS_CLOSED,
   ORDERS_HISTORY_WS_ORDER,
   ORDERS_HISTORY_WS_ERROR,
   ORDERS_HISTORY_WS_INIT,
-} from "../actions/ordersHistory";
-import { Order, OrdersResponse } from "../types/dataModels";
+} from "../../actions/ordersHistory";
+import { Order, OrdersResponse } from "../../types/dataModels";
 
 interface OrdersHistory {
   status: WsStatus;

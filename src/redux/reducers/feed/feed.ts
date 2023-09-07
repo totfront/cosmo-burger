@@ -1,13 +1,13 @@
-import { TFeedWsActions } from "../../shared/types/WebSocket/FeedWsActions";
-import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
+import { TFeedWsActions } from "../../../shared/types/WebSocket/FeedWsActions";
+import { WsStatus } from "../../../shared/types/WebSocket/WsStatus";
 import {
   FEED_WS_OPEN,
   FEED_WS_CLOSED,
   FEED_WS_ORDER,
   FEED_WS_ERROR,
   FEED_WS_INIT,
-} from "../actions/feed";
-import { Order } from "../types/dataModels";
+} from "../../actions/feed";
+import { Order } from "../../types/dataModels";
 
 interface FeedState {
   status: WsStatus;

@@ -1,28 +1,31 @@
-import { SET_USER_FAIL } from "../../services/userAuth";
-import { CLEAN_CONSTRUCTOR } from "../actions/constructor";
+import { SET_USER_FAIL } from "../../../services/userAuth";
+import { CLEAN_CONSTRUCTOR } from "../../actions/constructor";
 import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
-} from "../actions/orderConfirmationModal";
-import { initialState, orderConfirmationModal } from "./orderConfirmationModal";
+} from "../../actions/orderConfirmationModal";
+import {
+  initialState,
+  orderConfirmationModalReducer,
+} from "./orderConfirmationModal";
 
 describe("order confirmation modal reducer", () => {
   it("returns initial state if wrong action, no action or none of those have been passed", () => {
     expect(
-      orderConfirmationModal(undefined, { type: CLEAN_CONSTRUCTOR })
+      orderConfirmationModalReducer(undefined, { type: CLEAN_CONSTRUCTOR })
     ).toEqual(initialState);
     expect(
-      orderConfirmationModal(initialState, { type: CLEAN_CONSTRUCTOR })
+      orderConfirmationModalReducer(initialState, { type: CLEAN_CONSTRUCTOR })
     ).toEqual(initialState);
     expect(
-      orderConfirmationModal(initialState, { type: SET_USER_FAIL })
+      orderConfirmationModalReducer(initialState, { type: SET_USER_FAIL })
     ).toEqual(initialState);
   });
 
   it("sets state with isRequest flag to true", () => {
     expect(
-      orderConfirmationModal(undefined, { type: SUBMIT_ORDER_REQUEST })
+      orderConfirmationModalReducer(undefined, { type: SUBMIT_ORDER_REQUEST })
     ).toEqual({
       ...initialState,
       isRequest: true,
@@ -31,7 +34,7 @@ describe("order confirmation modal reducer", () => {
   it("sets state with isRequest to false, isRequestFailed to true and a passed error", () => {
     const error = new Error("test error");
     expect(
-      orderConfirmationModal(undefined, {
+      orderConfirmationModalReducer(undefined, {
         type: SUBMIT_ORDER_FAIL,
         error,
       })
@@ -48,7 +51,7 @@ describe("order confirmation modal reducer", () => {
       name: "test",
     };
     expect(
-      orderConfirmationModal(undefined, {
+      orderConfirmationModalReducer(undefined, {
         type: SUBMIT_ORDER_SUCCESS,
         ...testData,
       })

@@ -1,14 +1,14 @@
-import { TActions } from "../../shared/types/Actions";
-import { Ingredient } from "../../shared/types/Ingredient";
-import { Ingredients } from "../../shared/types/Ingredients";
+import { TActions } from "../../../shared/types/Actions";
+import { Ingredient } from "../../../shared/types/Ingredient";
+import { Ingredients } from "../../../shared/types/Ingredients";
 import {
   DECREASE_INGREDIENTS_COUNTER,
   GET_INGREDIENTS_ERROR,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   INCREASE_INGREDIENTS_COUNTER,
-} from "../actions/ingredients";
-import { sortIngredients } from "../../services/helpers";
+} from "../../actions/ingredients";
+import { sortIngredients } from "../../../services/helpers";
 
 const buns = "Булки";
 const sauces = "Соусы";

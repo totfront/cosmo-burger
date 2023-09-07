@@ -1,11 +1,11 @@
-import { SET_USER_FAIL } from "../../services/userAuth";
+import { SET_USER_FAIL } from "../../../services/userAuth";
 import {
   SET_TOTAL_PRICE,
   ADD_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   MOVE_CONSTRUCTOR_INGREDIENT,
   CLEAN_CONSTRUCTOR,
-} from "../actions/constructor";
+} from "../../actions/constructor";
 import { constructorReducer, initialState } from "./constructor";
 
 const mockIngredient = {
