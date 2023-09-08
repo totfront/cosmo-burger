@@ -85,73 +85,47 @@ describe("ingredients reducer", () => {
     ).toEqual(expectedState);
   });
 
-  //   it("handles increase ingredient counter action", () => {
-  //     const expectedState: Ingredients = {
-  //       ...initialState,
-  //       ingredients: {
-  //         buns: [{ ...mockedBun, counter: 2 }],
-  //         inners: [{ ...mockedInner, counter: 2 }],
-  //         sauces: [{ ...mockedSauce, counter: 1 }],
-  //       },
-  //     };
-  //     expect(
-  //       ingredientsReducer(
-  //         {
-  //           ...initialState,
-  //           ingredients: {
-  //             buns: [
-  //               { ...mockedBun, counter: 1 },
-  //               { ...mockedBun, counter: 1 },
-  //             ],
-  //             inners: [{ ...mockedInner, counter: 1 }],
-  //             sauces: [{ ...mockedSauce, counter: 1 }],
-  //           },
-  //         },
-  //         {
-  //           type: INCREASE_INGREDIENTS_COUNTER,
-  //           id: "2",
-  //         }
-  //       )
-  //     ).toEqual(expectedState);
-  //   });
+  const ingredients = {
+    buns: [],
+    inners: [{ ...mockedInner, counter: 2 }], // should increase[decrease] this ingredient
+    sauces: [],
+  };
 
-  //   it("handles decrease ingredient counter action", () => {
-  //     const ingredient: Ingredient = {
-  //       _id: "1",
-  //       name: "Test Ingredient",
-  //       type: "bun",
-  //       proteins: 10,
-  //       fat: 5,
-  //       carbohydrates: 15,
-  //       calories: 100,
-  //       price: 2.99,
-  //       image: "image.jpg",
-  //       image_mobile: "image_mobile.jpg",
-  //       image_large: "image_large.jpg",
-  //       __v: 1,
-  //       counter: 2,
-  //     };
+  it("handles increase ingredient counter action", () => {
+    const expectedState: Ingredients = {
+      ...initialState,
+      ingredients: { ...ingredients, inners: [{ ...mockedInner, counter: 3 }] },
+    };
+    expect(
+      ingredientsReducer(
+        {
+          ...initialState,
+          ingredients,
+        },
+        {
+          type: INCREASE_INGREDIENTS_COUNTER,
+          id: "2",
+        }
+      )
+    ).toEqual(expectedState);
+  });
 
-  //     const expectedState: Ingredients = {
-  //       ...initialState,
-  //       ingredients: {
-  //         buns: [{ ...ingredient, counter: 1 }],
-  //         sauces: [],
-  //         inners: [],
-  //       },
-  //     };
-  //     expect(
-  //       ingredientsReducer(initialState, {
-  //         type: DECREASE_INGREDIENTS_COUNTER,
-  //         id: "2",
-  //       })
-  //     ).toEqual(expectedState);
-  //   });
-
-  //   it("handles unknown action type", () => {
-  //     const action = {
-  //       type: "UNKNOWN_ACTION",
-  //     };
-  //     expect(ingredientsReducer(initialState, action)).toEqual(initialState);
-  //   });
+  it("handles decrease ingredient counter action", () => {
+    const expectedState: Ingredients = {
+      ...initialState,
+      ingredients: { ...ingredients, inners: [{ ...mockedInner, counter: 1 }] },
+    };
+    expect(
+      ingredientsReducer(
+        {
+          ...initialState,
+          ingredients,
+        },
+        {
+          type: DECREASE_INGREDIENTS_COUNTER,
+          id: "2",
+        }
+      )
+    ).toEqual(expectedState);
+  });
 });
