@@ -57,6 +57,7 @@ const BurgerIngredients: FC = () => {
               className={styles.ingredientsGroupWrapper}
               key={index}
               ref={tabRefs[tabKey]}
+              data-testid={`${tabKey}-list`}
             >
               <h3
                 id={tabName}
@@ -74,7 +75,7 @@ const BurgerIngredients: FC = () => {
           ))}
         </ul>
       ) : (
-        "wait 🫠"
+        "wait ⏳"
       )}
     </section>
   );

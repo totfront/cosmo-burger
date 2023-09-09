@@ -16,13 +16,11 @@ const IngredientDetails: FC = () => {
   } = useSelector((store) => store.ingredientModal);
 
   return (
-    <div className={styles.inner}>
+    <div className={styles.inner} data-testid="ingredient-details">
       {_id ? (
         <>
           <img className={styles.image} src={image} alt="ingredient" />
-          <h3 className={`${styles.heading} mt-4 text text_type_main-medium`}>
-            {name}
-          </h3>
+          <h3 className={`mt-4 text text_type_main-medium`}>{name}</h3>
           <ul
             className={`${styles.ingredientsList} text text_type_main-default text_color_inactive mb-5 mt-8 `}
           >

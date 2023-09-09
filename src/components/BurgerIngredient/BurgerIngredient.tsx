@@ -40,6 +40,7 @@ const BurgerIngredient: FC<Props> = ({ ingredient }) => {
       ref={drag}
       to={`${ingredientsPath}/${_id}`}
       state={{ background: location }}
+      data-testid="stock-ingredient"
     >
       <img className="mb-2" src={image} alt={name} loading="lazy" />
       <div className={`${styles.price} mb-2`}>

@@ -89,7 +89,11 @@ const BurgerConstructor: FC = () => {
 
   // TODO: make buns as a LI elements. Improve the ConstructorIngredient component to get needed props and become more universal
   return (
-    <section className={styles.constructorWrapper} ref={drop}>
+    <section
+      className={styles.constructorWrapper}
+      ref={drop}
+      data-testid="constructor"
+    >
       <div className={`${styles.constructor}`}>
         {!error ? (
           <ul className={styles.ingredients}>
@@ -147,6 +151,7 @@ const BurgerConstructor: FC = () => {
             htmlType="button"
             type="primary"
             size="large"
+            data-testid="submit-order-button"
           >
             Оформить заказ
           </Button>
