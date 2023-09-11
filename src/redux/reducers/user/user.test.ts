@@ -10,6 +10,11 @@ import {
 import { TActions } from "../../../shared/types/Actions";
 import { userReducer, initialState } from "./user";
 
+const nameAndEmail = {
+  name: "John",
+  email: "john@example.com",
+} as const;
+
 describe("userReducer", () => {
   it("handles logout action", () => {
     const expectedState = initialState;
@@ -37,16 +42,14 @@ describe("userReducer", () => {
   it("handles set user success action", () => {
     const expectedState = {
       ...initialState,
+      ...nameAndEmail,
       isSetUserRequestFail: false,
       isSetUserRequest: false,
-      name: "John",
-      email: "john@example.com",
     };
     expect(
       userReducer(initialState, {
         type: SET_USER_SUCCESS,
-        name: "John",
-        email: "john@example.com",
+        ...nameAndEmail,
       })
     ).toEqual(expectedState);
   });
@@ -72,18 +75,16 @@ describe("userReducer", () => {
   it("handles login success action", () => {
     const expectedState = {
       ...initialState,
+      ...nameAndEmail,
       isLoginRequest: false,
       isLoginRequestFail: false,
       isAuthorized: true,
-      name: "John",
-      email: "john@example.com",
       password: "qwerty",
     };
     expect(
       userReducer(initialState, {
+        ...nameAndEmail,
         type: LOGIN_SUCCESS,
-        name: "John",
-        email: "john@example.com",
         password: "qwerty",
       })
     ).toEqual(expectedState);

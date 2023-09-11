@@ -40,7 +40,7 @@ describe("burger constructor", function () {
     cy.get(constructor).trigger("drop");
     cy.get(submitButton).click();
   });
-  it.only(`redirects to ${feedPath} and to /ingredientId`, () => {
+  it(`redirects to ${feedPath} and to /ingredientId`, () => {
     cy.visit(`${localhostUrl}${feedPath}`);
     const getRandomId = (jsonData) => {
       const { data } = jsonData;

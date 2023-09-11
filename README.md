@@ -1,4 +1,4 @@
-# Cosmo-burger
+# [Cosmo-burger](https://totfront.github.io/cosmo-burger/#/)
 
 Burger constructor with authorization flow and personal account.
 
