@@ -19,10 +19,8 @@ function App() {
     <div className={styles.app}>
       {/* unfortunately we can not use the router on the GitHup pages*/}
       {/* <BrowserRouter> */}
-      <HashRouter>
-        <AppHeader />
-        <Router />
-      </HashRouter>
+      <AppHeader />
+      <Router />
       {/* </BrowserRouter> */}
     </div>
   );
