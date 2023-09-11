@@ -1,5 +1,5 @@
 import styles from "./App.module.css";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
 import Router from "../Router/Router";
 import { getUserData } from "../../services/userAuth";
@@ -17,10 +17,13 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <BrowserRouter>
+      {/* unfortunately we can not use the router on the GitHup pages*/}
+      {/* <BrowserRouter> */}
+      <HashRouter>
         <AppHeader />
         <Router />
-      </BrowserRouter>
+      </HashRouter>
+      {/* </BrowserRouter> */}
     </div>
   );
 }
