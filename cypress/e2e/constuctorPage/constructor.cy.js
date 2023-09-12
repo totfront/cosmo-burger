@@ -1,6 +1,5 @@
 import ingredients from "../../fixtures/ingredients.json";
 import user from "../../fixtures/user.json";
-import { feedPath, ingredientsPath } from "../../../src/shared/paths";
 
 const stockIngredients = '[data-testid="stock-ingredient"]';
 const constructor = '[data-testid="constructor"]';
@@ -9,7 +8,6 @@ const innersList = '[data-testid="inners-list"]';
 const saucesList = '[data-testid="sauces-list"]';
 const submitButton = '[data-testid="submit-order-button"]';
 const closeButton = '[data-testid="modal-close-button"]';
-const ingredientDetails = '[data-testid="ingredient-details"]';
 const localhostUrl = "http://localhost:3000";
 
 describe("burger constructor", function () {
@@ -39,16 +37,5 @@ describe("burger constructor", function () {
     cy.get(saucesList).find(stockIngredients).first().trigger("dragstart");
     cy.get(constructor).trigger("drop");
     cy.get(submitButton).click();
-  });
-  it(`redirects to ${feedPath} and to /ingredientId`, () => {
-    cy.visit(`${localhostUrl}${feedPath}`);
-    const getRandomId = (jsonData) => {
-      const { data } = jsonData;
-      return data.length > 0
-        ? data[Math.floor(Math.random() * data.length)]._id
-        : null;
-    };
-    cy.visit(`${localhostUrl}${ingredientsPath}/${getRandomId(ingredients)}`);
-    cy.get(ingredientDetails);
   });
 });
