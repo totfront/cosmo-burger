@@ -1,20 +1,20 @@
-import { TActions } from "../../shared/types/Actions";
-import { Ingredient } from "../../shared/types/Ingredient";
-import { Ingredients } from "../../shared/types/Ingredients";
+import { TActions } from "../../../shared/types/Actions";
+import { Ingredient } from "../../../shared/types/Ingredient";
+import { Ingredients } from "../../../shared/types/Ingredients";
 import {
   DECREASE_INGREDIENTS_COUNTER,
   GET_INGREDIENTS_ERROR,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   INCREASE_INGREDIENTS_COUNTER,
-} from "../actions/ingredients";
-import { sortIngredients } from "../../services/helpers";
+} from "../../actions/ingredients";
+import { sortIngredients } from "../../../services/helpers";
 
 const buns = "Булки";
 const sauces = "Соусы";
 const inners = "Начинки";
 
-const initialState: Ingredients = {
+export const initialState: Ingredients = {
   tabs: {
     buns,
     sauces,
@@ -75,10 +75,10 @@ export const ingredientsReducer = (state = initialState, action: TActions) => {
         const allBuns = ingredients.filter((i) => i.type === "bun");
         // todo: cleanup the case if there are more than 2 buns
         if (
-          allBuns[0].counter &&
-          allBuns[0].counter > 0 &&
-          allBuns[1].counter &&
-          allBuns[1].counter > 0
+          allBuns[0]?.counter &&
+          allBuns[0]?.counter > 0 &&
+          allBuns[1]?.counter &&
+          allBuns[1]?.counter > 0
         )
           return ingredients.map((i) => {
             if (i.type !== "bun") return i;

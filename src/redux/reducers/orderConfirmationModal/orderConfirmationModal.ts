@@ -1,13 +1,12 @@
-import { TActions } from "../../shared/types/Actions";
+import { TActions } from "../../../shared/types/Actions";
+import { TOrderConfirmationModal } from "../../../shared/types/OrderConfirmationModal";
 import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
-} from "../actions/order";
+} from "../../actions/orderConfirmationModal";
 
-export type OrderState = typeof initialState;
-
-const initialState = {
+export const initialState: TOrderConfirmationModal = {
   id: 0,
   name: "",
   isModalShown: false,
@@ -17,7 +16,10 @@ const initialState = {
   error: null,
 };
 
-const orderReducer = (state = initialState, action: TActions) => {
+const orderConfirmationModalReducer = (
+  state = initialState,
+  action: TActions
+) => {
   switch (action.type) {
     case SUBMIT_ORDER_REQUEST: {
       return {
@@ -30,12 +32,12 @@ const orderReducer = (state = initialState, action: TActions) => {
         ...initialState,
         isRequest: false,
         isRequestFailed: true,
+        error: action.error,
       };
     }
     case SUBMIT_ORDER_SUCCESS: {
       return {
-        ...state,
-        isRequest: false,
+        ...initialState,
         isRequestSuccess: true,
         id: action.id,
         name: action.name,
@@ -47,4 +49,4 @@ const orderReducer = (state = initialState, action: TActions) => {
   }
 };
 
-export { orderReducer };
+export { orderConfirmationModalReducer };

@@ -15,11 +15,11 @@ export const ProtectedRoute: FC<Props> = ({ auth, children = null }) => {
     const {
       from: { pathname },
     } = location.state || { from: { pathname: defaultPath } };
-    return <Navigate to={pathname} replace />;
+    return <Navigate to={`${pathname}`} replace />;
   }
 
   if (auth && !isAuthorized) {
-    return <Navigate to={loginPath} state={{ from: location }} replace />;
+    return <Navigate to={`${loginPath}`} state={{ from: location }} replace />;
   }
 
   return <>{children}</>;

@@ -1,9 +1,9 @@
-export type OrderDetails = {
+export type TOrderConfirmationModal = {
   id: number;
   name: string;
   isModalShown: boolean;
   isRequest: boolean;
   isRequestFailed: boolean;
-  isRequestSubmitted: boolean;
-  error: unknown;
+  isRequestSuccess: boolean;
+  error: Error | null;
 };

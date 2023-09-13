@@ -39,7 +39,11 @@ const Modal: FC<Props> = ({ onClose, children, title }) => {
             {title}
           </h3>
         )}
-        <button onClick={onClose} className={styles.btnClose}>
+        <button
+          onClick={onClose}
+          className={styles.btnClose}
+          data-testid="modal-close-button"
+        >
           <CloseIcon type="primary" />
         </button>
         {children}

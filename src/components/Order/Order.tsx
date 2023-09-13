@@ -32,7 +32,6 @@ export const Order: FC<Props> = (props) => {
 
   const onClick = () => {
     dispatch({ type: SET_ORDER_DETAILS_MODAL, payload: { ...props } });
-    console.log({ background: location });
   };
 
   const statusText =

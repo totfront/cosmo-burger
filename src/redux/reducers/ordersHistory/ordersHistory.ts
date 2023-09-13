@@ -1,15 +1,15 @@
-import { TFeedWsActions } from "../../shared/types/WebSocket/FeedWsActions";
-import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
+import { TOrdersHistoryWsActions } from "../../../shared/types/WebSocket/OrdersHistoryWsActions";
+import { WsStatus } from "../../../shared/types/WebSocket/WsStatus";
 import {
-  FEED_WS_OPEN,
-  FEED_WS_CLOSED,
-  FEED_WS_ORDER,
-  FEED_WS_ERROR,
-  FEED_WS_INIT,
-} from "../actions/feed";
-import { Order } from "../types/dataModels";
+  ORDERS_HISTORY_WS_OPEN,
+  ORDERS_HISTORY_WS_CLOSED,
+  ORDERS_HISTORY_WS_ORDER,
+  ORDERS_HISTORY_WS_ERROR,
+  ORDERS_HISTORY_WS_INIT,
+} from "../../actions/ordersHistory";
+import { Order, OrdersResponse } from "../../types/dataModels";
 
-interface FeedStore {
+interface OrdersHistory {
   status: WsStatus;
   error: undefined | string;
   orders: Order[];
@@ -17,7 +17,7 @@ interface FeedStore {
   totalToday: number;
 }
 
-const initialStore: FeedStore = {
+export const initialStore: OrdersHistory = {
   status: WsStatus.CLOSED,
   error: "",
   orders: [],
@@ -46,33 +46,36 @@ const initialStore: FeedStore = {
 //     });
 // });
 
-export const feedReducer = (state = initialStore, action: TFeedWsActions) => {
+export const ordersHistoryReducer = (
+  state = initialStore,
+  action: TOrdersHistoryWsActions
+) => {
   switch (action.type) {
-    case FEED_WS_OPEN:
-      return {
-        ...state,
-        status: WsStatus.OPEN,
-      };
-    case FEED_WS_INIT:
+    case ORDERS_HISTORY_WS_OPEN:
       return {
         ...state,
         status: action.payload,
       };
-    case FEED_WS_CLOSED: {
+    case ORDERS_HISTORY_WS_INIT:
+      return {
+        ...state,
+        status: action.payload,
+      };
+    case ORDERS_HISTORY_WS_CLOSED: {
       return {
         ...state,
         status: WsStatus.CLOSED,
       };
     }
-    case FEED_WS_ORDER:
-      const { orders, total, totalToday } = action.payload;
+    case ORDERS_HISTORY_WS_ORDER:
+      const { orders, total, totalToday } = action.payload as OrdersResponse;
       return {
         ...state,
         orders,
         total,
         totalToday,
       };
-    case FEED_WS_ERROR:
+    case ORDERS_HISTORY_WS_ERROR:
       return {
         ...state,
         error: action.payload,

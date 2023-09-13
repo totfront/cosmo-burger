@@ -1,5 +1,5 @@
-import { TActions } from "../../shared/types/Actions";
-import { SET_ORDER_DETAILS_MODAL } from "../actions/orderDetailsModal";
+import { TActions } from "../../../shared/types/Actions";
+import { SET_ORDER_DETAILS_MODAL } from "../../actions/orderDetailsModal";
 
 export interface TOrderDetailsModal {
   ingredients: string[] | [];
@@ -12,7 +12,7 @@ export interface TOrderDetailsModal {
   isPending: boolean;
 }
 
-const initialState = {
+export const initialState = {
   ingredients: [],
   _id: "",
   status: "",

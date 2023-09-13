@@ -24,7 +24,7 @@ import {
   SUBMIT_ORDER_FAIL,
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
-} from "../../redux/actions/order";
+} from "../../redux/actions/orderConfirmationModal";
 import { Ingredient } from "./Ingredient";
 import { SortedIngredients } from "./SortedIngredients";
 import { SET_ORDER_DETAILS_MODAL } from "../../redux/actions/orderDetailsModal";

@@ -1,15 +1,15 @@
-import { TOrdersHistoryWsActions } from "../../shared/types/WebSocket/OrdersHistoryWsActions";
-import { WsStatus } from "../../shared/types/WebSocket/WsStatus";
+import { TFeedWsActions } from "../../../shared/types/WebSocket/FeedWsActions";
+import { WsStatus } from "../../../shared/types/WebSocket/WsStatus";
 import {
-  ORDERS_HISTORY_WS_OPEN,
-  ORDERS_HISTORY_WS_CLOSED,
-  ORDERS_HISTORY_WS_ORDER,
-  ORDERS_HISTORY_WS_ERROR,
-  ORDERS_HISTORY_WS_INIT,
-} from "../actions/ordersHistory";
-import { Order, OrdersResponse } from "../types/dataModels";
+  FEED_WS_OPEN,
+  FEED_WS_CLOSED,
+  FEED_WS_ORDER,
+  FEED_WS_ERROR,
+  FEED_WS_INIT,
+} from "../../actions/feed";
+import { Order } from "../../types/dataModels";
 
-interface OrdersHistory {
+interface FeedState {
   status: WsStatus;
   error: undefined | string;
   orders: Order[];
@@ -17,7 +17,7 @@ interface OrdersHistory {
   totalToday: number;
 }
 
-const initialStore: OrdersHistory = {
+export const initialState: FeedState = {
   status: WsStatus.CLOSED,
   error: "",
   orders: [],
@@ -25,8 +25,8 @@ const initialStore: OrdersHistory = {
   totalToday: 0,
 };
 
-// todo: (optional) rewrite with toolkit
-// export const FeedReducer = createReducer(initialStore, (builder) => {
+// todo: (optional) rewrite with toolkit. Example:
+// export const FeedReducer = createReducer(initialState, (builder) => {
 //   builder
 //     .addCase(wsConnecting, (state) => {
 //       state.status = WsStatus.CONNECTING;
@@ -46,36 +46,33 @@ const initialStore: OrdersHistory = {
 //     });
 // });
 
-export const ordersHistoryReducer = (
-  state = initialStore,
-  action: TOrdersHistoryWsActions
-) => {
+export const feedReducer = (state = initialState, action: TFeedWsActions) => {
   switch (action.type) {
-    case ORDERS_HISTORY_WS_OPEN:
+    case FEED_WS_OPEN:
+      return {
+        ...state,
+        status: WsStatus.OPEN,
+      };
+    case FEED_WS_INIT:
       return {
         ...state,
         status: action.payload,
       };
-    case ORDERS_HISTORY_WS_INIT:
-      return {
-        ...state,
-        status: action.payload,
-      };
-    case ORDERS_HISTORY_WS_CLOSED: {
+    case FEED_WS_CLOSED: {
       return {
         ...state,
         status: WsStatus.CLOSED,
       };
     }
-    case ORDERS_HISTORY_WS_ORDER:
-      const { orders, total, totalToday } = action.payload as OrdersResponse;
+    case FEED_WS_ORDER:
+      const { orders, total, totalToday } = action.payload;
       return {
         ...state,
         orders,
         total,
         totalToday,
       };
-    case ORDERS_HISTORY_WS_ERROR:
+    case FEED_WS_ERROR:
       return {
         ...state,
         error: action.payload,
