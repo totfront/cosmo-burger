@@ -26,7 +26,7 @@ const ForgotPasswordPage = () => {
   return (
     <main className={styles.wrapper}>
       <h2 className={`${styles.heading} text text_type_main-medium`}>
-        Восстановление пароля
+        Remind password
       </h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <EmailInput
@@ -35,7 +35,7 @@ const ForgotPasswordPage = () => {
           value={email}
           name={"email"}
           isIcon={false}
-          placeholder="Укажите e-mail"
+          placeholder="E-mail"
         />
         <Button
           extraClass={styles.submit}
@@ -43,13 +43,13 @@ const ForgotPasswordPage = () => {
           type="primary"
           size="medium"
         >
-          Восстановить
+          Remind
         </Button>
       </form>
       <p className={`text text_type_main-small ${styles.text}`}>
-        Вспомнили пароль?{" "}
+        Remembered the password?
         <Link className={styles.link} to="/login">
-          Войти
+          Log in
         </Link>
       </p>
     </main>

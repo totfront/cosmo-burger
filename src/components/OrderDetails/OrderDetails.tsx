@@ -36,7 +36,7 @@ export const OrderDetails: FC<Props> = ({ isModal }) => {
   const orderPrice = getTotalPrice(allIngredients, ingredients);
   const categorizedIngredients = categorizeIds(ingredients);
 
-  if (isPending) return <>Заказ не найден 🤷‍♀️</>;
+  if (isPending) return <>The order has not been found 🤷‍♀️</>;
 
   return (
     <section className={`${styles.wrapper}`}>

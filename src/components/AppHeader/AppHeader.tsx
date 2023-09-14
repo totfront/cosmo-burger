@@ -39,7 +39,7 @@ const AppHeader = () => {
             to={defaultPath}
           >
             <BurgerIcon type="primary" />
-            Конструктор
+            Constructor
           </NavLink>
           <NavLink
             className={`${styles.link} ${
@@ -49,7 +49,7 @@ const AppHeader = () => {
             to={feedPath}
           >
             <ListIcon type="primary" />
-            Лента заказов
+            Feed
           </NavLink>
         </div>
         <NavLink className={styles.logo} to={defaultPath}>
@@ -63,7 +63,7 @@ const AppHeader = () => {
           to={profilePath}
         >
           <ProfileIcon type="primary" />
-          Личный кабинет
+          Profile
         </NavLink>
       </nav>
     </header>

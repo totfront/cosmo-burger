@@ -69,7 +69,7 @@ const ProfilePage = () => {
               } text text_type_main-default`}
               type="button"
             >
-              Профиль
+              Profile
             </Link>
           </li>
           <li className={styles.listItem}>
@@ -80,7 +80,7 @@ const ProfilePage = () => {
               } text text_type_main-default`}
               type="button"
             >
-              История заказов
+              Order history
             </Link>
           </li>
           <li className={styles.listItem}>
@@ -92,13 +92,10 @@ const ProfilePage = () => {
                 dispatch(logoutUser());
               }}
             >
-              Выход
+              Logout
             </Link>
           </li>
         </ul>
-        <p className={`text text_type_main-small ${styles.description}`}>
-          В этом разделе вы можете изменить свои персональные данные
-        </p>
       </section>
       {pathname === profilePath ? (
         <div className={styles.wrapper}>
@@ -110,7 +107,7 @@ const ProfilePage = () => {
               }
               name="name"
               value={name}
-              placeholder="Имя"
+              placeholder="Name"
             />
             <EmailInput
               onChange={({ target: { value } }) =>
@@ -128,8 +125,8 @@ const ProfilePage = () => {
                 handleInputChange(value, setPassword)
               }
               value={password}
-              name={"email"}
-              placeholder="Пароль"
+              name={"password"}
+              placeholder="password"
             />
           </form>
         </div>

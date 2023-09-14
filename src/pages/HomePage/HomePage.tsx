@@ -15,7 +15,7 @@ const HomePage = () => {
   return (
     <main className={`${styles.main} mt-10 mb-10`}>
       <h2 className={`${styles.heading} text_type_main-large mb-5`}>
-        {isOrders ? "Лента заказов" : "Соберите бургер"}
+        {isOrders ? "Feed" : "Assemble the burger"}
       </h2>
       {!error && !isOrders ? (
         <DndProvider backend={HTML5Backend}>

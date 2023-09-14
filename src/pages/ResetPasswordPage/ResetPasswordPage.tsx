@@ -30,7 +30,7 @@ const ResetPasswordPage = () => {
   return (
     <main className={styles.wrapper}>
       <h2 className={`${styles.heading} text text_type_main-medium`}>
-        Восстановление пароля
+        Set a new password
       </h2>
       <form className={styles.form} onSubmit={onSubmit}>
         <PasswordInput
@@ -38,14 +38,14 @@ const ResetPasswordPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           name={"email"}
-          placeholder="Введите новый пароль"
+          placeholder="Enter a new password"
         />
         <Input
           extraClass={styles.inputName}
           onChange={(e) => setPassPhrase(e.target.value)}
           name="name"
           value={passPhrase}
-          placeholder="Введите код из письма"
+          placeholder="Enter the code from the e-mail"
         />
         <Button
           extraClass={styles.submit}
@@ -53,13 +53,13 @@ const ResetPasswordPage = () => {
           type="primary"
           size="medium"
         >
-          Восстановить
+          Set
         </Button>
       </form>
       <p className={`text text_type_main-small ${styles.text}`}>
-        Вспомнили пароль?{" "}
+        Remembered old password?{" "}
         <Link className={styles.link} to="/login">
-          Войти
+          Log in
         </Link>
       </p>
     </main>

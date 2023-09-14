@@ -135,7 +135,7 @@ const Router = () => {
           <Route
             path={`${ingredientsPath}${idPath}`}
             element={
-              <Modal onClose={onClose} title="Детали ингредиента">
+              <Modal onClose={onClose} title="Ingredient details">
                 <IngredientDetails />
               </Modal>
             }
