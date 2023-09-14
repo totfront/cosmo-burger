@@ -22,7 +22,7 @@ const LoginPage = () => {
 
   return (
     <main className={styles.wrapper}>
-      <h2 className={`${styles.heading} text text_type_main-medium`}>Вход</h2>
+      <h2 className={`${styles.heading} text text_type_main-medium`}>Log in</h2>
       <form className={styles.form} onSubmit={onSubmit}>
         <EmailInput
           onChange={({ target: { value } }) =>
@@ -40,8 +40,8 @@ const LoginPage = () => {
             handleInputChange(value, setPassword)
           }
           value={password}
-          name={"email"}
-          placeholder="Пароль"
+          name={"password"}
+          placeholder="Password"
         />
         <Button
           extraClass={styles.submit}
@@ -49,19 +49,19 @@ const LoginPage = () => {
           type="primary"
           size="medium"
         >
-          Войти
+          Log in
         </Button>
       </form>
       <p className={`text text_type_main-small mb-2 ${styles.text}`}>
-        Вы — новый пользователь?{" "}
+        Don't have an account?{" "}
         <Link className={styles.link} to="/signin">
-          Зарегистрироваться
+          Sign up
         </Link>
       </p>
       <p className={`text text_type_main-small ${styles.text}`}>
-        Забыли пароль?{" "}
+        Forgot your password?{" "}
         <Link className={styles.link} to="/forgot-password">
-          Восстановить пароль
+          Reset the password
         </Link>
       </p>
     </main>

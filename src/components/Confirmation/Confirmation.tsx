@@ -13,7 +13,7 @@ const Confirmation = () => {
         <p
           className={`${styles.textBlock} text text_type_main-default text_color_inactive`}
         >
-          Ожидайте подтверждения ⏳
+          Wait for confirmation ⏳ (~15 sek)
         </p>
       ) : (
         <>
@@ -21,16 +21,16 @@ const Confirmation = () => {
           <h3 className={`${styles.heading} mt-8 text text_type_main-medium`}>
             {name}
           </h3>
-          <img src={doneImage} className={"mt-15"} alt="Done" />
+          <img src={doneImage} className={"mt-15"} alt="Done" loading="lazy" />
           <p
             className={`${styles.textBlock} mt-15 text text_type_main-default`}
           >
-            Ваш заказ начали готовить
+            Your order is in progress
           </p>
           <p
             className={`${styles.textBlock} mt-4 text text_type_main-default text_color_inactive`}
           >
-            Дождитесь готовности на орбитальной станции
+            Await at the orbital station
           </p>
         </>
       )}

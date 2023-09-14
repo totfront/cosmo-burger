@@ -34,8 +34,8 @@ const getTimeStamp = (lastEdit: string): string => {
 };
 
 const tabNameConverter = (name: string) => {
-  if (name === "Булки") return "buns";
-  if (name === "Соусы") return "souses";
+  if (name === "Buns") return "buns";
+  if (name === "Sauces") return "souses";
   return "inners";
 };
 

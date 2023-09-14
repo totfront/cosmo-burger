@@ -6,7 +6,7 @@ export const OrderMetrics = () => {
   return (
     <section className={styles.infoSection}>
       <article>
-        <h3 className={`text text_type_main-medium mb-4`}>Готовы:</h3>
+        <h3 className={`text text_type_main-medium mb-4`}>Ready:</h3>
         <ul className={styles.statusList}>
           {orders.map(
             (o, index) =>
@@ -23,7 +23,7 @@ export const OrderMetrics = () => {
         </ul>
       </article>
       <article>
-        <h2 className={`text text_type_main-medium mb-4`}>В работе:</h2>
+        <h2 className={`text text_type_main-medium mb-4`}>In progress:</h2>
         <ul className={styles.statusList}>
           {orders.map(
             (o, index) =>
@@ -41,14 +41,14 @@ export const OrderMetrics = () => {
       </article>
       <article className={`${styles.totalWrapper} mt-15`}>
         <h2 className={`text text_type_main-medium`}>
-          Выполнено за все время:
+          Completed for all time:
         </h2>
         <span className={`${styles.textShadow} text text_type_digits-large`}>
           {total}
         </span>
       </article>
       <article className={`${styles.totalWrapper} mt-15`}>
-        <h2 className={`text text_type_main-medium`}>Выполнено за сегодня:</h2>
+        <h2 className={`text text_type_main-medium`}>Completed for today:</h2>
         <span className={`${styles.textShadow} text text_type_digits-large`}>
           {totalToday}
         </span>

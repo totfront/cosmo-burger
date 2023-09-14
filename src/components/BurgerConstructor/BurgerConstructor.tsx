@@ -153,12 +153,12 @@ const BurgerConstructor: FC = () => {
             size="large"
             data-testid="submit-order-button"
           >
-            Оформить заказ
+            Order
           </Button>
         </>
       ) : (
         <p className={`${styles.explanation} text text_type_main-default`}>
-          Перетащите сюда ингридиенты 👇
+          Drag ingredients here 👇
         </p>
       )}
       {isModalShown && (

@@ -1,5 +1,4 @@
 import styles from "./App.module.css";
-import { HashRouter } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
 import Router from "../Router/Router";
 import { getUserData } from "../../services/userAuth";

@@ -10,9 +10,9 @@ import {
 } from "../../actions/ingredients";
 import { sortIngredients } from "../../../services/helpers";
 
-const buns = "Булки";
-const sauces = "Соусы";
-const inners = "Начинки";
+const buns = "Buns" as const;
+const sauces = "Sauces" as const;
+const inners = "Inners" as const;
 
 export const initialState: Ingredients = {
   tabs: {

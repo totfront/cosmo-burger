@@ -26,7 +26,7 @@ const SignInPage = () => {
   return (
     <main className={styles.wrapper}>
       <h2 className={`${styles.heading} text text_type_main-medium`}>
-        Регистрация
+        Sign up
       </h2>
       <form className={styles.form} onSubmit={onSubmit}>
         <Input
@@ -36,7 +36,7 @@ const SignInPage = () => {
           }
           name="name"
           value={name}
-          placeholder="Имя"
+          placeholder="Name"
         />
         <EmailInput
           onChange={({ target: { value } }) =>
@@ -55,7 +55,7 @@ const SignInPage = () => {
           }
           value={password}
           name={password}
-          placeholder="Пароль"
+          placeholder="Password"
         />
         <Button
           extraClass={styles.submit}
@@ -63,11 +63,11 @@ const SignInPage = () => {
           type="primary"
           size="medium"
         >
-          Зарегистрироваться
+          Sign up
         </Button>
       </form>
       <p className={`text text_type_main-small ${styles.text}`}>
-        Уже зарегистрированы? <Link to="/login">Войти</Link>
+        Signed up already? <Link to="/login">Log in</Link>
       </p>
     </main>
   );

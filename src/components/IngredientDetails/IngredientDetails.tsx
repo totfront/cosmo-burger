@@ -6,7 +6,7 @@ const IngredientDetails: FC = () => {
   const {
     selectedIngredient: {
       name,
-      image,
+      image_large,
       fat,
       proteins,
       carbohydrates,
@@ -19,13 +19,18 @@ const IngredientDetails: FC = () => {
     <div className={styles.inner} data-testid="ingredient-details">
       {_id ? (
         <>
-          <img className={styles.image} src={image} alt="ingredient" />
+          <img
+            className={styles.image}
+            src={image_large}
+            alt={name}
+            loading="lazy"
+          />
           <h3 className={`mt-4 text text_type_main-medium`}>{name}</h3>
           <ul
             className={`${styles.ingredientsList} text text_type_main-default text_color_inactive mb-5 mt-8 `}
           >
             <li className={`${styles.ingredientItem}`}>
-              <span className={styles.textBlock}>Калории, ккал</span>
+              <span className={styles.textBlock}>Calories</span>
               <span
                 className={`${styles.textBlock} mt-2 text_type_digits-default`}
               >
@@ -33,7 +38,7 @@ const IngredientDetails: FC = () => {
               </span>
             </li>
             <li className={`${styles.ingredientItem}`}>
-              <span className={styles.textBlock}>Белки, г</span>
+              <span className={styles.textBlock}>Proteins</span>
               <span
                 className={`${styles.textBlock} mt-2 text_type_digits-default`}
               >
@@ -41,7 +46,7 @@ const IngredientDetails: FC = () => {
               </span>
             </li>
             <li className={`${styles.ingredientItem}`}>
-              <span className={styles.textBlock}>Жиры, г</span>
+              <span className={styles.textBlock}>Fats</span>
               <span
                 className={`${styles.textBlock} mt-2 text_type_digits-default`}
               >
@@ -49,7 +54,7 @@ const IngredientDetails: FC = () => {
               </span>
             </li>
             <li className={`${styles.ingredientItem}`}>
-              <span className={styles.textBlock}>Углеводы, г</span>
+              <span className={styles.textBlock}>Carbohydrates</span>
               <span
                 className={`${styles.textBlock} mt-2 text_type_digits-default`}
               >
@@ -59,7 +64,7 @@ const IngredientDetails: FC = () => {
           </ul>
         </>
       ) : (
-        "wait 🫠"
+        "Something went wrong 🫠"
       )}
     </div>
   );

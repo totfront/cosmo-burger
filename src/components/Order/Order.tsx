@@ -35,7 +35,7 @@ export const Order: FC<Props> = (props) => {
   };
 
   const statusText =
-    status === "done" ? ("Выполнен" ? "pending" : "Готовится") : "Отменен";
+    status === "done" ? ("Ready" ? "pending" : "In progress") : "Cancelled";
 
   return (
     <li className={styles.listItem}>
@@ -72,7 +72,8 @@ export const Order: FC<Props> = (props) => {
                   <img
                     className={styles.ingredientImage}
                     src={imgUrl}
-                    alt="test"
+                    alt={"ingredient"}
+                    loading="lazy"
                   />
                 </li>
               );
@@ -86,7 +87,7 @@ export const Order: FC<Props> = (props) => {
                   <img
                     className={`${styles.ingredientImage} ${styles.contrastDecrease}`}
                     src={imgUrl}
-                    alt="test"
+                    alt={"ingredient"}
                   />
                   <span
                     className={`${styles.ingredientsCounter} text text_type_digits-default`}

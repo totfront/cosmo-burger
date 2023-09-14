@@ -23,7 +23,7 @@ export const Feed = () => {
   return (
     <section className={`${styles.pageContainer}`}>
       <h1 className={`${styles.pageHeading} text text_type_main-large  mb-5`}>
-        Лента заказов
+        Feed
       </h1>
       <ul className={styles.orders}>
         {orders.map(({ ...order }) => {

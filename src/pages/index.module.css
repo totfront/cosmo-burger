@@ -68,11 +68,6 @@
     text-align: center;
 }
 
-.description {
-    margin-left: 40px;
-    max-width: 320px;
-}
-
 .link {
     color: var(--purple);
     text-decoration: none;
