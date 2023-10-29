@@ -12,7 +12,7 @@ Burger constructor with authorization flow and personal account.
 
 ## How to run:
 
-1. [Install pnpm](https://pnpm.io/installation)
+1. install [pnpm](https://pnpm.io/installation)
 2. run `pnpm i`
 3. run `pnpm start`
 
