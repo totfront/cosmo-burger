@@ -4,15 +4,53 @@ import {
   SUBMIT_ORDER_REQUEST,
   SUBMIT_ORDER_SUCCESS,
 } from "../../redux/actions/orderConfirmationModal";
-import { defaultPath, noMorePartiesApiUrl } from "../../shared/paths";
+import {
+  defaultPath,
+  noMorePartiesApiUrl,
+  translationApi,
+} from "../../shared/paths";
 import { accessToken } from "../../shared/names";
 import { getUser, refreshToken } from "./authorizationApi";
 import { LOGIN_SUCCESS } from "../userAuth";
 import { AppDispatch } from "../../shared/hooks/types/AppDispatch";
 import { CLEAN_CONSTRUCTOR } from "../../redux/actions/constructor";
+import { Ingredient } from "../../shared/types/Ingredient";
 
-const fetchData = () =>
-  fetch(`${noMorePartiesApiUrl}/ingredients`).then((res) => checkResponse(res));
+const iamToken = process.env.REACT_APP_I_AM_TOKEN;
+
+const translate = (ingredients: Ingredient[], locale = "en") => {
+  console.log({ iamToken });
+
+  const names = ingredients.map(({ name }) => name);
+  fetch(`${translationApi}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${iamToken}`,
+    },
+    body: JSON.stringify(names),
+  });
+};
+
+const fetchData = () => {
+  return fetch(`${noMorePartiesApiUrl}/ingredients`)
+    .then((res) => {
+      // Read the JSON response once and store it in a variable
+      const response = res;
+      response.json().then(({ data }) => {
+        console.log(data);
+        translate(data);
+      });
+      return res;
+    })
+    .then((data) => {
+      // You can perform additional actions on the data here
+      return checkResponse(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
 const sendOrder = (ingredients: string[]) =>
   fetch(`${noMorePartiesApiUrl}/orders`, {
